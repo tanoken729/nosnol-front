@@ -1,73 +1,74 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        sound-matching
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+<div class="wrapper">
+  <Header />
+    <main class="main">
+      <nav class="side-bar">
+        <h3>感情アイコン</h3>
+        <ul class="emotion">
+          <li>喜</li>
+          <li>怒</li>
+          <li>哀</li>
+          <li>楽</li>
+        </ul>
+        <h3>ジャンル</h3>
+        <ul class="genre">
+          <li>ジャンル名</li>
+          <li>ジャンル名</li>
+          <li>ジャンル名</li>
+          <li>ジャンル名</li>
+          <li>ジャンル名</li>
+        </ul>
+      </nav>
+      <div class="content">
+        <p>音声ファイル</p>
+        <p>音声ファイル</p>
+        <p>音声ファイル</p>
+        <p>音声ファイル</p>
+        <p>音声ファイル</p>
       </div>
-    </div>
-  </div>
+    </main>
+</div>
 </template>
 
 <script>
-export default {}
+import Header from "@/components/header.vue";
+
+export default {
+  components: {
+    Header,
+  }
+};
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+<style scoped>
+/* * {
+  outline: solid 1px #000;
+} */
+/* メイン */
+.main {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+/* サイドバー */
+.side-bar {
+  border: solid 1px;
+  padding: 10px;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.side-bar ul {
+  list-style: none;
+  padding: 0;
 }
-
-.links {
-  padding-top: 15px;
+.side-bar li {
+  padding: 10px;
+}
+.emotion li {
+  padding-left: 45px;
+}
+/* メインコンテンツ */
+.content {
+  display: flex;
+  padding: 10px;
+}
+.content p {
+  padding: 10px;
 }
 </style>

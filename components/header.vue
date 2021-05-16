@@ -25,10 +25,23 @@
   background-color: #C0C1EB;
   display: flex;
   justify-content: space-between;
+  font-size: 15px;
 }
 .btn {
-  padding: 5px 10px;
+  padding: 7px 20px;
   border-radius: 0.5rem;
+  border: none;
+  background-color: #000CFF;
+  color: #fff;
+  font-size: 15px;
+}
+.btn:hover {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #060834;
+  color: #fff;
+  font-size: 15px;
 }
 .nav ul {
   margin: 0 0 0 0;

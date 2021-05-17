@@ -5,7 +5,7 @@
             <nav class="nav">
             <ul>
                 <li>検索</li>
-                <li><a href="">ログイン</a></li>
+                <router-link to="/signin"><li><a href="">ログイン</a></li></router-link>
                 <router-link to="/signup"><li><button class="btn">新規登録</button></li></router-link>
             </ul>
             </nav>
@@ -20,10 +20,10 @@
 .logo {
   padding: 10px;
   font-size: 25px;
-  color: #000;
 }
 a {
   text-decoration: none;
+  color: #000;
 }
 .header {
   background-color: #C0C1EB;

@@ -2,15 +2,9 @@
 <div class="wrapper">
     <Header />
     <div class="aaa">
-      <div class="guide-sentence">
-        <h1>SoundMatchingにようこそ！</h1>
-      </div>
       <div class="form">
-          <h2 class="title">新規登録</h2>
+          <h2 class="title">ログイン</h2>
           <table>
-          <tr>
-              <td><input type="text" placeholder="ユーザ名" v-model="username" class="text-box"></td>
-          </tr>
           <tr>
               <td><input type="text" placeholder="メールアドレス" v-model="email" class="text-box"></td>
           </tr>
@@ -18,8 +12,8 @@
               <td><input type="password" placeholder="パスワード" v-model="password" class="text-box"></td>
           </tr>
           </table>
-          <button class="btn" @click="signUp">新規登録</button>
-          <router-link to="/signin">ログインはこちらから</router-link>
+          <button class="btn" @click="signUp">ログイン</button>
+          <router-link to="/signup">会員登録はこちらから</router-link>
       </div>
     </div>
 </div>
@@ -73,7 +67,6 @@ a {
 }
 .form {
   margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -111,9 +104,6 @@ input.text-box {
 }
 .title {
   font-size: 23px;
-}
-.guide-sentence {
-  margin: 0 auto;;
 }
 .aaa {
   display: flex;

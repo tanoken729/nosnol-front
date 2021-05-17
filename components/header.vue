@@ -1,12 +1,12 @@
 <template>
     <div>
         <header class="header">
-            <h1 class="logo">Sound Matching</h1>
+            <router-link to="/"><h1 class="logo">Sound Matching</h1></router-link>
             <nav class="nav">
             <ul>
                 <li>検索</li>
                 <li><a href="">ログイン</a></li>
-                <li><button class="btn">新規登録</button></li>
+                <router-link to="/signup"><li><button class="btn">新規登録</button></li></router-link>
             </ul>
             </nav>
         </header>
@@ -20,6 +20,10 @@
 .logo {
   padding: 10px;
   font-size: 25px;
+  color: #000;
+}
+a {
+  text-decoration: none;
 }
 .header {
   background-color: #C0C1EB;

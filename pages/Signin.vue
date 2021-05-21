@@ -12,7 +12,7 @@
               <td><input type="password" placeholder="パスワード" v-model="password" class="text-box"></td>
           </tr>
           </table>
-          <button class="btn" @click="signUp">ログイン</button>
+          <router-link to="/TopAfterLogin"><button class="btn" @click="signUp">ログイン</button></router-link>
           <router-link to="/signup">会員登録はこちらから</router-link>
       </div>
     </div>

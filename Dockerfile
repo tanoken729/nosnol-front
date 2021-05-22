@@ -8,5 +8,6 @@ COPY package*.json ./
 RUN npm install
 # カレントワーキングディレクトリ(つまり 'app' フォルダ)にプロジェクトのファイルやフォルダをコピーする
 COPY . .
-EXPOSE 3000
+ENV HOST 0.0.0.0
+EXPOSE 4000
 CMD ["npm", "run", "dev"]

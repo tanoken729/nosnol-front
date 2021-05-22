@@ -10,3 +10,4 @@ services:
       - 4000:3000
     volumes:
       - .:/sound-matching
+      - ./node_modules

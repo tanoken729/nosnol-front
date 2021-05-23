@@ -20,11 +20,19 @@
         </ul>
       </nav>
       <div class="content">
+        <p>{{data}}</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
+      </div>
+      <div>
+          <h1>Laravel & Nuxt.js</h1>
+          <h2>URL</h2>
+          {{ url }}
+          <h2>Result</h2>
+          {{ message }}
       </div>
     </main>
 </div>
@@ -36,6 +44,14 @@ import Header from "@/components/header.vue";
 export default {
   components: {
     Header,
+  },
+  async asyncData({app}) {
+    const url = 'http://localhost/api/test' //Laravel の API URI
+    const message = await app.$axios.$get(url)
+    return {
+        url,
+        message
+     };
   }
 };
 </script>

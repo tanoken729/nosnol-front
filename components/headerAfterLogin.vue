@@ -5,21 +5,21 @@
             <nav class="nav">
             <ul>
                 <li>検索</li>
-                <li>ユーザー名（ユーザーアイコン）</li>
+                <li>ユーザー名</li>
                 <li><button class="btn" @click="openMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
-            <div>
-              <transition>
-                <MusicUploadModal
-                  v-show="showContent"
-                  @click.self="closeMusicUploadModal"
-                  @openMusicUploadModal="openMusicUploadModal"
-                  @closeMusicUploadModal="closeMusicUploadModal"
-                ></MusicUploadModal>
-              </transition>
-            </div>
         </header>
+        <div>
+          <transition>
+            <MusicUploadModal
+              v-show="showContent"
+              @click.self="closeMusicUploadModal"
+              @openMusicUploadModal="openMusicUploadModal"
+              @closeMusicUploadModal="closeMusicUploadModal"
+            ></MusicUploadModal>
+          </transition>
+        </div>
     </div>
 </template>
 

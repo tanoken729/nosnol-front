@@ -1,7 +1,15 @@
 <template>
   <div id="overlay" v-show="showContent" @click.self="closeMusicUploadModal">
     <div id="main-content">
-      <p>unko</p>
+      <h2 class="title">音声ファイルのアップロード</h2>
+      <div class="description">
+        <p>クリックしてファイルを追加</p>
+        <p>最大100MB、形式: MP3, AAC</p>
+      </div>
+      <div class="button-content">
+        <button class="cancel-btn">キャンセル</button>
+        <button class="btn">アップロード</button>
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +35,9 @@ export default {
 </script>
 
 <style scoped>
+/* * {
+  outline: #000 1px solid;
+} */
 #overlay{
   /*　要素を重ねた時の順番　*/
   z-index:1;
@@ -51,13 +62,11 @@ export default {
   width:50%;
   padding-top: 40px;
   background:#fff;
+  text-align: center;
 }
 
-#button-content{
-  background:#dcdcdc;
-  margin: 0%;
-  padding-top: 3px;
-  padding-bottom: 3px;
+.button-content{
+  margin: 30px;
 }
 
 /* モーダルないの上下で色違うやつのcssの当て方あってるか聞く */
@@ -79,5 +88,47 @@ export default {
   font-size: 20px;
   margin-left: 50%;
 }
-
+.btn {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #000CFF;
+  color: #fff;
+  font-size: 15px;
+}
+.btn:hover {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #060834;
+  color: #fff;
+  font-size: 15px;
+}
+.cancel-btn {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: 1px solid #c0c0c0;
+  background-color: #fff;
+  color: #000;
+  font-size: 15px;
+}
+.cancel-btn:hover {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: 1px solid #696969;
+  background-color: #fff;
+  color: #000;
+  font-size: 15px;
+}
+.description {
+  border: 1px solid #707070;
+  width: 400px;
+  padding: 50px 10px;
+  margin: 0 auto;
+  font-size: 23px;
+}
+.title {
+  font-size: 23px;
+  padding: 30px;
+}
 </style>

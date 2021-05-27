@@ -5,8 +5,8 @@
             <nav class="nav">
             <ul>
                 <li>検索</li>
-                <li><a href="">ログイン</a></li>
-                <li><button class="btn">新規登録</button></li>
+                <router-link tag="li" to="/signin"><a>ログイン</a></router-link>
+                <router-link tag="li" to="/signup"><button class="btn">新規登録</button></router-link>
             </ul>
             </nav>
         </header>

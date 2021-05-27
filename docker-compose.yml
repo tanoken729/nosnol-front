@@ -9,5 +9,5 @@ services:
     ports:
       - 4000:3000
     volumes:
-      - .:/sound-matching
+      - .:/app
       - ./node_modules

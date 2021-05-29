@@ -5,13 +5,47 @@
             <nav class="nav">
             <ul>
                 <li>検索</li>
-                <NuxtLink tag="li" to="/signin"><a>ログイン</a></NuxtLink>
-                <NuxtLink tag="li" to="/signup"><button class="btn">新規登録</button></NuxtLink>
+                <li>ユーザー名</li>
+                <li><button class="btn" @click="openMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
         </header>
+        <div>
+          <transition>
+            <MusicUploadModal
+              v-show="showContent"
+              @click.self="closeMusicUploadModal"
+              @openMusicUploadModal="openMusicUploadModal"
+              @closeMusicUploadModal="closeMusicUploadModal"
+            ></MusicUploadModal>
+          </transition>
+        </div>
     </div>
 </template>
+
+<script>
+import MusicUploadModal from '@/components/MusicUploadModal.vue'
+
+export default {
+  components: {
+    MusicUploadModal,
+  },
+  data () {
+    return {
+      showContent: false,
+    }
+  },
+  methods: {
+    openMusicUploadModal () {
+      // モーダルウィンドウを表示する
+      this.showContent = true
+    },
+    closeMusicUploadModal () {
+      this.showContent = false
+    },
+  },
+}
+</script>
 
 <style scoped>
 /* * {

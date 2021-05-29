@@ -12,8 +12,8 @@
               <td><input type="password" placeholder="パスワード" v-model="password" class="text-box"></td>
           </tr>
           </table>
-          <button class="btn" @click="signUp">ログイン</button>
-          <router-link to="/signup">会員登録はこちらから</router-link>
+          <NuxtLink to="/TopAfterLogin"><button class="btn" @click="signUp">ログイン</button></NuxtLink>
+          <NuxtLink to="/signup">会員登録はこちらから</NuxtLink>
       </div>
     </div>
 </div>

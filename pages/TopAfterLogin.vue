@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper">
-  <Header />
+  <headerAfterLogin />
     <main class="main">
       <nav class="side-bar">
         <h3>感情アイコン</h3>
@@ -20,38 +20,22 @@
         </ul>
       </nav>
       <div class="content">
-        <p>{{data}}</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
-      </div>
-      <div>
-          <h1>Laravel & Nuxt.js</h1>
-          <h2>URL</h2>
-          {{ url }}
-          <h2>Result</h2>
-          {{ message }}
       </div>
     </main>
 </div>
 </template>
 
 <script>
-import Header from "@/components/header.vue";
+import headerAfterLogin from "@/components/headerAfterLogin.vue";
 
 export default {
   components: {
-    Header,
-  },
-  async asyncData({app}) {
-    const url = 'http://localhost/api/test' //Laravel の API URI
-    const message = await app.$axios.$get(url)
-    return {
-        url,
-        message
-     };
+    headerAfterLogin,
   }
 };
 </script>

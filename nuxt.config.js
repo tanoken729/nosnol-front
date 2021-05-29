@@ -32,7 +32,15 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+  axios: {
+    baseURL: 'http://localhost:3000'
+  },
+  proxy: {
+    '/api': 'http://localhost:8000/api/test',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

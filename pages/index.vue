@@ -20,7 +20,6 @@
         </ul>
       </nav>
       <div class="content">
-        <p>{{data}}</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
         <p>音声ファイル</p>
@@ -45,13 +44,16 @@ export default {
   components: {
     Header,
   },
-  async asyncData({app}) {
+  async asyncData({ app }) {
     const url = 'http://localhost/api/test' //Laravel の API URI
     const message = await app.$axios.$get(url)
+          .catch(error => {
+            console.log('ERROR!')
+          })
     return {
         url,
         message
-     };
+    }
   }
 };
 </script>

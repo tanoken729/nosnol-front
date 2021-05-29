@@ -39,7 +39,7 @@ export default {
     baseURL: 'http://localhost:3000'
   },
   proxy: {
-    '/api': 'http://localhost:8000/api/test',
+    '/api': 'http://sound-matching_api_app_1:8000/api/test',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

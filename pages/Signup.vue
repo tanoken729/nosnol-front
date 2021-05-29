@@ -19,7 +19,7 @@
           </tr>
           </table>
           <button class="btn" @click="signUp">新規登録</button>
-          <router-link to="/signin">ログインはこちらから</router-link>
+          <NuxtLink to="/signin">ログインはこちらから</NuxtLink>
       </div>
     </div>
 </div>

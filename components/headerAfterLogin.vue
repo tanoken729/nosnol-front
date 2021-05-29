@@ -1,7 +1,7 @@
 <template>
     <div>
         <header class="header">
-            <router-link to="/"><h1 class="logo">Sound Matching</h1></router-link>
+            <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
                 <li>検索</li>

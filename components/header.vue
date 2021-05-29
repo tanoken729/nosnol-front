@@ -1,12 +1,12 @@
 <template>
     <div>
         <header class="header">
-            <router-link to="/"><h1 class="logo">Sound Matching</h1></router-link>
+            <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
                 <li>検索</li>
-                <router-link tag="li" to="/signin"><a>ログイン</a></router-link>
-                <router-link tag="li" to="/signup"><button class="btn">新規登録</button></router-link>
+                <NuxtLink tag="li" to="/signin"><a>ログイン</a></NuxtLink>
+                <NuxtLink tag="li" to="/signup"><button class="btn">新規登録</button></NuxtLink>
             </ul>
             </nav>
         </header>

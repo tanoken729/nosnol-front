@@ -56,9 +56,9 @@ export default {
 </script>
 
 <style scoped>
-* {
+/* * {
   outline: solid 1px #000;
-}
+} */
 #your_container{
     /* 高さや幅など、好きな様に設定
     bms_messages_containerの方で、縦横いっぱいに広がってくれるので、

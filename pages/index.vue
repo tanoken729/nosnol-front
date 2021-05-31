@@ -26,34 +26,44 @@
         <p>音声ファイル</p>
         <p>音声ファイル</p>
       </div>
-      <div>
+      <!-- <div>
           <h1>Laravel & Nuxt.js</h1>
           <h2>URL</h2>
           {{ url }}
           <h2>Result</h2>
           {{ message }}
-      </div>
+      </div> -->
     </main>
 </div>
 </template>
 
 <script>
 import Header from "@/components/header.vue";
+import axios from 'axios'
 
 export default {
   components: {
     Header,
   },
-  async asyncData({ app }) {
-    const url = 'http://localhost/api/test' //Laravel の API URI
-    const message = await app.$axios.$get(url)
-          .catch(error => {
-            console.log('ERROR!')
-          })
-    return {
-        url,
-        message
-    }
+  // async asyncData({ app }) {
+  //   const url = 'http://localhost/api/test' //Laravel の API URI
+  //   const message = await app.$axios.$get(url)
+  //         .catch(error => {
+  //           console.log('ERROR!')
+  //         })
+  //   return {
+  //       url,
+  //       message
+  //   }
+  // }
+  mounted () {
+    axios.get('http://localhost:8000/api/test')
+      .then((response) => {
+        console.log(response.data.result)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 };
 </script>

@@ -6,29 +6,33 @@
             <ul>
                 <li>検索</li>
                 <li>ユーザー名</li>
-                <li><button class="btn" @click="openMusicUploadModal">アップロード</button></li>
+                <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
         </header>
         <div>
-          <transition>
-            <MusicUploadModal
+          <transition name="modal" mode="out-in">
+            <BeforeMusicUploadModal
               v-show="showContent"
-              @click.self="closeMusicUploadModal"
-              @openMusicUploadModal="openMusicUploadModal"
-              @closeMusicUploadModal="closeMusicUploadModal"
-            ></MusicUploadModal>
+              @click.self="closeBeforeMusicUploadModal"
+              @openBeforeMusicUploadModal="openBeforeMusicUploadModal"
+              @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
+            ></BeforeMusicUploadModal>
           </transition>
         </div>
     </div>
 </template>
 
 <script>
-import MusicUploadModal from '@/components/MusicUploadModal.vue'
+import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
 
 export default {
+    transition: {
+    name: 'modal',
+    mode: 'out-in'
+  },
   components: {
-    MusicUploadModal,
+    BeforeMusicUploadModal,
   },
   data () {
     return {
@@ -36,11 +40,11 @@ export default {
     }
   },
   methods: {
-    openMusicUploadModal () {
+    openBeforeMusicUploadModal () {
       // モーダルウィンドウを表示する
       this.showContent = true
     },
-    closeMusicUploadModal () {
+    closeBeforeMusicUploadModal () {
       this.showContent = false
     },
   },
@@ -93,4 +97,6 @@ a {
   list-style-type: none;
   padding-left: 30px;
 }
+.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
+.modal-enter, .modal-leave-active { opacity: 0; }
 </style>

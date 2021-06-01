@@ -1,11 +1,21 @@
 <template>
-  <div id="overlay" v-show="showContent" @click.self="closeMusicUploadModal">
+  <div id="overlay" v-show="showContent2" @click.self="closeAfterMusicUploadModal">
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
       <div class="description">
-        <p>クリックしてファイルを追加</p>
-        <p>最大100MB、形式: MP3, AAC</p>
+        <h3>カバー画像</h3>
+        <p>クリックして画像を追加</p>
+        <p>10MB以内 .jpg .png .heic に対応しています。</p>
       </div>
+        <h3>タイトル</h3>
+        <input type="text">
+        <h3>ジャンル選択</h3>
+        <input type="text">
+        <h3>感情アイコン</h3>
+        <p>喜</p>
+        <p>怒</p>
+        <p>哀</p>
+        <p>楽</p>
       <div class="button-content">
         <button class="cancel-btn">キャンセル</button>
         <button class="btn">アップロード</button>
@@ -20,15 +30,15 @@
 export default {
   data () {
     return {
-      showContent: false
+      showContent2: false
     }
   },
   methods: {
-    openMusicUploadModal (){
-      this.$emit('openMusicUploadModal', this.showContent);
+    openAfterMusicUploadModal (){
+      this.$emit('openAfterMusicUploadModal', this.showContent2);
     },
-    closeMusicUploadModal (){
-      this.$emit('closeMusicUploadModal', this.showContent);
+    closeAfterMusicUploadModal (){
+      this.$emit('closeAfterMusicUploadModal', this.showContent2);
     }
   },
 }

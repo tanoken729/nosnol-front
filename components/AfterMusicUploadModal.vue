@@ -17,7 +17,7 @@
         <p>哀</p>
         <p>楽</p>
       <div class="button-content">
-        <button class="cancel-btn">キャンセル</button>
+        <button class="cancel-btn" @click="closeAfterMusicUploadModal">キャンセル</button>
         <button class="btn">アップロード</button>
       </div>
     </div>

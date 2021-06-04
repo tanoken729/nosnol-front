@@ -7,34 +7,25 @@
         <p>最大100MB、形式: MP3, AAC</p>
       </div>
       <div class="button-content">
-        <button class="cancel-btn">キャンセル</button>
+        <button class="cancel-btn" @click="closeBeforeMusicUploadModal">キャンセル</button>
         <button class="btn" @click="openAfterMusicUploadModal">アップロード</button>
       </div>
-    </div>
-    <div>
-      <transition name="modal" mode="out-in">
-        <AfterMusicUploadModal
-          v-show="showContent2"
-          @click.self="closeAfterMusicUploadModal"
-          @openAfterMusicUploadModal="openAfterMusicUploadModal"
-          @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
-        ></AfterMusicUploadModal>
-      </transition>
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
+// import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 
 export default {
+  // ここからheader.vueにクリックイベント（openAfterMusicUploadModal）を渡す
   transition: {
     name: 'modal',
     mode: 'out-in'
   },
   components: {
-    AfterMusicUploadModal,
+    // AfterMusicUploadModal,
   },
   data () {
     return {
@@ -50,9 +41,7 @@ export default {
       this.$emit('closeBeforeMusicUploadModal', this.showContent);
     },
     openAfterMusicUploadModal () {
-      // モーダルウィンドウを表示する
-      this.showContent = false
-      this.showContent2 = true
+      this.$emit('BeforeMusicUploadModal-event')
     },
     closeAfterMusicUploadModal () {
       this.showContent2 = false

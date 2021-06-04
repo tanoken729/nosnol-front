@@ -13,6 +13,7 @@
         <div>
           <transition name="modal" mode="out-in">
             <BeforeMusicUploadModal
+              @BeforeMusicUploadModal-event="openAfterMusicUploadModal"
               v-show="showContent"
               @click.self="closeBeforeMusicUploadModal"
               @openBeforeMusicUploadModal="openBeforeMusicUploadModal"
@@ -20,11 +21,22 @@
             ></BeforeMusicUploadModal>
           </transition>
         </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <AfterMusicUploadModal
+              v-show="showContent2"
+              @click.self="closeAfterMusicUploadModal"
+              @openAfterMusicUploadModal="openAfterMusicUploadModal"
+              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
+            ></AfterMusicUploadModal>
+          </transition>
+        </div>
     </div>
 </template>
 
 <script>
 import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
+import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 
 export default {
     transition: {
@@ -33,19 +45,27 @@ export default {
   },
   components: {
     BeforeMusicUploadModal,
+    AfterMusicUploadModal,
   },
   data () {
     return {
       showContent: false,
+      showContent2: false
     }
   },
   methods: {
     openBeforeMusicUploadModal () {
-      // モーダルウィンドウを表示する
       this.showContent = true
     },
     closeBeforeMusicUploadModal () {
       this.showContent = false
+    },
+    openAfterMusicUploadModal () {
+      this.showContent = false
+      this.showContent2 = true
+    },
+    closeAfterMusicUploadModal () {
+      this.showContent2 = false
     },
   },
 }

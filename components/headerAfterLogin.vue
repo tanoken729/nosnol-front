@@ -6,42 +6,66 @@
             <ul>
                 <li>検索</li>
                 <li>ユーザー名</li>
-                <li><button class="btn" @click="openMusicUploadModal">アップロード</button></li>
+                <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
         </header>
         <div>
-          <transition>
-            <MusicUploadModal
+          <transition name="modal" mode="out-in">
+            <BeforeMusicUploadModal
+              @BeforeMusicUploadModal-event="openAfterMusicUploadModal"
               v-show="showContent"
-              @click.self="closeMusicUploadModal"
-              @openMusicUploadModal="openMusicUploadModal"
-              @closeMusicUploadModal="closeMusicUploadModal"
-            ></MusicUploadModal>
+              @click.self="closeBeforeMusicUploadModal"
+              @openBeforeMusicUploadModal="openBeforeMusicUploadModal"
+              @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
+            ></BeforeMusicUploadModal>
+          </transition>
+        </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <AfterMusicUploadModal
+              v-show="showContent2"
+              @click.self="closeAfterMusicUploadModal"
+              @openAfterMusicUploadModal="openAfterMusicUploadModal"
+              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
+            ></AfterMusicUploadModal>
           </transition>
         </div>
     </div>
 </template>
 
 <script>
-import MusicUploadModal from '@/components/MusicUploadModal.vue'
+import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
+import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 
 export default {
+    transition: {
+    name: 'modal',
+    mode: 'out-in'
+  },
   components: {
-    MusicUploadModal,
+    BeforeMusicUploadModal,
+    AfterMusicUploadModal,
   },
   data () {
     return {
       showContent: false,
+      showContent2: false
     }
   },
   methods: {
-    openMusicUploadModal () {
-      // モーダルウィンドウを表示する
+    openBeforeMusicUploadModal () {
       this.showContent = true
     },
-    closeMusicUploadModal () {
+    closeBeforeMusicUploadModal () {
       this.showContent = false
+    },
+    openAfterMusicUploadModal () {
+      this.showContent = false
+      this.showContent2 = true
+    },
+    closeAfterMusicUploadModal () {
+      this.showContent2 = false
     },
   },
 }
@@ -93,4 +117,6 @@ a {
   list-style-type: none;
   padding-left: 30px;
 }
+.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
+.modal-enter, .modal-leave-active { opacity: 0; }
 </style>

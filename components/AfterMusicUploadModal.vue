@@ -2,20 +2,34 @@
   <div id="overlay" v-show="showContent2" @click.self="closeAfterMusicUploadModal">
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
-      <div class="description">
-        <h3>カバー画像</h3>
-        <p>クリックして画像を追加</p>
-        <p>10MB以内 .jpg .png .heic に対応しています。</p>
-      </div>
+      <div class="sections">
+        <div>
+          <h3>カバー画像</h3>
+          <div class="description">
+            <p>クリックして画像を追加</p>
+            <p>10MB以内 .jpg .png .heic に対応しています。</p>
+          </div>
+        </div>
         <h3>タイトル</h3>
-        <input type="text">
+          <input type="text" class="text-box">
         <h3>ジャンル選択</h3>
-        <input type="text">
-        <h3>感情アイコン</h3>
-        <p>喜</p>
-        <p>怒</p>
-        <p>哀</p>
-        <p>楽</p>
+          <div class="cp_ipselect cp_sl01">
+          <select required>
+            <option value="" hidden class="aa">ジャンルを選択してください</option>
+            <option value="1">cat</option>
+            <option value="2">dog</option>
+            <option value="3">rabbit</option>
+            <option value="4">squirrel</option>
+          </select>
+          </div>
+        <h3>感情アイコン選択</h3>
+          <ul class="emotion">
+            <li class="joy">喜</li>
+            <li class="angry">怒</li>
+            <li class="sorrow">哀</li>
+            <li class="easy">楽</li>
+          </ul>
+      </div>
       <div class="button-content">
         <button class="cancel-btn" @click="closeAfterMusicUploadModal">キャンセル</button>
         <button class="btn">アップロード</button>
@@ -64,7 +78,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 #main-content{
@@ -131,14 +144,52 @@ export default {
   font-size: 15px;
 }
 .description {
-  border: 1px solid #707070;
+  border: 1px dashed #707070;
   width: 400px;
-  padding: 50px 10px;
+  padding: 40px 10px;
   margin: 0 auto;
-  font-size: 23px;
+  font-size: 17px;
 }
 .title {
-  font-size: 23px;
-  padding: 30px;
+  font-size: 20px;
+}
+input.text-box {
+  padding: 10px;
+  width: 400px;
+}
+.emotion {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.emotion li {
+  border: 1px solid #696969;;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  /* height: 50px; */
+  width: 50px;
+
+  padding: 10px;
+  margin: 0px 10px;
+  color: #696969;
+}
+/* セレクト */
+.cp_ipselect select {
+	width: 400px;
+  padding: 8px;
+	color: #666666;
+  font-size: 15px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.sections {
+  /* border: 1px solid #000; */
+  width: 400px;
+  margin: 0 auto;
 }
 </style>

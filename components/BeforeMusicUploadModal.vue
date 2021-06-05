@@ -137,15 +137,15 @@ export default {
   font-size: 15px;
 }
 .description {
-  border: 1px solid #707070;
+  border: 1px dashed #707070;
   width: 400px;
-  padding: 50px 10px;
-  margin: 0 auto;
-  font-size: 23px;
+  padding: 40px 10px;
+  margin: 10px auto;
+  font-size: 17px;
 }
 .title {
-  font-size: 23px;
-  padding: 30px;
+  font-size: 20px;
+  padding-bottom: 20px;
 }
 .modal-enter-active, .modal-leave-active { transition: opacity .5s; }
 .modal-enter, .modal-leave-active { opacity: 0; }

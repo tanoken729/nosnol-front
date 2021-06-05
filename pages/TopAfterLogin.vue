@@ -5,10 +5,10 @@
       <nav class="side-bar">
         <h3>感情アイコン</h3>
         <ul class="emotion">
-          <li>喜</li>
-          <li>怒</li>
-          <li>哀</li>
-          <li>楽</li>
+          <li class="joy">喜</li>
+          <li class="angry">怒</li>
+          <li class="sorrow">哀</li>
+          <li class="easy">楽</li>
         </ul>
         <h3>ジャンル</h3>
         <ul class="genre">
@@ -56,12 +56,60 @@ export default {
 .side-bar ul {
   list-style: none;
   padding: 0;
+  margin: 10px;
 }
 .side-bar li {
   padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  color: #696969;
+}
+.side-bar h3 {
+  padding: 10px;
+  color: #696969;
 }
 .emotion li {
-  padding-left: 45px;
+  border: 1px solid #696969;;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  width: 50px;
+}
+.joy:hover {
+  border: 1px solid #FF7F00;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  width: 50px;
+  background-color: #FF7F00;
+  color: #fff;
+}
+.angry:hover {
+  border: 1px solid #FF7F00;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  width: 50px;
+  background-color: #FF7F00;
+  color: #fff;
+}
+.sorrow:hover {
+  border: 1px solid #FF7F00;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  width: 50px;
+  background-color: #FF7F00;
+  color: #fff;
+}
+.easy:hover {
+  border: 1px solid #FF7F00;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  width: 50px;
+  background-color: #FF7F00;
+  color: #fff;
 }
 /* メインコンテンツ */
 .content {

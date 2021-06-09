@@ -88,6 +88,7 @@ a {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 .btn {
   padding: 7px 20px;
@@ -96,6 +97,7 @@ a {
   background-color: #000CFF;
   color: #fff;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 .btn:hover {
   padding: 7px 20px;

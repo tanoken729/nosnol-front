@@ -1,3 +1,4 @@
+process.env.DEBUG = 'nuxt:*'
 const ENV = require('dotenv').config().parsed;
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -41,11 +42,20 @@ export default {
 
   env:ENV,
   axios: {
+    proxy: true,
     // baseURL: 'http://localhost:3000',
-    baseURL: 'http://localhost:8000/api/v1'
+    baseURL: 'http://localhost:8000/api/v1',
+    // baseURL: ENV.API_BASE_URL,
+    // proxy: true,
+    // prefix: '/api',
   },
   proxy: {
-    '/api': 'http://sound-matching_api_app_1:8000/api/test',
+    // '/api': 'http://sound-matching_api_app_1:8000/api/test',
+    // '/api': 'http://localhost:8000/api/v1',
+    // '/api': 'http://localhost:8000',
+    '/api/': {
+      target: 'http://localhost:8000',
+    },
   },
 
   auth:{
@@ -70,14 +80,18 @@ export default {
           }
         }
       },
-      redirect: {
-        login: '/Signin',
-        logout: '/',
-        callback: '/login',
-        home: '/TopAfterLogin'
-      }
+    },
+    redirect: {
+      login: '/Signin',
+      logout: '/',
+      callback: '/login',
+      home: '/TopAfterLogin'
     }
   },
+
+  // router: {
+  //   middleware: ['auth']
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

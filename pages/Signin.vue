@@ -18,7 +18,7 @@
               <td><input type="password" placeholder="パスワード" class="text-box" v-model="$v.form.password.$model"></td>
           </tr>
           </table>
-          <NuxtLink to="/TopAfterLogin"><button class="btn" @click.prevent="submit">ログイン</button></NuxtLink>
+          <button class="btn" @click.prevent="submit">ログイン</button>
           <NuxtLink to="/signup">会員登録はこちらから</NuxtLink>
       </form>
     </div>
@@ -35,7 +35,10 @@ export default {
         form: {
           email: "",
           password: "",
-        }
+        },
+        emailState:null,
+        passState:null,
+        loginErrMes:null,
       }
       // return{
       //     email:'',
@@ -69,18 +72,17 @@ export default {
             if(this.checkFormHasError()) return;
 
             try{
-              await this.$auth.loginWith('local', { data:{
-                email:this.email,
-                password:this.pass
-              }})
-              this.resetModal();
-              this.$store.dispatch('message/setFlashMessage',{
-                content:'ログインしました。',
-                messageType:'success'
-              })
-              this.$bvModal.hide('login-modal')
-            }catch(error){
-              this.loginErrMes='パスワードまたはメールアドレスが異なります。';
+              const response = await this.$auth.loginWith('local', { data: this.form })
+              console.log(response)
+              // this.resetModal();
+              // this.$store.dispatch('message/setFlashMessage',{
+              //   content:'ログインしました。',
+              //   messageType:'success'
+              // })
+              // this.$bvModal.hide('login-modal')
+            } catch(error){
+              // this.loginErrMes='パスワードまたはメールアドレスが異なります。';
+              console.log('非同期通信エラー')
             }
         }
     },

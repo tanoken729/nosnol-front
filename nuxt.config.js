@@ -23,7 +23,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/vuelidate.js"
+    "~/plugins/vuelidate.js",
+    'plugins/axios'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,20 +43,18 @@ export default {
 
   env:ENV,
   axios: {
-    proxy: true,
     // baseURL: 'http://localhost:3000',
+    // baseURL: 'http://localhost:8000',
     baseURL: 'http://localhost:8000/api/v1',
-    // baseURL: ENV.API_BASE_URL,
-    // proxy: true,
-    // prefix: '/api',
   },
   proxy: {
     // '/api': 'http://sound-matching_api_app_1:8000/api/test',
-    // '/api': 'http://localhost:8000/api/v1',
-    // '/api': 'http://localhost:8000',
-    '/api/': {
+    '/api': {
       target: 'http://localhost:8000',
-    },
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
   },
 
   auth:{
@@ -90,7 +89,7 @@ export default {
   },
 
   // router: {
-  //   middleware: ['auth']
+  //   middleware: 'authenticated'
   // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -74,6 +74,7 @@ export default {
             try{
               const response = await this.$auth.loginWith('local', { data: this.form })
               console.log(response)
+              console.log(this.$auth.loggedIn)
               // this.resetModal();
               // this.$store.dispatch('message/setFlashMessage',{
               //   content:'ログインしました。',

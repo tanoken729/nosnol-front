@@ -49,29 +49,35 @@ export default {
   },
   proxy: {
     // '/api': 'http://sound-matching_api_app_1:8000/api/test',
-    '/api': {
-      target: 'http://localhost:8000',
-      pathRewrite: {
-        '^/api': '/'
-      }
-    }
+    // '/api': {
+    //   target: 'http://localhost:8000',
+    //   pathRewrite: {
+    //     '^/api': '/'
+    //   }
+    // }
   },
 
   auth:{
-    localStorage: false,
+    redirect: {
+      login: '/Signin',
+      logout: '/',
+      callback: '/login',
+      home: '/TopAfterLogin'
+    },
+    localStorage: true,
     strategies:{
       local:{
-        tokenType:'bearer',
+        // tokenType:'bearer',
         endpoints:{
           login:{
             url:'/auth/login',
             method:'post',
-            propertyName:'access_token'
+            propertyName:'token'
           },
-          logout:{
-            url:'/auth/logout',
-            method:'post',
-          },
+          // logout:{
+          //   url:'/auth/logout',
+          //   method:'post',
+          // },
           user:{
             url:'/auth/me',
             method:'get',
@@ -79,17 +85,17 @@ export default {
           }
         }
       },
+      // redirect: {
+      //   login: '/Signin',
+      //   logout: '/',
+      //   callback: '/login',
+      //   home: '/TopAfterLogin'
+      // }
     },
-    redirect: {
-      login: '/Signin',
-      logout: '/',
-      callback: '/login',
-      home: '/TopAfterLogin'
-    }
   },
 
   // router: {
-  //   middleware: 'authenticated'
+  //   middleware: ['user_auth']
   // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

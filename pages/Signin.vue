@@ -30,63 +30,67 @@
 
 import {required,maxLength,minLength} from "vuelidate/lib/validators"
 export default {
-    data(){
-      return {
-        form: {
-          email: "",
-          password: "",
-        },
-        emailState:null,
-        passState:null,
-        loginErrMes:null,
-      }
-      // return{
-      //     email:'',
-      //     pass:'',
-      //     emailState:null,
-      //     passState:null,
-      //     loginErrMes:null,
-      // }
-    },
-    // フォーム要素ごとのルールを記述
-    validations: {
+  // middleware: 'auth',
+  data(){
+    return {
       form: {
-        email: {
-          required,
-        },
-        password: {
-          required,
-        },
+        email: "",
+        password: "",
+      },
+      emailState:null,
+      passState:null,
+      loginErrMes:null,
+    }
+    // return{
+    //     email:'',
+    //     pass:'',
+    //     emailState:null,
+    //     passState:null,
+    //     loginErrMes:null,
+    // }
+  },
+  // フォーム要素ごとのルールを記述
+  validations: {
+    form: {
+      email: {
+        required,
+      },
+      password: {
+        required,
+      },
+    }
+  },
+  methods:{
+    checkFormHasError(){
+      this.$v.$touch()
+      if(this.$v.$invalid){
+        console.log("バリデーションエラー")
+      }else{
+        console.log(this.form)
       }
     },
-    methods:{
-        checkFormHasError(){
-          this.$v.$touch()
-          if(this.$v.$invalid){
-            console.log("バリデーションエラー")
-          }else{
-            console.log(this.form)
-          }
-        },
-        async submit() {
-            if(this.checkFormHasError()) return;
+    async submit() {
+        if(this.checkFormHasError()) return;
 
-            try{
-              const response = await this.$auth.loginWith('local', { data: this.form })
-              console.log(response)
-              console.log(this.$auth.loggedIn)
-              // this.resetModal();
-              // this.$store.dispatch('message/setFlashMessage',{
-              //   content:'ログインしました。',
-              //   messageType:'success'
-              // })
-              // this.$bvModal.hide('login-modal')
-            } catch(error){
-              // this.loginErrMes='パスワードまたはメールアドレスが異なります。';
-              console.log('非同期通信エラー')
-            }
+        try{
+          const response = await this.$auth.loginWith('local', { data: this.form })
+          console.log(response)
+          // console.log(this.$auth.loggedIn)
+          // this.$router.push('/TopAfterLogin')
+          // redirect('/TopAfterLogin')
+          // this.resetModal();
+          // this.$store.dispatch('message/setFlashMessage',{
+          //   content:'ログインしました。',
+          //   messageType:'success'
+          // })
+          // this.$bvModal.hide('login-modal')
+        } catch(error){
+          // this.loginErrMes='パスワードまたはメールアドレスが異なります。';
+          console.log(error)
+          redirect('/')
         }
-    },
+    }
+  },
 }
 </script>
 

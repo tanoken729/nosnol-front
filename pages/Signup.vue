@@ -101,13 +101,14 @@ input {
   font-size: 15px;
 }
 .form {
-  border: 1px solid #000;
+  border: 1px solid #dcdcdc;
   width: 400px;
   padding: 30px 10px;
   margin: 0 auto;;
 }
 input.text-box {
   width: 300px;
+  border: 1px solid #dcdcdc;
 }
 .title {
   font-size: 23px;

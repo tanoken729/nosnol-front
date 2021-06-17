@@ -2,19 +2,27 @@
 <div class="wrapper">
     <Header />
     <div class="aaa">
-      <div class="form">
+      <form @submit.stop.prevent="submit" class="form">
           <h2 class="title">ログイン</h2>
           <table>
+          <div v-if="$v.form.email.$error && !$v.form.email.required">
+            メールアドレスを入力してください。
+          </div>
           <tr>
-              <td><input type="text" placeholder="メールアドレス" v-model="email" class="text-box"></td>
+              <!-- <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="$v.form.email.$model"></td> -->
+              <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="form.email"></td>
           </tr>
+          <div v-if="$v.form.password.$error && !$v.form.password.required">
+            パスワードを入力してください。
+          </div>
           <tr>
-              <td><input type="password" placeholder="パスワード" v-model="password" class="text-box"></td>
+              <!-- <td><input type="password" placeholder="パスワード" class="text-box" v-model="$v.form.password.$model"></td> -->
+              <td><input type="password" placeholder="パスワード" class="text-box" v-model="form.password"></td>
           </tr>
           </table>
-          <NuxtLink to="/TopAfterLogin"><button class="btn" @click="signUp">ログイン</button></NuxtLink>
+          <button class="btn" type="submit">ログイン</button>
           <NuxtLink to="/signup">会員登録はこちらから</NuxtLink>
-      </div>
+      </form>
     </div>
 </div>
 </template>
@@ -22,26 +30,50 @@
 <script>
 /* eslint-disable */
 
+import {required,maxLength,minLength} from "vuelidate/lib/validators"
 export default {
-  name: 'Signup',
-  data () {
+  data(){
     return {
-      username: '',
-      email: '',
-      password: '',
-      myWallet: 500,
+      form: {
+        email: "",
+        password: "",
+      },
     }
   },
-  methods: {
-    async signUp () {
-      await this.$store.dispatch('signUp', {
-            username: this.username,
-            email: this.email,
-            password: this.password,
-            myWallet: this.myWallet,
-      })
+  // フォーム要素ごとのルールを記述
+  validations: {
+    form: {
+      email: {
+        required,
+      },
+      password: {
+        required,
+      },
+    }
+  },
+  methods:{
+    checkFormHasError(){
+      this.$v.$touch()
+      if(this.$v.$invalid){
+        console.log("バリデーションエラー")
+      }else{
+        // console.log(this.form)
+      }
     },
-  }
+    async submit() {
+        if(this.checkFormHasError()) return;
+
+        try{
+          const response = await this.$auth.loginWith('local', { data: this.form })
+          console.log(response)
+          // console.log(this.$auth.loggedIn)
+          this.$router.push('/TopAfterLogin')
+        } catch(error){
+          console.log(error)
+          redirect('/')
+        }
+    }
+  },
 }
 </script>
 

@@ -26,6 +26,9 @@
         <p>音声ファイル</p>
         <p>音声ファイル</p>
       </div>
+      <div v-if="this.$auth.loggedIn">
+        {{ this.$auth.user.email }}
+      </div>
     </main>
 </div>
 </template>
@@ -34,6 +37,7 @@
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
 
 export default {
+  // middleware: 'user_auth',
   components: {
     headerAfterLogin,
   }

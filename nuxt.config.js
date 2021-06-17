@@ -42,6 +42,7 @@ export default {
   ],
 
   env:ENV,
+  // axiosを利用してサーバにリクエストを送る
   axios: {
     // baseURL: 'http://localhost:3000',
     // baseURL: 'http://localhost:8000',
@@ -57,6 +58,7 @@ export default {
     // }
   },
 
+  // サーバ側へのアクセス設定をエンドポイントとして追加
   auth:{
     redirect: {
       login: '/Signin',
@@ -64,10 +66,10 @@ export default {
       callback: '/login',
       home: '/TopAfterLogin'
     },
-    localStorage: true,
+    localStorage: false,
     strategies:{
       local:{
-        // tokenType:'bearer',
+        tokenType:'bearer',
         endpoints:{
           login:{
             url:'/auth/login',

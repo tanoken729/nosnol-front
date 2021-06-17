@@ -2,23 +2,25 @@
 <div class="wrapper">
     <Header />
     <div class="aaa">
-      <form @submit.stop.prevent="handleSubmit" class="form">
+      <form @submit.stop.prevent="submit" class="form">
           <h2 class="title">ログイン</h2>
           <table>
           <div v-if="$v.form.email.$error && !$v.form.email.required">
             メールアドレスを入力してください。
           </div>
           <tr>
-              <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="$v.form.email.$model"></td>
+              <!-- <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="$v.form.email.$model"></td> -->
+              <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="form.email"></td>
           </tr>
           <div v-if="$v.form.password.$error && !$v.form.password.required">
             パスワードを入力してください。
           </div>
           <tr>
-              <td><input type="password" placeholder="パスワード" class="text-box" v-model="$v.form.password.$model"></td>
+              <!-- <td><input type="password" placeholder="パスワード" class="text-box" v-model="$v.form.password.$model"></td> -->
+              <td><input type="password" placeholder="パスワード" class="text-box" v-model="form.password"></td>
           </tr>
           </table>
-          <button class="btn" @click.prevent="submit">ログイン</button>
+          <button class="btn" type="submit">ログイン</button>
           <NuxtLink to="/signup">会員登録はこちらから</NuxtLink>
       </form>
     </div>
@@ -30,24 +32,13 @@
 
 import {required,maxLength,minLength} from "vuelidate/lib/validators"
 export default {
-  // middleware: 'auth',
   data(){
     return {
       form: {
         email: "",
         password: "",
       },
-      emailState:null,
-      passState:null,
-      loginErrMes:null,
     }
-    // return{
-    //     email:'',
-    //     pass:'',
-    //     emailState:null,
-    //     passState:null,
-    //     loginErrMes:null,
-    // }
   },
   // フォーム要素ごとのルールを記述
   validations: {
@@ -66,7 +57,7 @@ export default {
       if(this.$v.$invalid){
         console.log("バリデーションエラー")
       }else{
-        console.log(this.form)
+        // console.log(this.form)
       }
     },
     async submit() {
@@ -76,16 +67,8 @@ export default {
           const response = await this.$auth.loginWith('local', { data: this.form })
           console.log(response)
           // console.log(this.$auth.loggedIn)
-          // this.$router.push('/TopAfterLogin')
-          // redirect('/TopAfterLogin')
-          // this.resetModal();
-          // this.$store.dispatch('message/setFlashMessage',{
-          //   content:'ログインしました。',
-          //   messageType:'success'
-          // })
-          // this.$bvModal.hide('login-modal')
+          this.$router.push('/TopAfterLogin')
         } catch(error){
-          // this.loginErrMes='パスワードまたはメールアドレスが異なります。';
           console.log(error)
           redirect('/')
         }

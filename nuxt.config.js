@@ -87,12 +87,6 @@ export default {
           }
         }
       },
-      // redirect: {
-      //   login: '/Signin',
-      //   logout: '/',
-      //   callback: '/login',
-      //   home: '/TopAfterLogin'
-      // }
     },
   },
 

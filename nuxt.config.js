@@ -76,10 +76,10 @@ export default {
             method:'post',
             propertyName:'token'
           },
-          // logout:{
-          //   url:'/auth/logout',
-          //   method:'post',
-          // },
+          logout:{
+            url:'/auth/logout',
+            method:'post',
+          },
           user:{
             url:'/auth/me',
             method:'get',
@@ -87,12 +87,6 @@ export default {
           }
         }
       },
-      // redirect: {
-      //   login: '/Signin',
-      //   logout: '/',
-      //   callback: '/login',
-      //   home: '/TopAfterLogin'
-      // }
     },
   },
 

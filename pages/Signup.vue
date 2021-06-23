@@ -5,22 +5,27 @@
       <div class="guide-sentence">
         <h1>SoundMatchingにようこそ！</h1>
       </div>
-      <div class="form">
+      <form class="form" @submit.prevent="registerUser">
+      <!-- <div class="form"> -->
           <h2 class="title">新規登録</h2>
           <table>
           <tr>
-              <td><input type="text" placeholder="ユーザ名" v-model="username" class="text-box"></td>
+              <td><input type="text" placeholder="ユーザ名" v-model="user.name" class="text-box"></td>
           </tr>
           <tr>
-              <td><input type="text" placeholder="メールアドレス" v-model="email" class="text-box"></td>
+              <td><input type="text" placeholder="メールアドレス" v-model="user.email" class="text-box"></td>
           </tr>
           <tr>
-              <td><input type="password" placeholder="パスワード" v-model="password" class="text-box"></td>
+              <td><input type="password" placeholder="パスワード" v-model="user.password" class="text-box"></td>
+          </tr>
+          <tr>
+              <td><input type="password" placeholder="確認用パスワード" v-model="user.passwordToConfirm" class="text-box"></td>
           </tr>
           </table>
-          <button class="btn" @click="signUp">新規登録</button>
+          <button class="btn" type="submit">新規登録</button>
           <NuxtLink to="/signin">ログインはこちらから</NuxtLink>
-      </div>
+      </form>
+      <!-- </div> -->
     </div>
 </div>
 </template>
@@ -30,23 +35,32 @@
 
 export default {
   name: 'Signup',
-  data () {
+  data(){
     return {
-      username: '',
-      email: '',
-      password: '',
-      myWallet: 500,
+      user:{
+        name:'Steve Harry',
+        email:'steve@test.com',
+        password:'password',
+        passwordToConfirm:'password'
+      }
     }
   },
   methods: {
-    async signUp () {
-      await this.$store.dispatch('signUp', {
-            username: this.username,
-            email: this.email,
-            password: this.password,
-            myWallet: this.myWallet,
-      })
+    registerUser(){
+      this.$axios.post('/api/register',this.user)
+      console.log(this.user)
+      //   .then((response) => {
+      //     this.$auth.loginWith('local',{
+      //         data: this.user
+      //   })
+      //   console.log(response)
+      // })
     },
+    // registerUser() {
+    //   this.$axios.post('/api/register', this.user).then((response) => {
+    //     // window.location.href = '/TopAfterLogin'
+    //   })
+    // },
   }
 }
 </script>

@@ -45,8 +45,8 @@ export default {
   // axiosを利用してサーバにリクエストを送る
   axios: {
     // baseURL: 'http://localhost:3000',
-    // baseURL: 'http://localhost:8000',
-    baseURL: 'http://localhost:8000/api/v1',
+    baseURL: 'http://localhost:8000',
+    // baseURL: 'http://localhost:8000/api/v1',
   },
   proxy: {
     // '/api': 'http://sound-matching_api_app_1:8000/api/test',

@@ -70,7 +70,7 @@ export default {
           this.$router.push('/TopAfterLogin')
         } catch(error){
           console.log(error)
-          redirect('/')
+          this.$router.push('/signin')
         }
     }
   },

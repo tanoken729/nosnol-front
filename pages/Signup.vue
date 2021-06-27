@@ -46,21 +46,15 @@ export default {
     }
   },
   methods: {
-    registerUser(){
-      this.$axios.post('/api/register',this.user)
-      console.log(this.user)
-      //   .then((response) => {
-      //     this.$auth.loginWith('local',{
-      //         data: this.user
-      //   })
-      //   console.log(response)
-      // })
+    async registerUser(){
+      try{ 
+        await this.$axios.post('http://localhost:8000/api/register',this.user)
+        this.$router.push('/TopAfterLogin')
+      } catch(error){
+        console.log(error)
+        this.$router.push('/signup')
+      }
     },
-    // registerUser() {
-    //   this.$axios.post('/api/register', this.user).then((response) => {
-    //     // window.location.href = '/TopAfterLogin'
-    //   })
-    // },
   }
 }
 </script>

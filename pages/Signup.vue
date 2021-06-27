@@ -38,10 +38,10 @@ export default {
   data(){
     return {
       user:{
-        name:'Steve Harry',
-        email:'steve@test.com',
-        password:'password',
-        passwordToConfirm:'password'
+        name:'',
+        email:'',
+        password:'',
+        passwordToConfirm:''
       }
     }
   },

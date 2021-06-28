@@ -152,5 +152,6 @@ export default {
   box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
 	transition: .3s;
   /* background-color: #e5e9f7; */
+  color: #696969;
 }
 </style>

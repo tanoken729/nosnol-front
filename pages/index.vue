@@ -12,11 +12,20 @@
         </ul>
         <h3>ジャンル</h3>
         <ul class="genre">
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
+          <li>J-POP</li>
+          <li>アニメ</li>
+          <li>邦楽ヒップホップ/R&B/レゲエ</li>
+          <li>邦楽ロック</li>
+          <li>邦楽ダンス/エレクトロニカ</li>
+          <li>K-POP/ワールド・ミュージック</li>
+          <li>洋楽総合</li>
+          <li>洋楽ポップス</li>
+          <li>洋楽ヒップホップ/R&B/レゲエ</li>
+          <li>洋楽ロック</li>
+          <li>洋楽ダンス/エレクトロニカ</li>
+          <li>歌謡曲/演歌</li>
+          <li>ジャズ</li>
+          <li>クラシック</li>
         </ul>
       </nav>
       <div class="content">
@@ -79,7 +88,7 @@ export default {
 }
 .side-bar li {
   padding: 10px;
-  text-align: center;
+  /* text-align: center; */
   margin: 0 auto;
   color: #696969;
 }
@@ -94,6 +103,7 @@ export default {
   margin-bottom: 10px;
   border-radius: 0.5rem;
   width: 50px;
+  text-align: center;
 }
 .joy:hover {
   border: 1px solid #FF7F00;

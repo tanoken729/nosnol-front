@@ -56,6 +56,7 @@ export default {
 .side-bar {
   /* border: solid 1px; */
   padding: 10px;
+  min-width: 150px;
 }
 .side-bar ul {
   list-style: none;
@@ -129,10 +130,17 @@ export default {
 }
 /* メインコンテンツ */
 .content {
-  display: flex;
+  /* display: flex; */
   padding: 10px;
 }
 .content p {
-  padding: 10px;
+  padding: 70px;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e9f7;
+  display: inline-block;
+  margin: 10px;
+  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
+	transition: .3s;
+  /* background-color: #e5e9f7; */
 }
 </style>

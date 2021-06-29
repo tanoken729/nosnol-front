@@ -6,26 +6,36 @@
         <h1>SoundMatchingにようこそ！</h1>
       </div>
       <form class="form" @submit.prevent="registerUser">
-      <!-- <div class="form"> -->
-          <h2 class="title">新規登録</h2>
+        <h2 class="title">新規登録</h2>
           <table>
-          <tr>
+            <div v-if="$v.user.name.$error && !$v.user.name.required" class="error-message">
+              ユーザ名を入力してください。
+            </div>
+            <tr>
               <td><input type="text" placeholder="ユーザ名" v-model="user.name" class="text-box"></td>
-          </tr>
-          <tr>
+            </tr>
+            <div v-if="$v.user.email.$error && !$v.user.email.required" class="error-message">
+              メールアドレスを入力してください。
+            </div>
+            <tr>
               <td><input type="text" placeholder="メールアドレス" v-model="user.email" class="text-box"></td>
-          </tr>
-          <tr>
+            </tr>
+            <div v-if="$v.user.password.$error && !$v.user.password.required" class="error-message">
+              パスワードを入力してください。
+            </div>
+            <tr>
               <td><input type="password" placeholder="パスワード" v-model="user.password" class="text-box"></td>
-          </tr>
-          <tr>
+            </tr>
+            <div v-if="$v.user.passwordToConfirm.$error && !$v.user.passwordToConfirm.required" class="error-message">
+              確認用パスワードを入力してください。
+            </div>
+            <tr>
               <td><input type="password" placeholder="確認用パスワード" v-model="user.passwordToConfirm" class="text-box"></td>
-          </tr>
+            </tr>
           </table>
-          <button class="btn" type="submit">新規登録</button>
-          <NuxtLink to="/signin">ログインはこちらから</NuxtLink>
+        <button class="btn" type="submit">新規登録</button>
+        <NuxtLink to="/signin">ログインはこちらから</NuxtLink>
       </form>
-      <!-- </div> -->
     </div>
 </div>
 </template>
@@ -33,6 +43,7 @@
 <script>
 /* eslint-disable */
 
+import {required,maxLength,minLength} from "vuelidate/lib/validators"
 export default {
   name: 'Signup',
   data(){
@@ -45,8 +56,35 @@ export default {
       }
     }
   },
+    // フォーム要素ごとのルールを記述
+  validations: {
+    user: {
+      name: {
+        required,
+      },
+      email: {
+        required,
+      },
+      password: {
+        required,
+      },
+      passwordToConfirm: {
+        required,
+      },
+    }
+  },
   methods: {
+    checkFormHasError(){
+      this.$v.$touch()
+      if(this.$v.$invalid){
+        console.log("バリデーションエラー")
+      }else{
+        // console.log(this.form)
+      }
+    },
     async registerUser(){
+      if(this.checkFormHasError()) return;
+      
       try{ 
         await this.$axios.post('http://localhost:8000/api/register',this.user)
         this.$router.push('/TopAfterLogin')
@@ -129,5 +167,9 @@ input.text-box {
   margin:  100px auto;
   width: 50%;
   padding: 0;
+}
+.error-message {
+  color: #ff0000;
+  font-size: 13px;
 }
 </style>

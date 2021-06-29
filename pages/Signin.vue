@@ -5,14 +5,14 @@
       <form @submit.stop.prevent="submit" class="form">
           <h2 class="title">ログイン</h2>
           <table>
-          <div v-if="$v.form.email.$error && !$v.form.email.required">
+          <div v-if="$v.form.email.$error && !$v.form.email.required" class="error-message">
             メールアドレスを入力してください。
           </div>
           <tr>
               <!-- <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="$v.form.email.$model"></td> -->
               <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="form.email"></td>
           </tr>
-          <div v-if="$v.form.password.$error && !$v.form.password.required">
+          <div v-if="$v.form.password.$error && !$v.form.password.required" class="error-message">
             パスワードを入力してください。
           </div>
           <tr>
@@ -70,7 +70,7 @@ export default {
           this.$router.push('/TopAfterLogin')
         } catch(error){
           console.log(error)
-          redirect('/signin')
+          this.$router.push('/signin')
         }
     }
   },
@@ -143,5 +143,9 @@ input.text-box {
   margin:  100px auto;
   width: 50%;
   padding: 0;
+}
+.error-message {
+  color: #ff0000;
+  font-size: 13px;
 }
 </style>

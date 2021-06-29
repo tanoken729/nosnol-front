@@ -29,11 +29,11 @@
         </ul>
       </nav>
       <div class="content">
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
+        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
+        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
+        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
+        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
+        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
       </div>
       <div v-if="this.$auth.loggedIn">
         {{ this.$auth.user.email }}
@@ -146,10 +146,21 @@ export default {
 .content p {
   padding: 70px;
   border-radius: 0.5rem;
-  border: 1px solid #e5e9f7;
+  border: 1px solid #d4d3d3;
   display: inline-block;
   margin: 10px;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
+  /* box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22); */
+	transition: .3s;
+  /* background-color: #e5e9f7; */
+  color: #696969;
+}
+.content p:hover {
+  padding: 70px;
+  border-radius: 0.5rem;
+  border: 1px solid #d4d3d3;
+  display: inline-block;
+  margin: 10px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
 	transition: .3s;
   /* background-color: #e5e9f7; */
   color: #696969;

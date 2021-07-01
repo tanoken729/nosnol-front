@@ -35,9 +35,6 @@
         <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
         <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
       </div>
-      <div v-if="this.$auth.loggedIn">
-        {{ this.$auth.user.email }}
-      </div>
     </main>
 </div>
 </template>

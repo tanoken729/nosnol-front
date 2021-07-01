@@ -43,7 +43,7 @@
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
 
 export default {
-  // middleware: 'user_auth',
+  middleware: 'user_auth',
   components: {
     headerAfterLogin,
   }

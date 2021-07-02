@@ -26,11 +26,11 @@
             <tr>
               <td><input type="password" placeholder="パスワード" v-model="user.password" class="text-box"></td>
             </tr>
-            <div v-if="$v.user.passwordToConfirm.$error && !$v.user.passwordToConfirm.required" class="error-message">
+            <div v-if="$v.user.password_confirmation.$error && !$v.user.password_confirmation.required" class="error-message">
               確認用パスワードを入力してください。
             </div>
             <tr>
-              <td><input type="password" placeholder="確認用パスワード" v-model="user.passwordToConfirm" class="text-box"></td>
+              <td><input type="password" placeholder="確認用パスワード" v-model="user.password_confirmation" class="text-box"></td>
             </tr>
           </table>
         <button class="btn" type="submit">新規登録</button>
@@ -52,7 +52,7 @@ export default {
         name:'',
         email:'',
         password:'',
-        passwordToConfirm:''
+        password_confirmation:''
       }
     }
   },
@@ -68,7 +68,7 @@ export default {
       password: {
         required,
       },
-      passwordToConfirm: {
+      password_confirmation: {
         required,
       },
     }

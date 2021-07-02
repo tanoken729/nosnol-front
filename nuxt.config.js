@@ -46,7 +46,8 @@ export default {
   axios: {
     // baseURL: 'http://localhost:3000',
     // baseURL: 'http://localhost:8000',
-    baseURL: 'http://localhost:8000/api/v1',
+    // baseURL: 'http://localhost:8000/api/v1',
+    baseURL: ENV.API_BASE_URL,
   },
   proxy: {
     // '/api': 'http://sound-matching_api_app_1:8000/api/test',
@@ -58,28 +59,36 @@ export default {
     // }
   },
 
+  // 予めauthモジュールで使用するログイン用のルートを指定したり、使用する通信パターンを定義
   // サーバ側へのアクセス設定をエンドポイントとして追加
   auth:{
     redirect: {
       login: '/Signin',
       logout: '/',
-      callback: '/login',
+      callback: '/Signin',
       home: '/TopAfterLogin'
     },
-    localStorage: false,
+    localStorage: false, // JWTトークンをローカルストレージに入れておくのは危ない
+    // 通信パターンやルートの定義
     strategies:{
       local:{
-        tokenType:'bearer',
+        token:{ //追加
+          // type: 'Bearer', //記述しなきゃ自動的にauthorizationヘッダーにbeareという文字を追加
+          property: 'access_token',
+        },
+        user: { //追加
+          property: false
+        },
         endpoints:{
           login:{
             url:'/auth/login',
             method:'post',
-            propertyName:'token'
+            propertyName:'access_token'
           },
-          // logout:{
-          //   url:'/auth/logout',
-          //   method:'post',
-          // },
+          logout:{
+            url:'/auth/logout',
+            method:'post',
+          },
           user:{
             url:'/auth/me',
             method:'get',

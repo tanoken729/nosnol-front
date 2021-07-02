@@ -35,9 +35,6 @@
         <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
         <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
       </div>
-      <div v-if="this.$auth.loggedIn">
-        {{ this.$auth.user.email }}
-      </div>
     </main>
 </div>
 </template>
@@ -46,7 +43,7 @@
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
 
 export default {
-  // middleware: 'user_auth',
+  middleware: 'user_auth',
   components: {
     headerAfterLogin,
   }

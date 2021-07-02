@@ -66,11 +66,9 @@ export default {
         try{
           const response = await this.$auth.loginWith('local', { data: this.form })
           console.log(response)
-          // console.log(this.$auth.loggedIn)
-          this.$router.push('/TopAfterLogin')
+          console.log(this.$auth.loggedIn)
         } catch(error){
           console.log(error)
-          this.$router.push('/signin')
         }
     }
   },

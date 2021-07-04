@@ -11,6 +11,9 @@
           </div>
         </div>
         <h3>タイトル</h3>
+  <div>
+    <p>{{ greet }}</p>
+  </div>
           <input type="text" class="text-box">
         <h3>ジャンル選択</h3>
           <div class="cp_ipselect cp_sl01">
@@ -42,6 +45,13 @@
 /* eslint-disable */
 
 export default {
+  props: ['greet'],
+  // props: {
+  //   greet: {
+  //    type: String,
+  //    default: 'hogehoge'
+  //   }
+  // },
   data () {
     return {
       showContent2: false
@@ -82,10 +92,11 @@ export default {
 
 #main-content{
   z-index:2;
-  width:50%;
+  width: 500px;
   padding-top: 40px;
   background:#fff;
   text-align: center;
+  border-radius: 0.5rem;
 }
 
 .button-content{

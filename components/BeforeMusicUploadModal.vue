@@ -19,7 +19,7 @@
       </div> -->
       <div class="button-content">
         <button class="cancel-btn" @click="closeBeforeMusicUploadModal">キャンセル</button>
-        <button class="disabled-btn" @click="openAfterMusicUploadModal" disabled>アップロード</button>
+        <button class="disabled-btn" disabled>アップロード</button>
       </div>
           <!-- <div>
               <ul>
@@ -27,17 +27,25 @@
                   </li>
               </ul>
           </div> -->
-      <div class="page">
-        <AfterMusicUploadModal greet='Hello with props'/>
-      </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <AfterMusicUploadModal
+              greet='Hello with props'
+              v-show="showContent2"
+              @click.self="closeAfterMusicUploadModal"
+              @openAfterMusicUploadModal="dropFile"
+              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
+            ></AfterMusicUploadModal>
+          </transition>
+        </div>
+
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import AfterMusicUploadModal from './AfterMusicUploadModal.vue'
-// import AfterMusicUploadModal from '/components/AfterMusicUploadModal.vue';
+import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 
 export default {
   // ここからheader.vueにクリックイベント（openAfterMusicUploadModal）を渡す
@@ -46,8 +54,7 @@ export default {
     mode: 'out-in'
   },
   components: {
-    // AfterMusicUploadModal,
-    AfterMusicUploadModal: AfterMusicUploadModal,
+    AfterMusicUploadModal,
   },
   data () {
     return {
@@ -65,9 +72,6 @@ export default {
     },
     closeBeforeMusicUploadModal (){
       this.$emit('closeBeforeMusicUploadModal', this.showContent);
-    },
-    openAfterMusicUploadModal () {
-      this.$emit('BeforeMusicUploadModal-event')
     },
     closeAfterMusicUploadModal () {
       this.showContent2 = false
@@ -108,7 +112,10 @@ export default {
         //         console.log(error)
         //     })
         // })
-      this.$emit('BeforeMusicUploadModal-event', this.files)
+        this.showContent = false
+        console.log(this.showContent)
+        this.showContent2 = true
+        console.log(this.showContent2)
         this.isEnter = false;
     }
   },

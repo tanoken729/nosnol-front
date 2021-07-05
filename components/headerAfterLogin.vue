@@ -5,7 +5,7 @@
             <nav class="nav">
             <ul>
                 <li>検索</li>
-                <li>{{ $store.state.auth.user.name }}</li>
+                <!-- <li>{{ $store.state.auth.user.name }}</li> -->
                 <button @click="logout">ログアウト</button>
                 <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
             </ul>
@@ -14,22 +14,10 @@
         <div>
           <transition name="modal" mode="out-in">
             <BeforeMusicUploadModal
-              @BeforeMusicUploadModal-event="openAfterMusicUploadModal"
               v-show="showContent"
               @click.self="closeBeforeMusicUploadModal"
-              @openBeforeMusicUploadModal="openBeforeMusicUploadModal"
               @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
             ></BeforeMusicUploadModal>
-          </transition>
-        </div>
-        <div>
-          <transition name="modal" mode="out-in">
-            <AfterMusicUploadModal
-              v-show="showContent2"
-              @click.self="closeAfterMusicUploadModal"
-              @openAfterMusicUploadModal="openAfterMusicUploadModal"
-              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
-            ></AfterMusicUploadModal>
           </transition>
         </div>
     </div>
@@ -37,7 +25,6 @@
 
 <script>
 import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
-import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 
 export default {
     transition: {
@@ -46,7 +33,6 @@ export default {
   },
   components: {
     BeforeMusicUploadModal,
-    AfterMusicUploadModal,
   },
   data () {
     return {
@@ -60,13 +46,6 @@ export default {
     },
     closeBeforeMusicUploadModal () {
       this.showContent = false
-    },
-    openAfterMusicUploadModal () {
-      this.showContent = false
-      this.showContent2 = true
-    },
-    closeAfterMusicUploadModal () {
-      this.showContent2 = false
     },
     logout() {
       this.$auth.logout();

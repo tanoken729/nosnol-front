@@ -14,20 +14,19 @@
         <div>
           <transition name="modal" mode="out-in">
             <BeforeMusicUploadModal
-              @BeforeMusicUploadModal-event="openAfterMusicUploadModal"
               v-show="showContent"
               @click.self="closeBeforeMusicUploadModal"
-              @openBeforeMusicUploadModal="openBeforeMusicUploadModal"
               @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
+              @openAfterMusicUploadModal="openAfterMusicUploadModal"
             ></BeforeMusicUploadModal>
           </transition>
         </div>
         <div>
           <transition name="modal" mode="out-in">
             <AfterMusicUploadModal
+              :musicFileName="musicFileName" 
               v-show="showContent2"
               @click.self="closeAfterMusicUploadModal"
-              @openAfterMusicUploadModal="openAfterMusicUploadModal"
               @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
             ></AfterMusicUploadModal>
           </transition>
@@ -46,12 +45,12 @@ export default {
   },
   components: {
     BeforeMusicUploadModal,
-    AfterMusicUploadModal,
+    AfterMusicUploadModal
   },
   data () {
     return {
       showContent: false,
-      showContent2: false
+      showContent2: false,
     }
   },
   methods: {
@@ -61,9 +60,11 @@ export default {
     closeBeforeMusicUploadModal () {
       this.showContent = false
     },
-    openAfterMusicUploadModal () {
+    openAfterMusicUploadModal (musicFileName) {
       this.showContent = false
       this.showContent2 = true
+      //BeforeModelからのmusicFileNameをセット
+      this.musicFileName = musicFileName
     },
     closeAfterMusicUploadModal () {
       this.showContent2 = false

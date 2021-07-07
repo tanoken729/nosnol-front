@@ -11,15 +11,25 @@
           </div>
         </div>
         <h3>タイトル</h3>
-          <input type="text" class="text-box">
+          <input type="text" class="text-box" v-model="musicFileName">
         <h3>ジャンル選択</h3>
           <div class="cp_ipselect cp_sl01">
           <select required>
             <option value="" hidden class="aa">ジャンルを選択してください</option>
-            <option value="1">cat</option>
-            <option value="2">dog</option>
-            <option value="3">rabbit</option>
-            <option value="4">squirrel</option>
+            <option value="1">J-POP</option>
+            <option value="2">アニメ</option>
+            <option value="3">邦楽ヒップホップ/R&B/レゲエ</option>
+            <option value="4">邦楽ロック</option>
+            <option value="5">邦楽ダンス/エレクトロニカ</option>
+            <option value="6">K-POP/ワールド・ミュージック</option>
+            <option value="7">洋楽総合</option>
+            <option value="8">洋楽ポップス</option>
+            <option value="9">洋楽ヒップホップ/R&B/レゲエ</option>
+            <option value="10">洋楽ロック</option>
+            <option value="11">洋楽ダンス/エレクトロニカ</option>
+            <option value="12">歌謡曲/演歌</option>
+            <option value="13">ジャズ</option>
+            <option value="14">クラシック</option>
           </select>
           </div>
         <h3>感情アイコン選択</h3>
@@ -32,7 +42,7 @@
       </div>
       <div class="button-content">
         <button class="cancel-btn" @click="closeAfterMusicUploadModal">キャンセル</button>
-        <button class="btn">アップロード</button>
+        <button class="btn" @click="uploadMusicFile">アップロード</button>
       </div>
     </div>
   </div>
@@ -42,17 +52,18 @@
 /* eslint-disable */
 
 export default {
+  props: ['musicFileName'],
   data () {
     return {
-      showContent2: false
+      showContent2: false,
     }
   },
   methods: {
-    openAfterMusicUploadModal (){
-      this.$emit('openAfterMusicUploadModal', this.showContent2);
-    },
     closeAfterMusicUploadModal (){
-      this.$emit('closeAfterMusicUploadModal', this.showContent2);
+      this.$emit('closeAfterMusicUploadModal');
+    },
+    uploadMusicFile () {
+      // 非同期でapiにリクエストする処理
     }
   },
 }
@@ -82,10 +93,11 @@ export default {
 
 #main-content{
   z-index:2;
-  width:50%;
+  width: 500px;
   padding-top: 40px;
   background:#fff;
   text-align: center;
+  border-radius: 0.5rem;
 }
 
 .button-content{

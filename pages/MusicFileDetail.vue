@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="a-b"></div>
-        <body>
+        <div class="body">
             <div class="b">
                 <div class="b-1">
                     <div class="b-1-1">
@@ -37,8 +37,7 @@
             <div class="c">
                 <div>いいね件数表示</div>
             </div>
-        </body>
-        <footer>aaa</footer>
+        </div>
 </div>
 </template>
 
@@ -49,7 +48,8 @@
 /* * {
   outline: solid 1px #000;
 } */
-body {
+/* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
+.body {
     background-color: #F0F1F8
 }
 footer {

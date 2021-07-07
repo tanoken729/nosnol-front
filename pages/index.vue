@@ -168,7 +168,7 @@ export default {
   padding: 10px;
 }
 .content p {
-  padding: 70px;
+  padding-top: 70px;
   border-radius: 0.5rem;
   border: 1px solid #d4d3d3;
   display: inline-block;
@@ -179,7 +179,7 @@ export default {
   color: #696969;
 }
 .content p:hover {
-  padding: 70px;
+  padding-top: 70px;
   border-radius: 0.5rem;
   border: 1px solid #d4d3d3;
   display: inline-block;
@@ -188,5 +188,9 @@ export default {
 	transition: .3s;
   /* background-color: #e5e9f7; */
   color: #696969;
+}
+audio {
+  width: 250px;
+  /* height: 50px; */
 }
 </style>

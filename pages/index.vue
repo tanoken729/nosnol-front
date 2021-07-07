@@ -29,11 +29,21 @@
         </ul>
       </nav>
       <div class="content">
-        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
-        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
-        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
-        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
-        <NuxtLink to="/musicfiledetail"><p>音声ファイル</p></NuxtLink>
+        <NuxtLink to="/musicfiledetail">
+          <p><audio src="" controls><source src="op.mp3" type="audio/mp3"></audio></p>
+        </NuxtLink>
+        <NuxtLink to="/musicfiledetail">
+          <p><audio src="" controls></audio></p>
+        </NuxtLink>
+        <NuxtLink to="/musicfiledetail">
+          <p><audio src="" controls></audio></p>
+        </NuxtLink>
+        <NuxtLink to="/musicfiledetail">
+          <p><audio src="" controls></audio></p>
+        </NuxtLink>
+        <NuxtLink to="/musicfiledetail">
+          <p><audio src="" controls></audio></p>
+        </NuxtLink>
         <h2>Result</h2>
         {{ this.message }}
       </div>

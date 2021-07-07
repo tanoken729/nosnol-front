@@ -27,25 +27,12 @@
                   </li>
               </ul>
           </div> -->
-        <div>
-          <transition name="modal" mode="out-in">
-            <AfterMusicUploadModal
-              greet='Hello with props'
-              v-show="showContent2"
-              @click.self="closeAfterMusicUploadModal"
-              @openAfterMusicUploadModal="dropFile"
-              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
-            ></AfterMusicUploadModal>
-          </transition>
-        </div>
-
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 
 export default {
   // ここからheader.vueにクリックイベント（openAfterMusicUploadModal）を渡す
@@ -54,7 +41,6 @@ export default {
     mode: 'out-in'
   },
   components: {
-    AfterMusicUploadModal,
   },
   data () {
     return {
@@ -63,15 +49,14 @@ export default {
       MusicFile: '',
       isEnter: false,
       files: [],
-      greet: 'Hello Vue.js!'
     }
   },
   methods: {
     openBeforeMusicUploadModal (){
-      this.$emit('openBeforeMusicUploadModal', this.showContent);
+      this.$emit('openBeforeMusicUploadModal');
     },
     closeBeforeMusicUploadModal (){
-      this.$emit('closeBeforeMusicUploadModal', this.showContent);
+      this.$emit('closeBeforeMusicUploadModal');
     },
     closeAfterMusicUploadModal () {
       this.showContent2 = false
@@ -112,10 +97,7 @@ export default {
         //         console.log(error)
         //     })
         // })
-        this.showContent = false
-        console.log(this.showContent)
-        this.showContent2 = true
-        console.log(this.showContent2)
+        this.$emit('openAfterMusicUploadModal', this.files[0].name);
         this.isEnter = false;
     }
   },

@@ -11,10 +11,7 @@
           </div>
         </div>
         <h3>タイトル</h3>
-  <div>
-    <p>{{ greet }}</p>
-  </div>
-          <input type="text" class="text-box">
+          <input type="text" class="text-box" v-model="musicFileName">
         <h3>ジャンル選択</h3>
           <div class="cp_ipselect cp_sl01">
           <select required>
@@ -35,7 +32,7 @@
       </div>
       <div class="button-content">
         <button class="cancel-btn" @click="closeAfterMusicUploadModal">キャンセル</button>
-        <button class="btn">アップロード</button>
+        <button class="btn" @click="uploadMusicFile">アップロード</button>
       </div>
     </div>
   </div>
@@ -45,24 +42,18 @@
 /* eslint-disable */
 
 export default {
-  props: ['greet'],
-  // props: {
-  //   greet: {
-  //    type: String,
-  //    default: 'hogehoge'
-  //   }
-  // },
+  props: ['musicFileName'],
   data () {
     return {
-      showContent2: false
+      showContent2: false,
     }
   },
   methods: {
-    openAfterMusicUploadModal (){
-      this.$emit('openAfterMusicUploadModal', this.showContent2);
-    },
     closeAfterMusicUploadModal (){
-      this.$emit('closeAfterMusicUploadModal', this.showContent2);
+      this.$emit('closeAfterMusicUploadModal');
+    },
+    uploadMusicFile () {
+      // 非同期でapiにリクエストする処理
     }
   },
 }

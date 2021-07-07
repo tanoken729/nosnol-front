@@ -64,7 +64,7 @@ export default {
   auth:{
     redirect: {
       login: '/Signin',
-      logout: '/',
+      logout: '/Signin',
       callback: '/Signin',
       home: '/TopAfterLogin'
     },
@@ -105,5 +105,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    standalone: true,
   }
 }

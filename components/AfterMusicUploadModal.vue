@@ -16,10 +16,20 @@
           <div class="cp_ipselect cp_sl01">
           <select required>
             <option value="" hidden class="aa">ジャンルを選択してください</option>
-            <option value="1">cat</option>
-            <option value="2">dog</option>
-            <option value="3">rabbit</option>
-            <option value="4">squirrel</option>
+            <option value="1">J-POP</option>
+            <option value="2">アニメ</option>
+            <option value="3">邦楽ヒップホップ/R&B/レゲエ</option>
+            <option value="4">邦楽ロック</option>
+            <option value="5">邦楽ダンス/エレクトロニカ</option>
+            <option value="6">K-POP/ワールド・ミュージック</option>
+            <option value="7">洋楽総合</option>
+            <option value="8">洋楽ポップス</option>
+            <option value="9">洋楽ヒップホップ/R&B/レゲエ</option>
+            <option value="10">洋楽ロック</option>
+            <option value="11">洋楽ダンス/エレクトロニカ</option>
+            <option value="12">歌謡曲/演歌</option>
+            <option value="13">ジャズ</option>
+            <option value="14">クラシック</option>
           </select>
           </div>
         <h3>感情アイコン選択</h3>

@@ -38,6 +38,8 @@
                 <div>いいね件数表示</div>
             </div>
         </div>
+        <footer>
+        </footer>
 </div>
 </template>
 
@@ -45,9 +47,9 @@
 </script>
 
 <style scoped>
-/* * {
+* {
   outline: solid 1px #000;
-} */
+}
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
 .body {
     background-color: #F0F1F8
@@ -140,5 +142,10 @@ a {
   color: #000;
   font-size: 15px;
 }
-
+footer {
+  width:100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+}
 </style>

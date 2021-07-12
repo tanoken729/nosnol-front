@@ -3,7 +3,9 @@
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
       <div class="sections">
+        <form method="post" enctype="multipart/form-data">
         <div>
+          {{musicFile}}
           <h3>カバー画像</h3>
           <div class="drop_area" 
             @dragenter="dragEnter" 
@@ -15,8 +17,9 @@
             <p>クリックして画像を追加</p>
             <p>10MB以内 .jpg .png .heic に対応しています。</p>
           </div>
-          {{coverImages[0].name}}
+          {{coverImages[0]}}
         </div>
+        </form>
         <h3>タイトル</h3>
           <input type="text" class="text-box" v-model="musicFileName">
         <h3>ジャンル選択</h3>
@@ -65,7 +68,11 @@
 /* eslint-disable */
 
 export default {
-  props: ['musicFileName'],
+  props: [
+    'musicFile',
+    'musicFileName',
+    ],
+  // props: ['musicFileName'],
   data () {
     return {
       showContent2: false,
@@ -86,7 +93,13 @@ export default {
     },
     async uploadMusicFile () {
       try{ 
-        await this.$axios.post('http://localhost:8000/api/musicFileUpload',this.musicFileData)
+        await this.$axios.post('http://localhost:8000/api/musicFileUpload', {
+                    musicFile: this.musicFile,
+                    coverImages: this.coverImages,
+                    musicFileName: this.musicFileName,
+                    genre: this.genre,
+                    emotion: this.emotion,
+                    })
         this.$router.push('/TopAfterLogin')
       } catch(error){
         console.log(error)
@@ -113,6 +126,10 @@ export default {
     selectedEmotion (e) {
       this.emotion = e.target.value
       // this.$set(this.musicFileData, 'emotion', e.target.value)
+    },
+    // musicFileNameはこのファイルのpropsから取得
+    setMusicFileFromBeforeMusicUploadModal (musicFileName) {
+      this.musicFileName = musicFileName
     }
   },
 }

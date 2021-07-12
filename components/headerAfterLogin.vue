@@ -24,6 +24,7 @@
         <div>
           <transition name="modal" mode="out-in">
             <AfterMusicUploadModal
+              :musicFile="musicFile" 
               :musicFileName="musicFileName" 
               v-show="showContent2"
               @click.self="closeAfterMusicUploadModal"
@@ -60,10 +61,11 @@ export default {
     closeBeforeMusicUploadModal () {
       this.showContent = false
     },
-    openAfterMusicUploadModal (musicFileName) {
+    openAfterMusicUploadModal (musicFile, musicFileName) {
       this.showContent = false
       this.showContent2 = true
       //BeforeModelからのmusicFileNameをセット
+      this.musicFile = musicFile
       this.musicFileName = musicFileName
     },
     closeAfterMusicUploadModal () {

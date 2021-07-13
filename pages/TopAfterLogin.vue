@@ -51,12 +51,33 @@
 
 <script>
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
+import store from '../store';
 
 export default {
   // middleware: 'user_auth',
   components: {
     headerAfterLogin,
-  }
+  },
+  data(){
+    return {
+      musicFile: "",
+      coverImage: "",
+      title: "",
+      genre: "",
+      emotions: "",
+      userId: "",
+    }
+  },
+  async fetch({ store }) {
+    const MusicFileData = await store.dispatch('getMusicFileDataAction')
+    store.commit('getMusicFileData', MusicFileData)
+  },
+  computed: {
+    displayMusicFileData: function () {
+    //ゲッターの呼び出し
+      return this.$store.getters.list
+    },
+  },
 };
 </script>
 

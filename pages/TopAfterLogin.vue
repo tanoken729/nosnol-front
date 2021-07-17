@@ -28,22 +28,20 @@
           <li>クラシック</li>
         </ul>
       </nav>
-      <div class="content">
-        <NuxtLink to="/musicfiledetail">
-          <p><audio src="" controls><source src="op.mp3" type="audio/mp3"></audio></p>
-        </NuxtLink>
-        <NuxtLink to="/musicfiledetail">
-          <p><audio src="" controls></audio></p>
-        </NuxtLink>
-        <NuxtLink to="/musicfiledetail">
-          <p><audio src="" controls></audio></p>
-        </NuxtLink>
-        <NuxtLink to="/musicfiledetail">
-          <p><audio src="" controls></audio></p>
-        </NuxtLink>
-        <NuxtLink to="/musicfiledetail">
-          <p><audio src="" controls></audio></p>
-        </NuxtLink>
+      <div class="content-fit">
+      <NuxtLink to="/musicfiledetail">
+      <div class="content" v-for="(item, index) in items" :key="index">
+        <div>
+            <h3>{{ item.title }}</h3>
+            <!-- <p>画像：{{$axios.defaults.baseURL+item.cover_image}}</p> -->
+            <!-- <img :src="$axios.defaults.baseURL+ 'storage/'+item.cover_image" width="280px"> -->
+            <img :src="`${$axios.defaults.baseURL}storage/test3画像.png`" class="cover-image">
+            <audio controls>
+              <source :src="`${$axios.defaults.baseURL}storage/test1.mp3`" type="audio/mp3">
+            </audio>
+        </div>
+      </div>
+      </NuxtLink>
       </div>
     </main>
 </div>
@@ -66,16 +64,27 @@ export default {
       genre: "",
       emotions: "",
       userId: "",
+      items: []
     }
   },
-  async fetch({ store }) {
-    const MusicFileData = await store.dispatch('getMusicFileDataAction')
-    store.commit('getMusicFileData', MusicFileData)
+  mounted: function() {
+    this.$axios
+      .$get('api/musicFileData')
+      .then(response => {
+        this.items = response
+        console.log(this.items)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
+  // async fetch({ store }) {
+  //   const MusicFileData = await store.dispatch('getMusicFileDataAction')
+  //   store.commit('getMusicFileData', MusicFileData)
+  // },
   computed: {
     displayMusicFileData: function () {
-    //ゲッターの呼び出し
-      return this.$store.getters.list
+      return this.$store.getters.musicFileData
     },
   },
 };
@@ -170,9 +179,11 @@ export default {
 .content {
   /* display: flex; */
   padding: 10px;
+  /* height: 200px;
+  width: 295px; */
 }
-.content p {
-  padding-top: 70px;
+.content {
+  /* padding-top: 70px; */
   border-radius: 0.5rem;
   border: 1px solid #d4d3d3;
   display: inline-block;
@@ -181,9 +192,11 @@ export default {
 	transition: .3s;
   /* background-color: #e5e9f7; */
   color: #696969;
+  padding: 0 5px;
+  /* background-color: rgb(230, 231, 252); */
 }
-.content p:hover {
-  padding-top: 70px;
+.content:hover {
+  /* padding-top: 70px; */
   border-radius: 0.5rem;
   border: 1px solid #d4d3d3;
   display: inline-block;
@@ -193,8 +206,18 @@ export default {
   /* background-color: #e5e9f7; */
   color: #696969;
 }
+.cover-image {
+  width: 280px;
+  display: flex;
+}
 audio {
-  width: 250px;
+  width: 280px;
   /* height: 50px; */
+  margin-top: 5px;
+  /* background-color: #000CFF; */
+}
+.content-fit {
+  max-width: 100%;
+  margin: 10px;
 }
 </style>

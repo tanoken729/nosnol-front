@@ -79,9 +79,9 @@ export default {
       isEnter: false,
       // this.$setでも変更がリアクティブにならないためいったんコメントアウト
       // musicFileData: {
-        musicFile: [],
+        // musicFile: [],
         coverImages: [],
-        musicFileName: '',
+        // musicFileName: '',
         genre: '',
         emotion: '',
       // }
@@ -92,18 +92,45 @@ export default {
       this.$emit('closeAfterMusicUploadModal');
     },
     async uploadMusicFile () {
-      try{ 
-        await this.$axios.post('http://localhost:8000/api/musicFileUpload', {
+      let formData = new FormData();
+
+      formData.append('file', {
                     musicFile: this.musicFile,
                     coverImages: this.coverImages,
                     musicFileName: this.musicFileName,
                     genre: this.genre,
                     emotion: this.emotion,
-                    })
-        this.$router.push('/TopAfterLogin')
-      } catch(error){
-        console.log(error)
-      }
+                    }
+      );
+
+      let config = {
+          headers: {
+              'content-type': 'multipart/form-data'
+          }
+      };
+
+      this.$axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
+          .then(function(response) {
+              console.log('成功')
+          })
+          .catch(function(error) {
+              console.log('失敗')
+          })
+      // try{ 
+      //   await this.$axios.post('http://localhost:8000/api/musicFileUpload', {
+      //               musicFile: this.musicFile,
+      //               coverImages: this.coverImages,
+      //               musicFileName: this.musicFileName,
+      //               genre: this.genre,
+      //               emotion: this.emotion,
+      //               }, config)
+      //   this.$router.push('/TopAfterLogin')
+
+      // } catch(error){
+      //   console.log(error)
+      //   // console.log(this.musicFile)
+      //   // console.log(this.musicFileName)
+      // }
     },
     dragEnter() {
         // console.log('Enter Drop Area');
@@ -115,9 +142,11 @@ export default {
     dragOver() {
         console.log('DragOver')
     },
-    dropFile() {
+    dropFile(event) {
       this.coverImages = [...event.dataTransfer.files]
-      console.log(this.coverImages)
+      // console.log(this.coverImages)
+      // console.log(this.musicFile)
+      // console.log(this.musicFileName)
     },
     selectedGenre (e) {
       this.genre = e.target.value
@@ -130,7 +159,16 @@ export default {
     // musicFileNameはこのファイルのpropsから取得
     setMusicFileFromBeforeMusicUploadModal (musicFileName) {
       this.musicFileName = musicFileName
-    }
+    },
+    // hederSet () {
+    //   let config = {
+    //     headers: {
+    //         'content-type': 'multipart/form-data'
+    //     }
+    //   }
+    //   this.uploadMusicFile (config)
+    //   console.log(config)
+    // }
   },
 }
 </script>

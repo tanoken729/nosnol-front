@@ -30,14 +30,14 @@
       </nav>
       <div class="content-fit">
       <NuxtLink to="/musicfiledetail">
-      <div class="content" v-for="(item, index) in items" :key="index">
+      <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData">
         <div>
+            <!-- <p>画像：{{$axios.defaults.baseURL+ 'storage/'+ 'images/'+item.cover_image}}</p>
+            <img :src="$axios.defaults.baseURL+ 'storage/'+ 'images/'+item.cover_image" class="cover-image"> -->
+            <img :src="`${$axios.defaults.baseURL}storage/images/test1画像.png`" class="cover-image">
             <h3>{{ item.title }}</h3>
-            <!-- <p>画像：{{$axios.defaults.baseURL+item.cover_image}}</p> -->
-            <!-- <img :src="$axios.defaults.baseURL+ 'storage/'+item.cover_image" width="280px"> -->
-            <img :src="`${$axios.defaults.baseURL}storage/test3画像.png`" class="cover-image">
             <audio controls>
-              <source :src="`${$axios.defaults.baseURL}storage/test1.mp3`" type="audio/mp3">
+              <source :src="`${$axios.defaults.baseURL}storage/mp3files/test1.mp3`" type="audio/mp3">
             </audio>
         </div>
       </div>
@@ -72,21 +72,25 @@ export default {
       .$get('api/musicFileData')
       .then(response => {
         this.items = response
-        console.log(this.items)
+        // console.log(this.items)
       })
       .catch(error => {
-        console.log(error)
+        // console.log(error)
       })
   },
-  // async fetch({ store }) {
-  //   const MusicFileData = await store.dispatch('getMusicFileDataAction')
-  //   store.commit('getMusicFileData', MusicFileData)
-  // },
-  computed: {
-    displayMusicFileData: function () {
-      return this.$store.getters.musicFileData
-    },
+  methods: {
+    setMusicFileData () {
+      this.$store.dispatch('setMusicFileData', {
+        items: this.items
+      })
+      console.log(this.items)
+    }
   },
+  // computed: {
+  //   items: function () {
+  //     return this.$store.getters.musicFileData
+  //   },
+  // },
 };
 </script>
 
@@ -192,7 +196,7 @@ export default {
 	transition: .3s;
   /* background-color: #e5e9f7; */
   color: #696969;
-  padding: 0 5px;
+  padding: 5px;
   /* background-color: rgb(230, 231, 252); */
 }
 .content:hover {
@@ -207,11 +211,12 @@ export default {
   color: #696969;
 }
 .cover-image {
-  width: 280px;
+  height: 200px;
+  width: 200px;
   display: flex;
 }
 audio {
-  width: 280px;
+  width: 200px;
   /* height: 50px; */
   margin-top: 5px;
   /* background-color: #000CFF; */

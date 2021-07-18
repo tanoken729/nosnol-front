@@ -32,12 +32,10 @@
       <NuxtLink to="/musicfiledetail">
       <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData">
         <div>
-            <!-- <p>画像：{{$axios.defaults.baseURL+ 'storage/'+ 'images/'+item.cover_image}}</p>
-            <img :src="$axios.defaults.baseURL+ 'storage/'+ 'images/'+item.cover_image" class="cover-image"> -->
-            <img :src="`${$axios.defaults.baseURL}storage/images/test1画像.png`" class="cover-image">
+            <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3>{{ item.title }}</h3>
             <audio controls>
-              <source :src="`${$axios.defaults.baseURL}storage/mp3files/test1.mp3`" type="audio/mp3">
+              <source :src="`${$axios.defaults.baseURL}storage/${item.music_file}`" type="audio/mp3">
             </audio>
         </div>
       </div>

@@ -44,6 +44,9 @@
         <NuxtLink to="/musicfiledetail">
           <p><audio src="" controls></audio></p>
         </NuxtLink>
+        <div id="app">
+          <aplayer :music="music" :list="list"></aplayer>
+        </div>
         <h2>Result</h2>
         {{ this.message }}
       </div>
@@ -54,14 +57,37 @@
 <script>
 import Header from "@/components/header.vue";
 import axios from 'axios'
+//document is not definedになるためコメントアウト
+// import Aplayer from 'vue-aplayer';
+// require('vue-aplayer')
 
 export default {
   components: {
     Header,
+    //document is not definedになるためコメントアウト
+    // Aplayer
   },
   data() {
     return {
       message: '',
+      music: {
+        title: 'secret base~君がくれたもの~',
+        artist: 'Silent Siren',
+        src: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.mp3',
+        pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+      },
+      list: [
+        {
+          title: 'secret base~君がくれたもの~',
+          artist: 'Silent Siren',
+          src: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.mp3',
+          pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+        },
+      {title:"前前前世",artist:"RADWIMPS",src:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/yourname.mp3",pic:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/yourname.jpg",lrc:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/yourname.lrc"},
+      {title:"光るなら.m3u8",artist:"Goose house",src:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/hls/hikarunara.m3u8",pic:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/hikarunara.jpg",lrc:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/hikarunara.lrc"},
+      {title:"回レ！雪月花",artist:"小倉唯",src:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/snowmoonflowers.mp3",pic:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/snowmoonflowers.jpg",lrc:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/snowmoonflowers.lrc"},
+      {title:"あっちゅ～ま青春!",artist:"七森中☆ごらく部",src:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/yuruyuri.mp3",pic:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/yuruyuri.jpg",lrc:"https://cn-east-17-aplayer-35525609.oss.dogecdn.com/yuruyuri.lrc"}
+      ]
     }
   },
   mounted () {

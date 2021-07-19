@@ -94,28 +94,47 @@ export default {
     async uploadMusicFile () {
       let formData = new FormData();
 
-      formData.append('file', {
-                    musicFile: this.musicFile,
-                    coverImages: this.coverImages,
-                    musicFileName: this.musicFileName,
-                    genre: this.genre,
-                    emotion: this.emotion,
-                    }
-      );
+      // formData.append('file', {
+      //   music_file: this.musicFile,
+      //   cover_image: this.coverImages,
+      //   title: this.musicFileName,
+      //   genre: this.genre,
+      //   emotions: this.emotion,
+      //   }
+      // );
+      formData.append('music_file', this.musicFile);
+      formData.append('cover_image', this.coverImages);
+      formData.append('title', this.musicFileName);
+      formData.append('genre', this.genre);
+      formData.append('emotions', this.emotion);
 
       let config = {
-          headers: {
-              'content-type': 'multipart/form-data'
-          }
+        // headers: {
+        //     'content-type': 'multipart/form-data'
+        // },
+        method: "POST",
+        body: formData
       };
 
-      this.$axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
-          .then(function(response) {
-              console.log('成功')
-          })
-          .catch(function(error) {
-              console.log('失敗')
-          })
+      fetch("http://localhost:8000/api/musicFileUpload", config)
+        .then((res)=>{
+          return( res.json() );
+        })
+        .then((json)=>{
+          // 通信が成功した際の処理
+        })
+        .catch((error)=>{
+          // エラー処理
+        });
+
+      // this.$axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
+      //     .then(function(response) {
+      //         console.log('成功')
+      //     })
+      //     .catch(function(error) {
+      //         console.log('失敗')
+      //     })
+
       // try{ 
       //   await this.$axios.post('http://localhost:8000/api/musicFileUpload', {
       //               musicFile: this.musicFile,

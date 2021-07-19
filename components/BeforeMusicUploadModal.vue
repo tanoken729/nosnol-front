@@ -87,7 +87,7 @@ export default {
     dragOver() {
         console.log('DragOver')
     },
-    dropFile() {
+    dropFile(event) {
         this.files = [...event.dataTransfer.files]
         console.log(this.files[0].name)
         // this.files.forEach(file => {

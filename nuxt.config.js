@@ -84,16 +84,16 @@ export default {
         },
         endpoints:{
           login:{
-            url:'/auth/login',
+            url:'/api/v1/auth/login',
             method:'post',
             propertyName:'access_token'
           },
           logout:{
-            url:'/auth/logout',
+            url:'/api/v1/auth/logout',
             method:'post',
           },
           user:{
-            url:'/auth/me',
+            url:'/api/v1/auth/me',
             method:'get',
             propertyName:false
           }

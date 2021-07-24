@@ -44,19 +44,25 @@ export default {
   env:ENV,
   // axiosを利用してサーバにリクエストを送る
   axios: {
-    // baseURL: 'http://localhost:3000',
-    // baseURL: 'http://localhost:8000',
-    // baseURL: 'http://localhost:8000/api/v1',
     baseURL: ENV.API_BASE_URL,
+    browserBaseURL: 'http://localhost:8000',
+    proxy: true
   },
   proxy: {
-    // '/api': 'http://sound-matching_api_app_1:8000/api/test',
-    // '/api': {
+    // '/api1/': 'http://localhost:8000',
+    // '/api2/': {
     //   target: 'http://localhost:8000',
-    //   pathRewrite: {
-    //     '^/api': '/'
-    //   }
-    // }
+    //   pathRewrite: {'^/api/': ''}
+    // },
+     '/proxy/': {
+      target: 'http://localhost:8000',
+      pathRewrite: {'^/api/': '/'}
+    },
+    // '/api3/': {
+    //   target: 'http://localhost:8000',
+    //   pathRewrite: {'^/api/': ''}
+    // },
+    "secure": false
   },
 
   // 予めauthモジュールで使用するログイン用のルートを指定したり、使用する通信パターンを定義

@@ -15,6 +15,10 @@
         {{files.file}}
       </div>
       </form>
+<!-- <form method="POST" action="http://localhost:8000/api/musicFileUpload" enctype="multipart/form-data">
+  <input type="file" name="file"/><br>
+  <input type="submit" value="SUBMIT"/>
+</form> -->
       <!-- <div class="drop_area" v-if="isEnter">
         <p>ファイルを保持しています。</p>
         {{ files.name }}
@@ -88,6 +92,7 @@ export default {
         console.log('DragOver')
     },
     dropFile(event) {
+        // this.files = event
         this.files = [...event.dataTransfer.files]
         console.log(this.files[0].name)
         // this.files.forEach(file => {
@@ -99,7 +104,7 @@ export default {
         //         console.log(error)
         //     })
         // })
-        this.$emit('openAfterMusicUploadModal', this.files[0], this.files[0].name);
+        this.$emit('openAfterMusicUploadModal', this.files, this.files[0].name);
         this.isEnter = false;
     }
   },

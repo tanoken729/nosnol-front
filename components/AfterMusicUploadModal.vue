@@ -20,6 +20,10 @@
           {{coverImages[0]}}
         </div>
         </form>
+<!-- <form method="POST" action="<URL>" enctype="multipart/form-data">
+  <input type="file" name="file"/><br>
+  <input type="submit" value="SUBMIT" @change="dropFile"/>
+</form> -->
         <h3>タイトル</h3>
           <input type="text" class="text-box" v-model="musicFileName">
         <h3>ジャンル選択</h3>
@@ -66,6 +70,7 @@
 
 <script>
 /* eslint-disable */
+import axios from 'axios'
 
 export default {
   props: [
@@ -109,42 +114,53 @@ export default {
       formData.append('emotions', this.emotion);
 
       let config = {
-        // headers: {
-        //     'content-type': 'multipart/form-data'
-        // },
-        method: "POST",
-        body: formData
+        headers: {
+            'content-type': 'multipart/form-data',
+            'contentType': false,
+            'processData': false
+        },
+        // method: "POST",
+        // // 'X-HTTP-Method-Override': 'PUT',
+        // body: formData
+        // 'X-HTTP-Method-Override': 'PUT'
       };
 
-      fetch("http://localhost:8000/api/musicFileUpload", config)
-        .then((res)=>{
-          return( res.json() );
-        })
-        .then((json)=>{
-          // 通信が成功した際の処理
-        })
-        .catch((error)=>{
-          // エラー処理
-        });
+      // fetch("http://localhost:8000/api/musicFileUpload", config)
+      //   .then((res)=>{
+      //     return( res.json() );
+      //   })
+      //   .then((json)=>{
+      //     // 通信が成功した際の処理
+      //   })
+      //   .catch((error)=>{
+      //     // エラー処理
+      //   });
 
-      // this.$axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
+      // axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
       //     .then(function(response) {
-      //         console.log('成功')
+      //         console.log(response)
       //     })
       //     .catch(function(error) {
-      //         console.log('失敗')
+      //         console.log(error)
       //     })
 
+      await this.$axios.post('/proxy/api/musicFileUpload', formData, config)
+      .then(res => {
+        console.log(res)
+        this.posts = res.data.posts
+        console.log(this.posts)
+      })
+      .catch(err => {
+        console.log(err)
+      })
       // try{ 
-      //   await this.$axios.post('http://localhost:8000/api/musicFileUpload', {
-      //               musicFile: this.musicFile,
-      //               coverImages: this.coverImages,
-      //               musicFileName: this.musicFileName,
-      //               genre: this.genre,
-      //               emotion: this.emotion,
-      //               }, config)
+      //   axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
+      //   .then(res => {
+      //     console.log(res)
+      //     this.posts = response.data.posts
+      //     console.log(this.posts)
+      //   })
       //   this.$router.push('/TopAfterLogin')
-
       // } catch(error){
       //   console.log(error)
       //   // console.log(this.musicFile)

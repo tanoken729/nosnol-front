@@ -44,6 +44,9 @@ export default {
   env:ENV,
   // axiosを利用してサーバにリクエストを送る
   axios: {
+    // baseURL: 'http://localhost:3000',
+    // baseURL: 'http://localhost:8000',
+    // baseURL: 'http://localhost:8000/api/v1',
     baseURL: ENV.API_BASE_URL,
     browserBaseURL: 'http://localhost:8000/',
     proxy: true

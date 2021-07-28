@@ -99,14 +99,6 @@ export default {
     async uploadMusicFile () {
       let formData = new FormData();
 
-      // formData.append('file', {
-      //   music_file: this.musicFile,
-      //   cover_image: this.coverImages,
-      //   title: this.musicFileName,
-      //   genre: this.genre,
-      //   emotions: this.emotion,
-      //   }
-      // );
       formData.append('music_file', this.musicFile);
       formData.append('cover_image', this.coverImages[0]);
       formData.append('title', this.musicFileName);
@@ -122,30 +114,7 @@ export default {
             'contentType': false,
             'processData': false
         },
-        // method: "POST",
-        // // 'X-HTTP-Method-Override': 'PUT',
-        // body: formData
-        // 'X-HTTP-Method-Override': 'PUT'
       };
-
-      // fetch("http://localhost:8000/api/musicFileUpload", config)
-      //   .then((res)=>{
-      //     return( res.json() );
-      //   })
-      //   .then((json)=>{
-      //     // 通信が成功した際の処理
-      //   })
-      //   .catch((error)=>{
-      //     // エラー処理
-      //   });
-
-      // axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
-      //     .then(function(response) {
-      //         console.log(response)
-      //     })
-      //     .catch(function(error) {
-      //         console.log(error)
-      //     })
 
       await this.$axios.post('api/musicFileUpload', formData, config)
       .then(res => {
@@ -157,19 +126,6 @@ export default {
       .catch(err => {
         console.log(err)
       })
-      // try{ 
-      //   axios.post('http://localhost:8000/api/musicFileUpload', formData, config)
-      //   .then(res => {
-      //     console.log(res)
-      //     this.posts = response.data.posts
-      //     console.log(this.posts)
-      //   })
-      //   this.$router.push('/TopAfterLogin')
-      // } catch(error){
-      //   console.log(error)
-      //   // console.log(this.musicFile)
-      //   // console.log(this.musicFileName)
-      // }
     },
     dragEnter() {
         // console.log('Enter Drop Area');
@@ -200,15 +156,6 @@ export default {
     setMusicFileFromBeforeMusicUploadModal (musicFileName) {
       this.musicFileName = musicFileName
     },
-    // hederSet () {
-    //   let config = {
-    //     headers: {
-    //         'content-type': 'multipart/form-data'
-    //     }
-    //   }
-    //   this.uploadMusicFile (config)
-    //   console.log(config)
-    // }
   },
 }
 </script>

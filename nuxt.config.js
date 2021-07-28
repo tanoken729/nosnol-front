@@ -45,7 +45,7 @@ export default {
   // axiosを利用してサーバにリクエストを送る
   axios: {
     baseURL: ENV.API_BASE_URL,
-    browserBaseURL: 'http://localhost:8000',
+    browserBaseURL: 'http://localhost:8000/',
     proxy: true
   },
   proxy: {

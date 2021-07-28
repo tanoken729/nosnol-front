@@ -52,12 +52,19 @@ export default {
     proxy: true
   },
   proxy: {
+    // '/api': 'http://sound-matching_api_app_1:8000/api/test',
+    // '/api': {
+    //   target: 'http://localhost:8000',
+    //   pathRewrite: {
+    //     '^/api': '/'
+    //   }
+    // }
     // '/api1/': 'http://localhost:8000',
     // '/api2/': {
     //   target: 'http://localhost:8000',
     //   pathRewrite: {'^/api/': ''}
     // },
-     '/proxy/': {
+    '/proxy/': {
       target: 'http://localhost:8000',
       pathRewrite: {'^/api/': '/'}
     },

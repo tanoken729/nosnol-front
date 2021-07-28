@@ -104,7 +104,7 @@ export default {
         //         console.log(error)
         //     })
         // })
-        this.$emit('openAfterMusicUploadModal', this.files, this.files[0].name);
+        this.$emit('openAfterMusicUploadModal', this.files[0], this.files[0].name);
         this.isEnter = false;
     }
   },

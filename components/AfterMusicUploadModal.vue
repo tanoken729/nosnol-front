@@ -108,14 +108,17 @@ export default {
       //   }
       // );
       formData.append('music_file', this.musicFile);
-      formData.append('cover_image', this.coverImages);
+      formData.append('cover_image', this.coverImages[0]);
       formData.append('title', this.musicFileName);
       formData.append('genre', this.genre);
       formData.append('emotions', this.emotion);
+      formData.append('user_id', '0'); //後にauthのidをセットする
 
       let config = {
         headers: {
             'content-type': 'multipart/form-data',
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Headers': '*',
             'contentType': false,
             'processData': false
         },
@@ -144,11 +147,12 @@ export default {
       //         console.log(error)
       //     })
 
-      await this.$axios.post('/proxy/api/musicFileUpload', formData, config)
+      await this.$axios.post('api/musicFileUpload', formData, config)
       .then(res => {
         console.log(res)
         this.posts = res.data.posts
         console.log(this.posts)
+        this.closeAfterMusicUploadModal()
       })
       .catch(err => {
         console.log(err)
@@ -178,6 +182,7 @@ export default {
         console.log('DragOver')
     },
     dropFile(event) {
+      // console.log(event.target)
       this.coverImages = [...event.dataTransfer.files]
       // console.log(this.coverImages)
       // console.log(this.musicFile)

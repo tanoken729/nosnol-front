@@ -2,6 +2,7 @@
   <div id="overlay" v-show="showContent" @click.self="closeBeforeMusicUploadModal">
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
+      <form method="post" enctype="multipart/form-data">
       <div class="drop_area" 
         @dragenter="dragEnter" 
         @dragleave="dragLeave" 
@@ -13,6 +14,11 @@
         <p>最大100MB、形式: MP3, AAC</p>
         {{files.file}}
       </div>
+      </form>
+<!-- <form method="POST" action="http://localhost:8000/api/musicFileUpload" enctype="multipart/form-data">
+  <input type="file" name="file"/><br>
+  <input type="submit" value="SUBMIT"/>
+</form> -->
       <!-- <div class="drop_area" v-if="isEnter">
         <p>ファイルを保持しています。</p>
         {{ files.name }}
@@ -85,7 +91,8 @@ export default {
     dragOver() {
         console.log('DragOver')
     },
-    dropFile() {
+    dropFile(event) {
+        // this.files = event
         this.files = [...event.dataTransfer.files]
         console.log(this.files[0].name)
         // this.files.forEach(file => {
@@ -97,7 +104,7 @@ export default {
         //         console.log(error)
         //     })
         // })
-        this.$emit('openAfterMusicUploadModal', this.files[0].name);
+        this.$emit('openAfterMusicUploadModal', this.files[0], this.files[0].name);
         this.isEnter = false;
     }
   },

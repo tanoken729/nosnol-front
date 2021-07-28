@@ -60,6 +60,20 @@ export default {
     //     '^/api': '/'
     //   }
     // }
+    // '/api1/': 'http://localhost:8000',
+    // '/api2/': {
+    //   target: 'http://localhost:8000',
+    //   pathRewrite: {'^/api/': ''}
+    // },
+    '/proxy/': {
+      target: 'http://localhost:8000',
+      pathRewrite: {'^/api/': '/'}
+    },
+    // '/api3/': {
+    //   target: 'http://localhost:8000',
+    //   pathRewrite: {'^/api/': ''}
+    // },
+    "secure": false
   },
 
   // 予めauthモジュールで使用するログイン用のルートを指定したり、使用する通信パターンを定義

@@ -122,6 +122,7 @@ export default {
         this.posts = res.data.posts
         console.log(this.posts)
         this.closeAfterMusicUploadModal()
+        location.reload();
       })
       .catch(err => {
         console.log(err)

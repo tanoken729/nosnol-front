@@ -104,7 +104,8 @@ export default {
       formData.append('title', this.musicFileName);
       formData.append('genre', this.genre);
       formData.append('emotions', this.emotion);
-      formData.append('user_id', '0'); //後にauthのidをセットする
+      formData.append('user_id', this.$store.state.auth.user.id);
+      formData.append('user_name', this.$store.state.auth.user.name);
 
       let config = {
         headers: {

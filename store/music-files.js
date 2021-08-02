@@ -10,19 +10,22 @@ const getters = {
 
 const mutations = {
   setMusicFileDataMutations(state, musicFileData) {
+    console.log(musicFileData)
     state.musicFileData = musicFileData
   }
 }
 
 const actions = {
-  setMusicFileData(vuexContext, payload) {
+  setMusicFileData(context, payload) {
+    
     const musicFiledatum = {
       clickedFileTitle: payload.clickedFileTitle,
       clickedFileCoverImage: payload.clickedFileCoverImage,
     }
     const musicFileData = [];
     musicFileData.push(musicFiledatum)
-    vuexContext.commit('setMusicFileDataMutations', musicFileData)
+    console.log(musicFiledatum)
+    context.commit('setMusicFileDataMutations', musicFileData)
   }
 }
 

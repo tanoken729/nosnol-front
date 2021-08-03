@@ -8,7 +8,7 @@
                     <img src="" alt="user icon" class="user-icon">
                 </div>
                 <div class="a-1-2">
-                    <h2>ユーザー名</h2>
+                    <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileUserName }}</h2>
                     <NuxtLink to="" class="follow">フォロー</NuxtLink>
                     <NuxtLink to="" class="follow">フォロワー</NuxtLink>
                 </div>
@@ -22,22 +22,19 @@
         <div class="a-b"></div>
         <div class="body">
             <div class="b">
+                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileTitle }}</h3>
                 <div class="b-1">
                     <div class="b-1-1">
-                        <button>再生ボタン</button>
+                    <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+                        <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
+                    </audio>
                     </div>
                 </div>
                 <div class="b-2">
                     <div class="b-1-2">
-                        <div>オーディオビジュアライザ</div>
+                        <img src="" alt="オーディオビジュアライザ">
                     </div>
                     <div class="b-1-3">
-                        <!-- <div>音声ファイルに設定された画像</div> -->
-                        <!-- state : {{ $store.state.musicFiles.musicFileData }} -->
-                        <br>
-                        <!-- getters : {{ $store.getters['musicFiles/musicFileData'] }} -->
-                        <br>
-                        <!-- v-forテスト：<p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileCoverImage }}さんの残高</p> -->
                         <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
                     </div>
                 </div>

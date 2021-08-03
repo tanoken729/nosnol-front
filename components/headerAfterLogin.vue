@@ -52,6 +52,8 @@ export default {
     return {
       showContent: false,
       showContent2: false,
+      musicFile: '',
+      musicFileName: '',
     }
   },
   methods: {

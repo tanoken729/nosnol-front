@@ -26,7 +26,7 @@ a {
   color: #000;
 }
 .header {
-  background-color: #C0C1EB;
+  background-color: #fff;
   display: flex;
   justify-content: space-between;
   font-size: 15px;

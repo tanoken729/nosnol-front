@@ -79,6 +79,9 @@ export default {
     setMusicFileData (clickedFileTitle, clickedFileCoverImage) {
       this.clickedFileTitle = clickedFileTitle
       this.clickedFileCoverImage = clickedFileCoverImage
+      console.log('setMusicFileData')
+      console.log(this.clickedFileTitle)
+      console.log(this.clickedFileCoverImage)
       this.$store.dispatch('musicFiles/setMusicFileData', {
         clickedFileTitle: this.clickedFileTitle,
         clickedFileCoverImage: this.clickedFileCoverImage
@@ -86,9 +89,6 @@ export default {
         // items: this.items,
         // items: this.items,
       })
-      console.log('setMusicFileData')
-      console.log(this.clickedFileTitle)
-      console.log(this.clickedFileCoverImage)
     }
   },
   // computed: {

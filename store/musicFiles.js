@@ -1,21 +1,20 @@
-const namespaced = true
-
-const state = {
+export const state = () => ({
   musicFileData: [],
-}
+})
 
-const getters = {
+export const getters = {
   musicFileData: state => state.musicFileData
 }
 
-const mutations = {
+export const mutations = {
   setMusicFileDataMutations(state, musicFileData) {
-    console.log(musicFileData)
+    // console.log(musicFileData)
+    console.log(state.musicFileData)
     state.musicFileData = musicFileData
   }
 }
 
-const actions = {
+export const actions = {
   setMusicFileData(context, payload) {
     
     const musicFiledatum = {
@@ -27,12 +26,4 @@ const actions = {
     console.log(musicFiledatum)
     context.commit('setMusicFileDataMutations', musicFileData)
   }
-}
-
-export default {
-  namespaced,
-  state,
-  mutations,
-  actions,
-  getters
 }

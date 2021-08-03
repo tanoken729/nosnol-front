@@ -32,10 +32,13 @@
                         <div>オーディオビジュアライザ</div>
                     </div>
                     <div class="b-1-3">
-                        <div>音声ファイルに設定された画像</div>
-                        {{ $store.getters.musicFileData }}
-                        <p v-for="(musicFiledatum, index) in musicFileData" :key="`first-${index}`">{{ musicFiledatum.clickedFileCoverImage }}さんの残高</p>
-                        <img :src="`${$axios.defaults.baseURL}storage/${$store.getters.musicFileData}`" class="cover-image">
+                        <!-- <div>音声ファイルに設定された画像</div> -->
+                        <!-- state : {{ $store.state.musicFiles.musicFileData }} -->
+                        <br>
+                        <!-- getters : {{ $store.getters['musicFiles/musicFileData'] }} -->
+                        <br>
+                        <!-- v-forテスト：<p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileCoverImage }}さんの残高</p> -->
+                        <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
                     </div>
                 </div>
             </div>
@@ -49,6 +52,8 @@
 </template>
 
 <script>
+import store from '../store';
+
 export default {
     computed: {
         musicFileData () {
@@ -167,5 +172,10 @@ footer {
   height: 100px;
   position: absolute;
   bottom: 0;
+}
+.cover-image {
+  height: 200px;
+  width: 200px;
+  display: flex;
 }
 </style>

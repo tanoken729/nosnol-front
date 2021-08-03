@@ -1,13 +1,14 @@
 <template>
 <div class="wrapper">
   <Header />
+  <body>
         <div class="a">
-            <div class="a-1">
-                <div class="a-1-1">
-                    <div>ユーザーアイコン</div>
+            <div class="a-1"> 
+                <div>
+                    <img src="" alt="user icon" class="user-icon">
                 </div>
                 <div class="a-1-2">
-                    <h2>ユーザー名</h2>
+                    <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileUserName }}</h2>
                     <NuxtLink to="" class="follow">フォロー</NuxtLink>
                     <NuxtLink to="" class="follow">フォロワー</NuxtLink>
                 </div>
@@ -17,20 +18,24 @@
                 <button class="btn">フォロー</button>
             </div>
         </div>
+      <div class="full-page">
         <div class="a-b"></div>
         <div class="body">
             <div class="b">
+                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileTitle }}</h3>
                 <div class="b-1">
                     <div class="b-1-1">
-                        <button>再生ボタン</button>
+                    <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+                        <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
+                    </audio>
                     </div>
                 </div>
                 <div class="b-2">
                     <div class="b-1-2">
-                        <div>オーディオビジュアライザ</div>
+                        <img src="" alt="オーディオビジュアライザ">
                     </div>
                     <div class="b-1-3">
-                        <div>音声ファイルに設定された画像</div>
+                        <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
                     </div>
                 </div>
             </div>
@@ -38,12 +43,21 @@
                 <div>いいね件数表示</div>
             </div>
         </div>
-        <footer>
-        </footer>
+    </div>
+  </body>
 </div>
 </template>
 
 <script>
+import store from '../store';
+
+export default {
+    computed: {
+        musicFileData () {
+            return this.$store.getters.musicFileData
+        }
+    }
+}
 </script>
 
 <style scoped>
@@ -51,12 +65,17 @@
   outline: solid 1px #000;
 } */
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
-.body {
-    background-color: #F0F1F8
+body {
+  margin-top: 10px;
+  padding: 0;
 }
-footer {
-    background-color: #F0F1F8
+
+.full-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: #F0F1F8
 }
+
 h2 {
     font-size: 20px;
 }
@@ -66,15 +85,18 @@ h2 {
     margin: 0 auto;
     width: 60%;
     padding: 0;
+    background-color: #fff;
 }
 .a-1 {
     margin: 40px auto;
     display: flex;
 }
-.a-1-1 {
+.user-icon {
     padding: 60px 10px;
     border: 1px solid rgb(185, 184, 184);
     border-radius: 0.5rem;
+    min-width: 150px;
+    max-height: 150px;
 }
 .a-1-2 {
     padding: 10px 10px;
@@ -147,5 +169,10 @@ footer {
   height: 100px;
   position: absolute;
   bottom: 0;
+}
+.cover-image {
+  height: 200px;
+  width: 200px;
+  display: flex;
 }
 </style>

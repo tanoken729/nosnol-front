@@ -26,6 +26,7 @@
           </div>
       </nav>
       <div class="content-fit">
+        {{$store.state.auth.loggedIn}}
       <NuxtLink to="/musicfiledetail">
       <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name)">
         <div>
@@ -47,7 +48,7 @@ import headerAfterLogin from "@/components/headerAfterLogin.vue";
 import store from '../store';
 
 export default {
-  // middleware: 'user_auth',
+  middleware: 'user_auth',
   components: {
     headerAfterLogin,
   },

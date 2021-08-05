@@ -4,6 +4,7 @@
     <div class="aaa">
       <form @submit.stop.prevent="submit" class="form">
           <h2 class="title">ログイン</h2>
+          {{$store.state.auth.loggedIn}}
           <table>
           <div v-if="$v.form.email.$error && !$v.form.email.required" class="error-message">
             メールアドレスを入力してください。

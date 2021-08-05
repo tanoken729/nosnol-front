@@ -70,6 +70,12 @@ export default {
       target: 'http://localhost:8000',
       pathRewrite: {'^/api/': '/'}
     },
+    '/api': {
+      target: 'http://localhost',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    },
     // '/api3/': {
     //   target: 'http://localhost:8000',
     //   pathRewrite: {'^/api/': ''}
@@ -103,10 +109,10 @@ export default {
             method:'post',
             propertyName:'access_token'
           },
-          logout:{
-            url:'/api/v1/auth/logout',
-            method:'post',
-          },
+          // logout:{
+          //   url:'/api/v1/auth/logout',
+          //   method:'post',
+          // },
           user:{
             url:'/api/v1/auth/me',
             method:'get',

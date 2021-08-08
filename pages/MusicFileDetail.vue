@@ -4,8 +4,8 @@
   <body>
         <div class="a">
             <div class="a-1"> 
-                <div>
-                    <img src="" alt="user icon" class="user-icon">
+                <div class="user-icon">
+                    <img src="" alt="">
                 </div>
                 <div class="a-1-2">
                     <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileUserName }}</h2>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="b-2">
                     <div class="b-1-2">
-                        <img src="" alt="オーディオビジュアライザ">
+                        <img src="1051470.png" alt="オーディオビジュアライザ" class="audio-image">
                     </div>
                     <div class="b-1-3">
                         <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
@@ -96,7 +96,7 @@ h2 {
     border: 1px solid rgb(185, 184, 184);
     border-radius: 0.5rem;
     min-width: 150px;
-    max-height: 150px;
+    height: 150px;
 }
 .a-1-2 {
     padding: 10px 10px;
@@ -174,5 +174,9 @@ footer {
   height: 200px;
   width: 200px;
   display: flex;
+}
+.audio-image {
+  height: 200px;
+  width: 200px;
 }
 </style>

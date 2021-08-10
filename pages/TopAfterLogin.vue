@@ -27,7 +27,7 @@
       </nav>
       <div class="content-fit">
       <NuxtLink to="/musicfiledetail">
-      <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name)">
+      <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id)">
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3>{{ item.title }}</h3>
@@ -76,16 +76,19 @@ export default {
       })
   },
   methods: {
-    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName) {
+    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId) {
       this.clickedFileTitle = clickedFileTitle
       this.clickedFileCoverImage = clickedFileCoverImage
       this.clickedFileMusicfile = clickedFileMusicfile
       this.clickedFileUserName = clickedFileUserName
+      this.clickedFileUserId = clickedFileUserId
       this.$store.dispatch('musicFiles/setMusicFileData', {
         clickedFileTitle: this.clickedFileTitle,
         clickedFileCoverImage: this.clickedFileCoverImage,
         clickedFileMusicfile: this.clickedFileMusicfile,
         clickedFileUserName: this.clickedFileUserName,
+        // フォローで渡すためのやつ
+        clickedFileUserId: this.clickedFileUserId,
       })
     }
   },

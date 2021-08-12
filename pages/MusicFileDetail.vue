@@ -1,50 +1,73 @@
 <template>
 <div class="wrapper">
-  <Header />
+  <headerAfterLogin />
   <body>
-        <div class="a">
-            <div class="a-1">
+        <!-- 詳細ファイルの上部分 -->
+        <div class="user-music-file-detail-header">
+            <!-- クリエイターネーム・アイコン・フォロー数フォロワー数 -->
+            <div class="user-info">
+                <!-- アイコン -->
                 <div class="user-icon">
                     <img src="" alt="">
                 </div>
-                <div class="a-1-2">
+                <!-- クリエイターネーム・フォロー数フォロワー数 -->
+                <div class="user-status">
+                    <!-- クリエイターネーム -->
                     <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileUserName }}</h2>
+                    <!-- フォロー数フォロワー数 -->
                     <NuxtLink to="" class="follow">フォロー</NuxtLink>
                     <NuxtLink to="" class="follow">フォロワー</NuxtLink>
                 </div>
             </div>
-            <div class="a-2" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+            <!-- フォローボタン -->
+            <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
                 <!-- <button class="btn">メッセージ</button> -->
-                <button v-if="followingId === musicFiledatum.clickedFileUserId" class="btn-after-follow" @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)">フォロー中</button>
-                <button v-else class="btn-before-follow" @click="follow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)">フォローする</button>
+                <button
+                    v-if="followingId === musicFiledatum.clickedFileUserId"
+                    class="btn-after-follow"
+                    @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
+                >
+                    フォロー中
+                </button>
+                <button
+                    v-else
+                    class="btn-before-follow"
+                    @click="follow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
+                >
+                    フォローする
+                </button>
             </div>
         </div>
-      <div class="full-page">
-        <div class="a-b"></div>
-        <div class="body">
-            <div class="b">
-                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileTitle }}</h3>
-                <div class="b-1">
-                    <div class="b-1-1">
-                    <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
-                        <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
-                    </audio>
-                    </div>
-                </div>
-                <div class="b-2">
-                    <div class="b-1-2">
-                        <img src="1051470.png" alt="オーディオビジュアライザ" class="audio-image">
-                    </div>
-                    <div class="b-1-3">
-                        <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
-                    </div>
-                </div>
+        <!-- 詳細ファイルの下の余白をカラー指定するためのdiv -->
+        <div class="full-page">
+        <!-- 上と下を分ける境界線 -->
+        <div class="border-for-header-body"></div>
+        <!-- 詳細ファイルの下部分 -->
+        <div class="user-music-file-detail-body">
+            <!-- 音声ファイルのタイトル -->
+            <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileTitle }}</h3>
+            <!-- 音声ファイルデータ -->
+            <div class="user-music-file-data">
+                <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+                    <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
+                </audio>
             </div>
-            <div class="c">
-                <div>いいね件数表示</div>
+            <!-- エフェクト・音声ファイルカバー画像 -->
+            <div class="user-music-file-image">
+                <!-- エフェクト -->
+                <div class="user-music-file-audio-image">
+                    <img src="1051470.png" alt="audio visualizer" class="audio-image">
+                </div>
+                <!-- 音声ファイルカバー画像 -->
+                <div class="user-music-file-cover-image">
+                    <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="like-display">
+            <div>❤️</div>
+        </div>
+        </div>
   </body>
 </div>
 </template>
@@ -143,7 +166,7 @@ body {
 h2 {
     font-size: 20px;
 }
-.a {
+.user-music-file-detail-header {
     /* text-align: center; */
     display: flex;
     margin: 0 auto;
@@ -151,7 +174,7 @@ h2 {
     padding: 0;
     background-color: #fff;
 }
-.a-1 {
+.user-info {
     margin: 40px auto;
     display: flex;
 }
@@ -162,7 +185,7 @@ h2 {
     min-width: 150px;
     height: 150px;
 }
-.a-1-2 {
+.user-status {
     padding: 10px 10px;
 }
 .follow {
@@ -174,14 +197,14 @@ a {
 .follow:hover {
     color: #000;
 }
-.a-2 {
+.follow-action-to-user {
     padding: 30px 10px;
     margin: 0 auto;
 }
-.a-b {
+.border-for-header-body {
     border-bottom: 1px solid rgb(185, 184, 184);
 }
-.b {
+.user-music-file-detail-body {
     margin: 0 auto;
     width: 70%;
     padding: 0;
@@ -190,20 +213,20 @@ a {
     border-bottom: 1px solid rgb(185, 184, 184);
     background-color: #fff;
 }
-.b-1-1 {
+.user-music-file-data {
     padding: 10px;
 }
-.b-1-2 {
+.user-music-file-audio-image {
     padding: 10px;
 }
-.b-1-3 {
+.user-music-file-cover-image {
     padding: 10px;
 }
-.b-2 {
+.user-music-file-image {
     display: flex;
     justify-content: space-between;
 }
-.c {
+.like-display {
     width: 70%;
     margin: 0 auto;
     border-right: 1px solid rgb(185, 184, 184);

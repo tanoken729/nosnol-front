@@ -4,7 +4,7 @@
             <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
-                <li>検索</li>
+                <!-- <li>検索</li> -->
                 <NuxtLink tag="li" to="/signin"><a>ログイン</a></NuxtLink>
                 <NuxtLink tag="li" to="/signup"><button class="btn">新規登録</button></NuxtLink>
             </ul>

@@ -4,7 +4,7 @@
             <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
-                <li>検索</li>
+                <!-- <li>検索</li> -->
                 <li>{{ $store.state.auth.user.name }}</li>
                 <button @click="logout">ログアウト</button>
                 <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>

@@ -3,7 +3,7 @@
   <Header />
   <body>
         <div class="a">
-            <div class="a-1"> 
+            <div class="a-1">
                 <div class="user-icon">
                     <img src="" alt="">
                 </div>
@@ -13,9 +13,10 @@
                     <NuxtLink to="" class="follow">フォロワー</NuxtLink>
                 </div>
             </div>
-            <div class="a-2">
-                <button class="btn">メッセージ</button>
-                <button class="btn">フォロー</button>
+            <div class="a-2" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+                <!-- <button class="btn">メッセージ</button> -->
+                <button v-if="followingId === musicFiledatum.clickedFileUserId" class="btn-after-follow" @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)">フォロー中</button>
+                <button v-else class="btn-before-follow" @click="follow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)">フォローする</button>
             </div>
         </div>
       <div class="full-page">
@@ -52,9 +53,72 @@
 import store from '../store';
 
 export default {
+    asyncData({ $axios }) {
+        // AxiosによるHTTP通信 ...（1）
+        // $axios.$get(`api/${this.$store.state.auth.user.id}/follow`)
+        // .then(response => {
+        //     this.followInfo = response
+        //     this.followingId = this.followInfo.followInfo[0].following_id
+        // })
+    },
+    data(){
+        return {
+            clickedFileUserId :'',
+            clickedLoginUserId :'',
+            followInfo: [],
+            followingId: '',
+        }
+    },
+    beforeCreate: function() {
+        this.$axios.$get(`api/${this.$store.state.auth.user.id}/follow`)
+        .then(response => {
+            this.followInfo = response
+            this.followingId = this.followInfo.followInfo[0].following_id
+        })
+    },
     computed: {
         musicFileData () {
             return this.$store.getters.musicFileData
+        }
+    },
+    methods: {
+        async follow (clickedFileUserId, clickedLoginUserId) {
+            this.clickedFileUserId = clickedFileUserId
+            this.clickedLoginUserId = clickedLoginUserId
+            this.$store.dispatch('musicFiles/follow', {
+                clickedFileUserId: this.clickedFileUserId,
+                clickedLoginUserId: this.clickedLoginUserId,
+            })
+            await this.$axios.post('api/follow', {
+                following_id: this.clickedLoginUserId,
+                followed_id: this.clickedFileUserId,
+            })
+            .then(res => {
+                console.log(res)
+                this.$axios.$get(`api/${this.clickedLoginUserId}/follow`)
+                .then(res => {
+                    this.followInfo = res
+                    this.followingId = this.followInfo.followInfo[0].following_id
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        async unfollow (clickedFileUserId, clickedLoginUserId) {
+            this.followingId = false
+            this.clickedFileUserId = clickedFileUserId
+            this.clickedLoginUserId = clickedLoginUserId
+            await this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }
 }
@@ -148,7 +212,23 @@ a {
     padding: 0 10px;
     background-color: #fff;
 }
-.btn {
+.btn-before-follow {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: 1px solid #c0c0c0;
+  background-color: #000CFF;
+  color: #fff;
+  font-size: 15px;
+}
+.btn-before-follow:hover {
+  padding: 7px 20px;
+  border-radius: 0.5rem;
+  border: 1px solid #696969;
+  background-color: rgb(60, 39, 247);
+  color: #fff;
+  font-size: 15px;
+}
+.btn-after-follow {
   padding: 7px 20px;
   border-radius: 0.5rem;
   border: 1px solid #c0c0c0;
@@ -156,7 +236,7 @@ a {
   color: #000;
   font-size: 15px;
 }
-.btn:hover {
+.btn-after-follow:hover {
   padding: 7px 20px;
   border-radius: 0.5rem;
   border: 1px solid #696969;

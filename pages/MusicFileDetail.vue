@@ -17,9 +17,6 @@
                 <!-- <button class="btn">メッセージ</button> -->
                 <button v-if="followingId === musicFiledatum.clickedFileUserId" class="btn-after-follow" @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)">フォロー中</button>
                 <button v-else class="btn-before-follow" @click="follow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)">フォローする</button>
-                <!-- musicFiledatum.clickedFileUserId：{{musicFiledatum.clickedFileUserId}}
-                followingId：{{followingId}} -->
-                <!-- <input type="text" class="text-box" v-model="followingId"> -->
             </div>
         </div>
       <div class="full-page">
@@ -88,8 +85,6 @@ export default {
         async follow (clickedFileUserId, clickedLoginUserId) {
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
-            console.log(this.clickedFileUserId)
-            console.log(this.clickedLoginUserId)
             this.$store.dispatch('musicFiles/follow', {
                 clickedFileUserId: this.clickedFileUserId,
                 clickedLoginUserId: this.clickedLoginUserId,
@@ -101,11 +96,12 @@ export default {
             .then(res => {
                 console.log(res)
                 this.$axios.$get(`api/${this.clickedLoginUserId}/follow`)
-                .then(response => {
-                    this.followInfo = response
-                    console.log(this.followInfo)
-                    console.log(this.followInfo.followInfo[0].following_id)
+                .then(res => {
+                    this.followInfo = res
                     this.followingId = this.followInfo.followInfo[0].following_id
+                })
+                .catch(err => {
+                    console.log(err)
                 })
             })
             .catch(err => {
@@ -113,12 +109,15 @@ export default {
             })
         },
         async unfollow (clickedFileUserId, clickedLoginUserId) {
+            this.followingId = false
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
-            console.log(this.clickedFileUserId)
             await this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`)
-                .then(response => {
-                    this.followingId = ''
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err)
                 })
         }
     }

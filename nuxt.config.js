@@ -27,6 +27,7 @@ export default {
     "~/plugins/vuelidate.js",
     'plugins/axios',
     '~plugins/vue-aplayer.js',
+    { src: '~/plugins/localStorage.js', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

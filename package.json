@@ -16,7 +16,8 @@
     "core-js": "^2.6.11",
     "nuxt": "^2.15.3",
     "vue-aplayer": "^1.6.1",
-    "vuelidate": "^0.7.6"
+    "vuelidate": "^0.7.6",
+    "vuex-persistedstate": "^4.0.0"
   },
   "devDependencies": {}
 }

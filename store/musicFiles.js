@@ -13,11 +13,11 @@ export const getters = {
 export const mutations = {
   setMusicFileDataMutations(state, musicFileData) {
     // console.log(musicFileData)
-    console.log(state.musicFileData)
+    // console.log(state.musicFileData)
     state.musicFileData = musicFileData
   },
   setFileUserId(state, clickedFileUserId) {
-    console.log(state.clickedFileUserId)
+    // console.log(state.clickedFileUserId)
     state.clickedFileUserId = clickedFileUserId
   },
   setLoginUserId(state, clickedLoginUserId) {
@@ -37,7 +37,7 @@ export const actions = {
     }
     const musicFileData = [];
     musicFileData.push(musicFiledatum)
-    console.log(musicFiledatum)
+    // console.log(musicFiledatum)
     context.commit('setMusicFileDataMutations', musicFileData)
   },
   follow(context, payload) {

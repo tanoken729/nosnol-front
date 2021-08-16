@@ -2,10 +2,10 @@
     <nav class="side-bar">
     <h3>感情</h3>
         <div class="emotion">
-        <input type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="label">喜</label>
-        <input type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="label">怒</label>
-        <input type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="label">哀</label>
-        <input type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="label">楽</label>
+        <input type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
+        <input type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
+        <input type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
+        <input type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
         </div>
     <h3>ジャンル</h3>
         <div class="genre">
@@ -47,14 +47,6 @@
   color: #696969;
 }
 /* 感情 */
-.emotion li {
-  /* border: 1px solid #d4d3d3;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 0.5rem;
-  width: 50px;
-  text-align: center; */
-}
 .joy:hover {
   border: 1px solid #FF7F00;
   margin-top: 10px;
@@ -109,7 +101,7 @@
 input[type=radio] {
   display: none;
 }
-input[type="radio"]:checked + .label {
+input[type="radio"]:checked + .emotion-label {
   border: 1px solid #d4d3d3;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -121,7 +113,7 @@ input[type="radio"]:checked + .label {
   padding: 10px 10px;
   margin: 10px auto;
 }
-.label {
+.emotion-label {
   border: 1px solid #d4d3d3;
   margin-bottom: 10px;
   border-radius: 0.5rem;
@@ -132,7 +124,7 @@ input[type="radio"]:checked + .label {
   display:block;
   position:relative;
 }
-.label:hover {
+.emotion-label:hover {
   color: #000CFF;
   background-color: #e5e9f7;
   margin: 10px auto;

@@ -92,15 +92,15 @@ export default {
             followingId: '',
         }
     },
-    beforeCreate: function() {
+    asyncData: function(context) {
         let clickedFileUserId = ''
-        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
             // console.log(musicFiledatum.clickedFileUserId)
         });
         // console.log(clickedFileUserId)
         // console.log(this.$store.getters['musicFiles/musicFileData'])
-        this.$axios.$get(`api/${clickedFileUserId}/${this.$store.state.auth.user.id}/getFollowInfo`)
+        context.$axios.$get(`api/${clickedFileUserId}/${context.store.state.auth.user.id}/getFollowInfo`)
         .then(response => {
             this.followInfo = response
             this.followingId = this.followInfo.followInfo[0].following_id

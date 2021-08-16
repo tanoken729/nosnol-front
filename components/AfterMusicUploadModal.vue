@@ -47,10 +47,10 @@
           </div>
         <h3>感情</h3>
         <div class="emotion">
-          <input type="radio" name="emotion" value="joy" @change="selectedEmotion" id="joy"><label for="joy" class="label">喜</label>
-          <input type="radio" name="emotion" value="angry" @change="selectedEmotion" id="angry"><label for="angry" class="label">怒</label>
-          <input type="radio" name="emotion" value="sorrow" @change="selectedEmotion" id="sorrow"><label for="sorrow" class="label">哀</label>
-          <input type="radio" name="emotion" value="easy" @change="selectedEmotion" id="easy"><label for="easy" class="label">楽</label>
+          <input type="radio" name="emotion-in-modal" value="joy" @change="selectedEmotion" id="joy-in-modal"><label for="joy-in-modal" class="emotion-label">喜</label>
+          <input type="radio" name="emotion-in-modal" value="angry" @change="selectedEmotion" id="angry-in-modal"><label for="angry-in-modal" class="emotion-label">怒</label>
+          <input type="radio" name="emotion-in-modal" value="sorrow" @change="selectedEmotion" id="sorrow-in-modal"><label for="sorrow-in-modal" class="emotion-label">哀</label>
+          <input type="radio" name="emotion-in-modal" value="easy" @change="selectedEmotion" id="easy-in-modal"><label for="easy-in-modal" class="emotion-label">楽</label>
         </div>
         {{emotion}}
           <!-- <ul class="emotion">
@@ -271,7 +271,7 @@ input.text-box {
 input[type=radio] {
 display: none;
 }
-input[type="radio"]:checked + label {
+input[type="radio"]:checked + .emotion-label {
   border: 1px solid #d4d3d3;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -283,7 +283,7 @@ input[type="radio"]:checked + label {
   padding: 10px 10px;
   margin: 0px 10px;
 }
-.label {
+.emotion-label {
   border: 1px solid #d4d3d3;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -306,9 +306,17 @@ cursor: pointer;
 border: 2px solid #006DD9;
 border-radius: 5px; */
 }
-.label:hover {
+.emotion-label:hover {
   color: #000CFF;
   background-color: #e5e9f7;
+  border: 1px solid #d4d3d3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  width: 50px;
+  text-align: center;
+  padding: 10px 10px;
+  margin: 0px 10px;
 }
 
 

@@ -68,6 +68,10 @@ export default {
         // フォローで渡すためのやつ
         clickedFileUserId: this.clickedFileUserId,
       })
+      // this.$store.dispatch('musicFiles/setFollowState', {
+      //   clickedLoginUserId: this.$store.state.auth.user.id,
+      //   clickedFileUserId: this.clickedFileUserId,
+      // })
     }
   },
   // computed: {

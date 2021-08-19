@@ -1,13 +1,15 @@
 export const state = () => ({
   musicFileData: [],
-  clickedFileUserId: '',
-  clickedLoginUserId: '',
+  // clickedFileUserId: '',
+  // clickedLoginUserId: '',
+  items:''
 })
 
 export const getters = {
   musicFileData: state => state.musicFileData,
-  clickedFileUserId: state => state.clickedFileUserId,
-  clickedLoginUserId: state => state.clickedLoginUserId,
+  // clickedFileUserId: state => state.clickedFileUserId,
+  // clickedLoginUserId: state => state.clickedLoginUserId,
+  items: (state) => state.items
 }
 
 export const mutations = {
@@ -16,14 +18,18 @@ export const mutations = {
     // console.log(state.musicFileData)
     state.musicFileData = musicFileData
   },
-  setFileUserId(state, clickedFileUserId) {
-    // console.log(state.clickedFileUserId)
-    state.clickedFileUserId = clickedFileUserId
-  },
-  setLoginUserId(state, clickedLoginUserId) {
-    console.log(state.clickedLoginUserId)
-    state.clickedLoginUserId = clickedLoginUserId
-  },
+  setfollowInfo (state, { items }) {
+    state.items = items
+    console.log(state.items)
+  }
+  // setFileUserId(state, clickedFileUserId) {
+  //   // console.log(state.clickedFileUserId)
+  //   state.clickedFileUserId = clickedFileUserId
+  // },
+  // setLoginUserId(state, clickedLoginUserId) {
+  //   console.log(state.clickedLoginUserId)
+  //   state.clickedLoginUserId = clickedLoginUserId
+  // },
 }
 
 export const actions = {
@@ -40,8 +46,17 @@ export const actions = {
     // console.log(musicFiledatum)
     context.commit('setMusicFileDataMutations', musicFileData)
   },
-  follow(context, payload) {
-    context.commit('setFileUserId', payload.clickedFileUserId)
-    context.commit('setLoginUserId', payload.clickedLoginUserId)
+  // follow(context, payload) {
+  //   context.commit('setFileUserId', payload.clickedFileUserId)
+  //   context.commit('setLoginUserId', payload.clickedLoginUserId)
+  // },
+  async setFollowState(context, payload) {
+    await this.$axios.$get(`api/${payload.clickedFileUserId}/${payload.clickedLoginUserId}/getFollowInfo`)
+    .then(response => {
+      console.log(response)
+        let followInfo = response
+        let followingId = followInfo.followInfo[0].followed_id
+        context.commit('setfollowInfo', { items: followingId })
+    })
   }
 }

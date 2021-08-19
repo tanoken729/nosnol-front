@@ -1,5 +1,7 @@
 process.env.DEBUG = 'nuxt:*'
 const ENV = require('dotenv').config().parsed;
+import * as FontAwesome from './build/fontawesome'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -35,7 +37,15 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    ['@nuxtjs/fontawesome', { component: 'fontAwesome', suffix: true }]
   ],
+  fontawesome: {
+    icons: {
+      solid: FontAwesome.solid,
+      regular: FontAwesome.regular,
+      brands: FontAwesome.brands
+    }
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

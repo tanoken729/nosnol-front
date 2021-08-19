@@ -23,7 +23,7 @@
             <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
                 <!-- <button class="btn">メッセージ</button> -->
                 <button
-                    v-if="followingId === $store.state.auth.user.id"
+                    v-if="musicFiledatum.clickedFileUserId === $store.getters['musicFiles/items']"
                     class="btn-after-follow"
                     @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
                 >
@@ -65,7 +65,8 @@
             </div>
         </div>
         <div class="like-display">
-            <div>❤️</div>
+            <font-awesome-icon :icon="['far', 'heart']" class="font-awesome-size" />
+            <font-awesome-icon :icon="['fas', 'heart']" class="font-awesome-size-solid" />
         </div>
         </div>
   </body>
@@ -74,6 +75,7 @@
 
 <script>
 import store from '../store';
+import { mapGetters } from 'vuex'
 
 export default {
     asyncData({ $axios }) {
@@ -100,26 +102,23 @@ export default {
         });
         // console.log(clickedFileUserId)
         // console.log(this.$store.getters['musicFiles/musicFileData'])
-        context.$axios.$get(`api/${clickedFileUserId}/${context.store.state.auth.user.id}/getFollowInfo`)
-        .then(response => {
-            this.followInfo = response
-            this.followingId = this.followInfo.followInfo[0].following_id
-            // console.log(response)
-        })
+      context.store.dispatch('musicFiles/setFollowState', {
+        clickedLoginUserId: context.store.state.auth.user.id,
+        clickedFileUserId: clickedFileUserId,
+      })
+
     },
     computed: {
-        musicFileData () {
-            return this.$store.getters.musicFileData
-        }
+        ...mapGetters(['items'])
     },
     methods: {
         async follow (clickedFileUserId, clickedLoginUserId) {
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
-            this.$store.dispatch('musicFiles/follow', {
-                clickedFileUserId: this.clickedFileUserId,
-                clickedLoginUserId: this.clickedLoginUserId,
-            })
+            // this.$store.dispatch('musicFiles/follow', {
+            //     clickedFileUserId: this.clickedFileUserId,
+            //     clickedLoginUserId: this.clickedLoginUserId,
+            // })
             await this.$axios.post('api/follow', {
                 following_id: this.clickedLoginUserId,
                 followed_id: this.clickedFileUserId,
@@ -160,6 +159,14 @@ export default {
   outline: solid 1px #000;
 } */
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
+.font-awesome-size {
+    font-size: 30px ;
+    color: #696969;
+}
+.font-awesome-size-solid {
+    font-size: 30px ;
+    color: #f83979;
+}
 body {
   margin-top: 10px;
   padding: 0;

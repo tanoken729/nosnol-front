@@ -23,7 +23,7 @@
             <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
                 <!-- <button class="btn">メッセージ</button> -->
                 <button
-                    v-if="musicFiledatum.clickedFileUserId === $store.getters['musicFiles/items']"
+                    v-if="musicFiledatum.clickedFileUserId === followedId"
                     class="btn-after-follow"
                     @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
                 >
@@ -84,6 +84,7 @@ export default {
             clickedLoginUserId :'',
             followInfo: [],
             followingId: '',
+            followedId: '',
         }
     },
     asyncData: function(context) {
@@ -96,11 +97,16 @@ export default {
             clickedFileUserId: clickedFileUserId,
         })
     },
+    created: function() {
+        this.followedId = this.$store.getters['musicFiles/items']
+        console.log(this.followedId)
+    },
     computed: {
         ...mapGetters(['items'])
     },
     methods: {
         async follow (clickedFileUserId, clickedLoginUserId) {
+            this.followedId = clickedFileUserId
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.post('api/follow', {
@@ -123,7 +129,7 @@ export default {
             })
         },
         async unfollow (clickedFileUserId, clickedLoginUserId) {
-            this.followingId = false
+            this.followedId = false
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`)

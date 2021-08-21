@@ -78,14 +78,6 @@ import store from '../store';
 import { mapGetters } from 'vuex'
 
 export default {
-    asyncData({ $axios }) {
-        // AxiosによるHTTP通信 ...（1）
-        // $axios.$get(`api/${this.$store.state.auth.user.id}/follow`)
-        // .then(response => {
-        //     this.followInfo = response
-        //     this.followingId = this.followInfo.followInfo[0].following_id
-        // })
-    },
     data(){
         return {
             clickedFileUserId :'',
@@ -98,15 +90,11 @@ export default {
         let clickedFileUserId = ''
         context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
-            // console.log(musicFiledatum.clickedFileUserId)
         });
-        // console.log(clickedFileUserId)
-        // console.log(this.$store.getters['musicFiles/musicFileData'])
-      context.store.dispatch('musicFiles/setFollowState', {
-        clickedLoginUserId: context.store.state.auth.user.id,
-        clickedFileUserId: clickedFileUserId,
-      })
-
+        context.store.dispatch('musicFiles/setFollowState', {
+            clickedLoginUserId: context.store.state.auth.user.id,
+            clickedFileUserId: clickedFileUserId,
+        })
     },
     computed: {
         ...mapGetters(['items'])
@@ -115,10 +103,6 @@ export default {
         async follow (clickedFileUserId, clickedLoginUserId) {
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
-            // this.$store.dispatch('musicFiles/follow', {
-            //     clickedFileUserId: this.clickedFileUserId,
-            //     clickedLoginUserId: this.clickedLoginUserId,
-            // })
             await this.$axios.post('api/follow', {
                 following_id: this.clickedLoginUserId,
                 followed_id: this.clickedFileUserId,

@@ -65,7 +65,8 @@
             </div>
         </div>
         <div class="like-display">
-            <div>❤️</div>
+            <font-awesome-icon :icon="['far', 'heart']" class="like-font-regular" />
+            <font-awesome-icon :icon="['fas', 'heart']" class="like-font-solid" />
         </div>
         </div>
   </body>
@@ -289,5 +290,13 @@ footer {
 .audio-image {
   height: 200px;
   width: 200px;
+}
+.like-font-regular {
+    font-size: 30px ;
+    color: #696969;
+}
+.like-font-solid {
+    font-size: 30px ;
+    color: #f83979;
 }
 </style>

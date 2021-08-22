@@ -64,9 +64,19 @@
                 </div>
             </div>
         </div>
-        <div class="like-display">
-            <font-awesome-icon :icon="['far', 'heart']" class="like-font-regular" />
-            <font-awesome-icon :icon="['fas', 'heart']" class="like-font-solid" />
+        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+            <font-awesome-icon
+                :icon="['fas', 'heart']"
+                class="like-font-solid"
+                v-if="userId === $store.state.auth.user.id"
+                @click="unlike(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
+            />
+            <font-awesome-icon
+                :icon="['far', 'heart']"
+                class="like-font-regular"
+                v-else
+                @click="like(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
+            />
         </div>
         </div>
   </body>
@@ -77,35 +87,26 @@
 import store from '../store';
 
 export default {
-    asyncData({ $axios }) {
-        // AxiosによるHTTP通信 ...（1）
-        // $axios.$get(`api/${this.$store.state.auth.user.id}/follow`)
-        // .then(response => {
-        //     this.followInfo = response
-        //     this.followingId = this.followInfo.followInfo[0].following_id
-        // })
-    },
     data(){
         return {
             clickedFileUserId :'',
             clickedLoginUserId :'',
             followInfo: [],
             followingId: '',
+            clickedFileId: '',
+            likeInfo: [],
+            userId: '',
         }
     },
     beforeCreate: function() {
         let clickedFileUserId = ''
         this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
-            // console.log(musicFiledatum.clickedFileUserId)
         });
-        // console.log(clickedFileUserId)
-        // console.log(this.$store.getters['musicFiles/musicFileData'])
         this.$axios.$get(`api/${clickedFileUserId}/${this.$store.state.auth.user.id}/getFollowInfo`)
         .then(response => {
             this.followInfo = response
             this.followingId = this.followInfo.followInfo[0].following_id
-            // console.log(response)
         })
     },
     computed: {
@@ -151,7 +152,42 @@ export default {
                 .catch(err => {
                     console.log(err)
                 })
-        }
+        },
+        async like (clickedFileId, clickedLoginUserId) {
+            this.clickedFileId = clickedFileId
+            this.clickedLoginUserId = clickedLoginUserId
+            await this.$axios.post('api/like', {
+                user_id: this.clickedLoginUserId,
+                // ここでリクエストするのはユーザーのidでなくファイルのid
+                music_file_id: this.clickedFileId,
+            })
+            .then(res => {
+                // console.log(res)
+                this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getLikeInfo`)
+                .then(res => {
+                    this.likeInfo = res
+                    this.userId = this.likeInfo.likeInfo[0].user_id
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        async unlike (clickedFileId, clickedLoginUserId) {
+            this.followingId = false
+            this.clickedFileId = clickedFileId
+            this.clickedLoginUserId = clickedLoginUserId
+            await this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unfollow`)
+                .then(res => {
+                    // console.log(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
     }
 }
 </script>
@@ -294,6 +330,11 @@ footer {
 .like-font-regular {
     font-size: 30px ;
     color: #696969;
+}
+.like-font-regular:hover {
+    font-size: 30px ;
+    color: #696969;
+    background-color: rgba(22, 24, 35, 0.06);
 }
 .like-font-solid {
     font-size: 30px ;

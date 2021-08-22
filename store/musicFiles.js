@@ -55,7 +55,18 @@ export const actions = {
     .then(response => {
       console.log(response)
         let followInfo = response
-        let followingId = followInfo.followInfo[0].followed_id
+        let followingId = ''
+        // console.log(response)
+        // console.log(followInfo.length)
+        console.log(followInfo.followInfo[0].hasOwnProperty('followed_id'))
+        if (followInfo.followInfo[0].hasOwnProperty('followed_id')) {
+          followingId = followInfo.followInfo[0].followed_id
+          console.log('ifだよ')
+        } else {
+          followingId = false
+          console.log('elseだよ')
+        }
+        // console.log(followInfo.followInfo[0].followed_id)
         context.commit('setfollowInfo', { items: followingId })
     })
   }

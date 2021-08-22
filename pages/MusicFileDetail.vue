@@ -89,6 +89,7 @@ export default {
     },
     asyncData: function(context) {
         let clickedFileUserId = ''
+        // 配列でclickedFileUserId取得
         context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
         });
@@ -118,7 +119,7 @@ export default {
                 this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/getFollowInfo`)
                 .then(res => {
                     this.followInfo = res
-                    this.followingId = this.followInfo.followInfo[0].following_id
+                    // this.followedId = this.followInfo.followInfo[0].following_id
                 })
                 .catch(err => {
                     console.log(err)

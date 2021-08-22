@@ -99,6 +99,7 @@ export default {
         }
     },
     beforeCreate: function() {
+        // フォロー情報取得
         let clickedFileUserId = ''
         this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
@@ -107,6 +108,17 @@ export default {
         .then(response => {
             this.followInfo = response
             this.followingId = this.followInfo.followInfo[0].following_id
+        })
+        // いいね情報取得
+        let clickedFileId = ''
+        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+            clickedFileId = musicFiledatum.clickedFileId
+        });
+        console.log(clickedFileId)
+        this.$axios.$get(`api/${this.$store.state.auth.user.id}/${clickedFileId}/getLikeInfo`)
+        .then(response => {
+            this.likeInfo = response
+            this.userId = this.likeInfo.likeInfo[0].user_id
         })
     },
     computed: {

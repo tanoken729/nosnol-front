@@ -1,0 +1,3 @@
+<template>
+  <loader object="#fff" color1="#fff" color2="#fff" size="15" speed="2" bg="#343a40" objectbg="#999793" opacity="80" name="circular"></loader>
+</template>

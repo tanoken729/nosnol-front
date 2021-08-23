@@ -30,6 +30,11 @@ export default {
     'plugins/axios',
     '~plugins/vue-aplayer.js',
     { src: '~/plugins/localStorage.js', ssr: false },
+    {
+      src: '~/plugins/vue-preloader',
+      mode: 'client'
+    }
+
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -9,7 +9,7 @@
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3>{{ item.title }}</h3>
-            <audio controls>
+            <audio controls controlslist="nodownload">
               <source :src="`${$axios.defaults.baseURL}storage/${item.music_file}`" type="audio/mp3">
             </audio>
         </div>

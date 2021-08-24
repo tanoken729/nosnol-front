@@ -87,19 +87,21 @@ export default {
             followedId: '',
         }
     },
-    asyncData: function(context) {
+    asyncData: async function(context) {
+        context.store.commit("loading/setLoading", true)
         let clickedFileUserId = ''
         // 配列でclickedFileUserId取得
         context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
         });
-        context.store.dispatch('musicFiles/setFollowState', {
+        await context.store.dispatch('musicFiles/setFollowState', {
             clickedLoginUserId: context.store.state.auth.user.id,
             clickedFileUserId: clickedFileUserId,
         })
+        context.store.commit("loading/setLoading", false)
     },
     created: function() {
-        this.followedId = this.$store.getters['musicFiles/items']
+        this.followedId = this.$store.getters['musicFiles/followedId']
         console.log(this.followedId)
     },
     computed: {

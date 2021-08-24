@@ -2,14 +2,14 @@ export const state = () => ({
   musicFileData: [],
   // clickedFileUserId: '',
   // clickedLoginUserId: '',
-  items:''
+  followedId:''
 })
 
 export const getters = {
   musicFileData: state => state.musicFileData,
   // clickedFileUserId: state => state.clickedFileUserId,
   // clickedLoginUserId: state => state.clickedLoginUserId,
-  items: (state) => state.items
+  followedId: (state) => state.followedId
 }
 
 export const mutations = {
@@ -18,9 +18,9 @@ export const mutations = {
     // console.log(state.musicFileData)
     state.musicFileData = musicFileData
   },
-  setfollowInfo (state, { items }) {
-    state.items = items
-    console.log(state.items)
+  setfollowInfo (state, { followedId }) {
+    state.followedId = followedId
+    console.log(state.followedId)
   }
   // setFileUserId(state, clickedFileUserId) {
   //   // console.log(state.clickedFileUserId)
@@ -55,19 +55,23 @@ export const actions = {
     .then(response => {
       console.log(response)
         let followInfo = response
-        let followingId = ''
-        // console.log(response)
+        let followedId = ''
+        // console.log(followInfo)
         // console.log(followInfo.length)
-        console.log(followInfo.followInfo[0].hasOwnProperty('followed_id'))
-        if (followInfo.followInfo[0].hasOwnProperty('followed_id')) {
-          followingId = followInfo.followInfo[0].followed_id
+        // console.log(followInfo.followInfo[0].hasOwnProperty('followed_id'))
+        // if (followInfo.followInfo[0].followed_id) {
+        //   followedId = followInfo.followInfo[0].followed_id
+        //   console.log('ifだよ')
+        console.log(followInfo.length)
+        if (!followInfo.length && followInfo.followInfo[0].hasOwnProperty('followed_id')) {
+          followedId = followInfo.followInfo[0].followed_id
           console.log('ifだよ')
         } else {
-          followingId = false
+          followedId = false
           console.log('elseだよ')
         }
         // console.log(followInfo.followInfo[0].followed_id)
-        context.commit('setfollowInfo', { items: followingId })
+        context.commit('setfollowInfo', { followedId: followedId })
     })
   }
 }

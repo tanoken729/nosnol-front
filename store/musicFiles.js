@@ -53,17 +53,26 @@ export const actions = {
   async setFollowState(context, payload) {
     await this.$axios.$get(`api/${payload.clickedFileUserId}/${payload.clickedLoginUserId}/getFollowInfo`)
     .then(response => {
-      console.log(response)
-        let followInfo = response
-        let followedId = ''
-        // console.log(followInfo)
-        // console.log(followInfo.length)
-        // console.log(followInfo.followInfo[0].hasOwnProperty('followed_id'))
-        // if (followInfo.followInfo[0].followed_id) {
-        //   followedId = followInfo.followInfo[0].followed_id
-        //   console.log('ifだよ')
-        console.log(followInfo.length)
-        if (!followInfo.length && followInfo.followInfo[0].hasOwnProperty('followed_id')) {
+
+      const followInfo = response
+      let followedId = ''
+      //   const arr = Object.entries(followInfo);
+      //   console.log(arr)
+      //   const id = payload.clickedFileUserId
+      //   const targetUser = arr.find(([id, data]) => data.followed_id === id);
+      //   console.log(targetUser);
+
+      // const users = [
+      //   { id: '101', name: 'Alice' },
+      //   { id: '102', name: 'Bob' },
+      //   { id: '103', name: 'Charlie' },
+      // ];
+      const id = payload.clickedFileUserId
+      console.log(id)
+      const targetUser = followInfo.followInfo.some((v) => v.followed_id === id);
+      console.log(targetUser);
+
+        if (targetUser) {
           followedId = followInfo.followInfo[0].followed_id
           console.log('ifだよ')
         } else {

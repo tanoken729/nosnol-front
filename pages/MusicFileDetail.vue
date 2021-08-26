@@ -13,14 +13,14 @@
                 <!-- クリエイターネーム・フォロー数フォロワー数 -->
                 <div class="user-status">
                     <!-- クリエイターネーム -->
-                    <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileUserName }}</h2>
+                    <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2>
                     <!-- フォロー数フォロワー数 -->
                     <NuxtLink to="" class="follow">フォロー</NuxtLink>
                     <NuxtLink to="" class="follow">フォロワー</NuxtLink>
                 </div>
             </div>
             <!-- フォローボタン -->
-            <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+            <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`second-${index}`">
                 <!-- <button class="btn">メッセージ</button> -->
                 <button
                     v-if="followingId === $store.state.auth.user.id"
@@ -45,10 +45,10 @@
         <!-- 詳細ファイルの下部分 -->
         <div class="user-music-file-detail-body">
             <!-- 音声ファイルのタイトル -->
-            <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">{{ musicFiledatum.clickedFileTitle }}</h3>
+            <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }}</h3>
             <!-- 音声ファイルデータ -->
             <div class="user-music-file-data">
-                <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+                <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
                     <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
                 </audio>
             </div>
@@ -60,11 +60,11 @@
                 </div>
                 <!-- 音声ファイルカバー画像 -->
                 <div class="user-music-file-cover-image">
-                    <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
+                    <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fifth-${index}`"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
                 </div>
             </div>
         </div>
-        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="index">
+        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`sixth-${index}`">
             <font-awesome-icon
                 :icon="['fas', 'heart']"
                 class="like-font-solid"
@@ -77,6 +77,18 @@
                 v-else
                 @click="like(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
             />
+        </div>
+        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
+            <input type="text" v-model="comment">
+            <button
+                @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
+            >
+                コメント
+            </button>
+            <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
+        <div v-for="(commentInfo, index) in commentInfos.commentInfo" :key="index">
+            {{commentInfo.text}}
+        </div>
         </div>
         </div>
   </body>
@@ -96,6 +108,8 @@ export default {
             clickedFileId: '',
             likeInfo: [],
             userId: '',
+            comment: '',
+            commentInfos: [],
         }
     },
     beforeCreate: function() {
@@ -119,6 +133,11 @@ export default {
         .then(response => {
             this.likeInfo = response
             this.userId = this.likeInfo.likeInfo[0].user_id
+        })
+        // コメント情報取得
+        this.$axios.$get(`api/${this.$store.state.auth.user.id}/${clickedFileId}/getCommentInfo`)
+        .then(res => {
+            this.commentInfos = res
         })
     },
     computed: {
@@ -189,7 +208,7 @@ export default {
             })
         },
         async unlike (clickedFileId, clickedLoginUserId) {
-            this.followingId = false
+            this.userId = false
             this.clickedFileId = clickedFileId
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unfollow`)
@@ -199,6 +218,28 @@ export default {
                 .catch(err => {
                     console.log(err)
                 })
+        },
+        async addComment (clickedFileId, clickedLoginUserId) {
+            this.clickedFileId = clickedFileId
+            this.clickedLoginUserId = clickedLoginUserId
+            await this.$axios.post('api/comment', {
+                text: this.comment,
+                user_id: this.clickedLoginUserId,
+                // ここでリクエストするのはユーザーのidでなくファイルのid
+                music_file_id: this.clickedFileId,
+            })
+            .then(res => {
+                this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getCommentInfo`)
+                .then(res => {
+                    this.commentInfos = res
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
         },
     }
 }

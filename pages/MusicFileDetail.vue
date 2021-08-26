@@ -79,16 +79,16 @@
             />
         </div>
         <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
-        <form @submit.stop.prevent="submit">
             <input type="text" v-model="comment">
             <button
-                type="submit"
                 @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
             >
                 コメント
             </button>
-        </form>
-            {{commentDisplay}}
+            <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
+        <div v-for="(commentInfo, index) in commentInfos.commentInfo" :key="index">
+            {{commentInfo.text}}
+        </div>
         </div>
         </div>
   </body>
@@ -109,7 +109,7 @@ export default {
             likeInfo: [],
             userId: '',
             comment: '',
-            commentDisplay: '',
+            commentInfos: [],
         }
     },
     beforeCreate: function() {
@@ -133,6 +133,11 @@ export default {
         .then(response => {
             this.likeInfo = response
             this.userId = this.likeInfo.likeInfo[0].user_id
+        })
+        // コメント情報取得
+        this.$axios.$get(`api/${this.$store.state.auth.user.id}/${clickedFileId}/getCommentInfo`)
+        .then(res => {
+            this.commentInfos = res
         })
     },
     computed: {
@@ -203,7 +208,7 @@ export default {
             })
         },
         async unlike (clickedFileId, clickedLoginUserId) {
-            this.followingId = false
+            this.userId = false
             this.clickedFileId = clickedFileId
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unfollow`)
@@ -223,13 +228,10 @@ export default {
                 // ここでリクエストするのはユーザーのidでなくファイルのid
                 music_file_id: this.clickedFileId,
             })
-            console.log(this.comment)
             .then(res => {
-                console.log('データだお', res)
                 this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getCommentInfo`)
                 .then(res => {
-                    this.commentInfo = res
-                    this.commentDisplay = this.commentInfo.commentInfo[0].comment
+                    this.commentInfos = res
                 })
                 .catch(err => {
                     console.log(err)

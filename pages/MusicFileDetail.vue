@@ -4,19 +4,55 @@
   <body>
         <!-- 詳細ファイルの上部分 -->
         <div class="user-music-file-detail-header">
-            <!-- クリエイターネーム・アイコン・フォロー数フォロワー数 -->
             <div class="user-info">
-                <!-- アイコン -->
+                <div class="user-music-file-image">
+                    <!-- 音声ファイルカバー画像 -->
+                    <div class="user-music-file-cover-image">
+                        <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fifth-${index}`"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="user-music-file-detail-body">
+                <!-- 音声ファイルのタイトル -->
+                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }}</h3>
+                <!-- 音声ファイルデータ -->
+                <div class="user-music-file-data">
+                    <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
+                        <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
+                    </audio>
+                </div>
+            </div>
+        </div>
+        <!-- いいね部分 -->
+        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`sixth-${index}`">
+            <div class="like-icon">
+                <font-awesome-icon
+                    :icon="['fas', 'heart']"
+                    class="like-font-solid"
+                    v-if="userId === $store.state.auth.user.id"
+                    @click="unlike(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
+                />
+                <font-awesome-icon
+                    :icon="['far', 'heart']"
+                    class="like-font-regular"
+                    v-else
+                    @click="like(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
+                />
+            </div>
+        </div>
+        <!-- 上と下を分ける境界線 -->
+        <div class="border-for-header-body"></div>
+        <!-- 詳細ファイルの下部分 -->
+        <div class="user-music-file-detail-header2">
+            <!-- アイコン -->
+            <div class="user-icon-user-status">
                 <div class="user-icon">
                     <img src="" alt="">
                 </div>
-                <!-- クリエイターネーム・フォロー数フォロワー数 -->
+                <!-- クリエイターネーム -->
                 <div class="user-status">
                     <!-- クリエイターネーム -->
                     <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2>
-                    <!-- フォロー数フォロワー数 -->
-                    <NuxtLink to="" class="follow">フォロー</NuxtLink>
-                    <NuxtLink to="" class="follow">フォロワー</NuxtLink>
                 </div>
             </div>
             <!-- フォローボタン -->
@@ -38,60 +74,30 @@
                 </button>
             </div>
         </div>
-        <!-- 詳細ファイルの下の余白をカラー指定するためのdiv -->
-        <div class="full-page">
         <!-- 上と下を分ける境界線 -->
         <div class="border-for-header-body"></div>
         <!-- 詳細ファイルの下部分 -->
-        <div class="user-music-file-detail-body">
-            <!-- 音声ファイルのタイトル -->
-            <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }}</h3>
-            <!-- 音声ファイルデータ -->
-            <div class="user-music-file-data">
-                <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
-                    <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
-                </audio>
+        <!-- 詳細ファイルの下の余白をカラー指定するためのdiv -->
+        <div class="full-page">
+        <div class="comment-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
+            <div>
+                <input type="text" v-model="comment" class="comment-text-box">
+                <button
+                    @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
+                    class="comment-button"
+                >
+                    コメント
+                </button>
             </div>
-            <!-- エフェクト・音声ファイルカバー画像 -->
-            <div class="user-music-file-image">
-                <!-- エフェクト -->
-                <div class="user-music-file-audio-image">
-                    <img src="1051470.png" alt="audio visualizer" class="audio-image">
-                </div>
-                <!-- 音声ファイルカバー画像 -->
-                <div class="user-music-file-cover-image">
-                    <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fifth-${index}`"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
-                </div>
-            </div>
-        </div>
-        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`sixth-${index}`">
-            <font-awesome-icon
-                :icon="['fas', 'heart']"
-                class="like-font-solid"
-                v-if="userId === $store.state.auth.user.id"
-                @click="unlike(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
-            />
-            <font-awesome-icon
-                :icon="['far', 'heart']"
-                class="like-font-regular"
-                v-else
-                @click="like(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
-            />
-        </div>
-        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
-            <input type="text" v-model="comment">
-            <button
-                @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
-            >
-                コメント
-            </button>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
-        <div v-for="(commentInfo, index) in commentInfos" :key="index">
-            <p><font size="2">{{commentInfo.created_at}}</font></p>
-            <h2><font size="3">{{commentInfo.user_id}}</font></h2>
-            <p><font size="5">{{commentInfo.text}}</font></p>
-            <br>
-        </div>
+            <div v-for="(commentInfo, index) in commentInfos" :key="index">
+                <div class="comment-info">
+                    {{commentInfo.user_id}}
+                    {{commentInfo.created_at}}
+                </div>
+                <p class="comment">{{commentInfo.text}}</p>
+                <br>
+            </div>
         </div>
         </div>
   </body>
@@ -245,19 +251,10 @@ export default {
   outline: solid 1px #000;
 } */
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
-body {
-  margin-top: 10px;
-  padding: 0;
-}
-
-.full-page {
-  width: 100vw;
-  height: 100vh;
-  background-color: #F0F1F8
-}
-
-h2 {
-    font-size: 20px;
+.border-for-header-body {
+    border-bottom: 1px solid rgb(185, 184, 184);
+    width: 60%;
+    margin: 0 auto;
 }
 .user-music-file-detail-header {
     /* text-align: center; */
@@ -266,68 +263,68 @@ h2 {
     width: 60%;
     padding: 0;
     background-color: #fff;
+    margin-top: 30px;
+    justify-content: space-between;
 }
-.user-info {
-    margin: 40px auto;
+.user-music-file-detail-header2 {
+    /* text-align: center; */
+    display: flex;
+    margin: 0 auto;
+    width: 60%;
+    padding: 0;
+    background-color: #fff;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+}
+.user-icon-user-status {
     display: flex;
 }
 .user-icon {
-    padding: 60px 10px;
     border: 1px solid rgb(185, 184, 184);
-    border-radius: 0.5rem;
-    min-width: 150px;
-    height: 150px;
+    border-radius: 5rem;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
 }
-.user-status {
-    padding: 10px 10px;
-}
-.follow {
-    color: #696969;
-}
-a {
-  text-decoration: none;
-}
-.follow:hover {
-    color: #000;
-}
-.follow-action-to-user {
-    padding: 30px 10px;
-    margin: 0 auto;
-}
-.border-for-header-body {
-    border-bottom: 1px solid rgb(185, 184, 184);
-}
-.user-music-file-detail-body {
-    margin: 0 auto;
-    width: 70%;
-    padding: 0;
-    border-right: 1px solid rgb(185, 184, 184);
-    border-left: 1px solid rgb(185, 184, 184);
-    border-bottom: 1px solid rgb(185, 184, 184);
-    background-color: #fff;
-}
-.user-music-file-data {
-    padding: 10px;
-}
-.user-music-file-audio-image {
-    padding: 10px;
-}
-.user-music-file-cover-image {
-    padding: 10px;
-}
-.user-music-file-image {
-    display: flex;
-    justify-content: space-between;
-}
+
 .like-display {
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
-    border-right: 1px solid rgb(185, 184, 184);
-    border-left: 1px solid rgb(185, 184, 184);
-    border-bottom: 1px solid rgb(185, 184, 184);
-    padding: 0 10px;
+    /* border-right: 1px solid rgb(185, 184, 184);
+    border-left: 1px solid rgb(185, 184, 184); */
+    padding: 10px;
     background-color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+.like-icon {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.comment-display {
+    width: 60%;
+    margin: 0 auto;
+    /* border-right: 1px solid rgb(185, 184, 184);
+    border-left: 1px solid rgb(185, 184, 184); */
+    background-color: #fff;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.comment-text-box {
+    margin-bottom: 20px;
+}
+.comment-button {
+}
+.comment-button:hover {
+}
+.comment-info {
+    font-size: 13px;
+}
+.comment {
+    font-size: 14px;
+}
+
 .btn-before-follow {
   padding: 7px 20px;
   border-radius: 0.5rem;

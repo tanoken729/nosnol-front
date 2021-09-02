@@ -59,6 +59,7 @@ export const actions = {
     await this.$axios.$get(`api/${payload.clickedLoginUserId}/${payload.clickedFileId}/${payload.clickedFileUserId}/musicDetailPageData`)
     .then(response => {
       const musicDetailPageData = response
+      console.log(musicDetailPageData)
       // フォロー
       let followedId = ''
       const id = payload.clickedFileUserId
@@ -73,9 +74,9 @@ export const actions = {
       // いいね
       let userId = ''
       const likeId = payload.clickedLoginUserId
-      const userIdCheck = musicDetailPageData.musicDetailPageData.some((v) => v.user_id === likeId);
+      const userIdCheck = musicDetailPageData.musicDetailPageData.some((v) => v.likes_user_id === likeId);
         if (userIdCheck) {
-          userId = musicDetailPageData.musicDetailPageData[0].user_id
+          userId = musicDetailPageData.musicDetailPageData[0].likes_user_id
           console.log('like ifだよ')
         } else {
           userId = false

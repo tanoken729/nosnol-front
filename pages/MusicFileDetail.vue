@@ -14,13 +14,16 @@
             </div>
             <div class="user-music-file-detail-body">
                 <!-- 音声ファイルのタイトル -->
-                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }}</h3>
+                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }} - Single</h3>
                 <!-- 音声ファイルデータ -->
                 <div class="user-music-file-data">
-                    <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
+                    <audio id="bgm1" preload v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
                         <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
                     </audio>
                 </div>
+                <ul @click="playAction()" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`eighth-${index}`">
+                    <li>{{ musicFiledatum.clickedFileTitle }}</li>
+                </ul>
             </div>
         </div>
         <!-- いいね部分 -->
@@ -92,8 +95,8 @@
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
             <div v-for="(commentInfo, index) in commentInfos" :key="index">
                 <div class="comment-info">
-                    {{commentInfo.user_id}}
-                    {{commentInfo.created_at}}
+                    {{commentInfo.commenter_name}}
+                    {{commentInfo.comments_created_at}}
                 </div>
                 <p class="comment">{{commentInfo.text}}</p>
                 <br>
@@ -241,6 +244,42 @@ export default {
             .catch(err => {
                 console.log(err)
             })
+        },
+        playAction (mp3File) {
+        this.play = true
+        const bgm1 = document.querySelector("#bgm1");       // <audio>
+        bgm1.play();
+
+        // /*++++ オーディオ要素のリスト ++++*/
+        // var audios = document.querySelectorAll( "audio" );
+        // var audios2 = document.querySelectorAll( "audio" );
+
+        // /*++++ イベント ++++*/
+        // for(var i=0;i<audios2.length;i++){
+        // audios[ i ].addEventListener( "play", function(){
+        // for(var j=0;j<audios2.length;j++){
+        // if( audios[ j ]!=this ){ audios[ j ].play() }
+        // }
+        // }, true );
+        // }
+        },
+        pauseAction (mp3File) {
+        this.play = false
+        const bgm1 = document.querySelector("#bgm1");       // <audio>
+        bgm1.pause();
+
+        // /*++++ オーディオ要素のリスト ++++*/
+        // var audios = this.items
+        // console.log(this.items)
+
+        // /*++++ イベント ++++*/
+        // for(var i=0;i<audios.length;i++){
+        // audios[ i ].addEventListener( "play", function(){
+        // for(var j=0;j<audios.length;j++){
+        // if( audios[ j ]!=this ){ audios[ j ].pause() }
+        // }
+        // }, false );
+        // }
         },
     }
 }

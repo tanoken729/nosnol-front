@@ -1,5 +1,7 @@
 const solid = [
     'faHeart',
+    'faPlay',
+    'faPause',
 ]
 
 // ここに追記するだけ

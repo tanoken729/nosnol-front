@@ -23,7 +23,7 @@
             <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`second-${index}`">
                 <!-- <button class="btn">メッセージ</button> -->
                 <button
-                    v-if="followingId === $store.state.auth.user.id"
+                    v-if="musicFiledatum.clickedFileUserId === followedId"
                     class="btn-after-follow"
                     @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
                 >
@@ -86,7 +86,7 @@
                 コメント
             </button>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
-        <div v-for="(commentInfo, index) in commentInfos.commentInfo" :key="index">
+        <div v-for="(commentInfo, index) in commentInfos" :key="index">
             {{commentInfo.text}}
         </div>
         </div>
@@ -104,7 +104,7 @@ export default {
             clickedFileUserId :'',
             clickedLoginUserId :'',
             followInfo: [],
-            followingId: '',
+            followedId: '',
             clickedFileId: '',
             likeInfo: [],
             userId: '',
@@ -112,41 +112,32 @@ export default {
             commentInfos: [],
         }
     },
-    beforeCreate: function() {
-        // フォロー情報取得
+    asyncData: async function(context) {
+        context.store.commit("loading/setLoading", true)
         let clickedFileUserId = ''
-        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+        // 配列でclickedFileUserId取得
+        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
         });
-        this.$axios.$get(`api/${clickedFileUserId}/${this.$store.state.auth.user.id}/getFollowInfo`)
-        .then(response => {
-            this.followInfo = response
-            this.followingId = this.followInfo.followInfo[0].following_id
-        })
-        // いいね情報取得
         let clickedFileId = ''
-        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileId = musicFiledatum.clickedFileId
         });
-        console.log(clickedFileId)
-        this.$axios.$get(`api/${this.$store.state.auth.user.id}/${clickedFileId}/getLikeInfo`)
-        .then(response => {
-            this.likeInfo = response
-            this.userId = this.likeInfo.likeInfo[0].user_id
+        await context.store.dispatch('musicFiles/musicDetailPageData', {
+            clickedLoginUserId: context.store.state.auth.user.id,
+            clickedFileId: clickedFileId,
+            clickedFileUserId: clickedFileUserId,
         })
-        // コメント情報取得
-        this.$axios.$get(`api/${this.$store.state.auth.user.id}/${clickedFileId}/getCommentInfo`)
-        .then(res => {
-            this.commentInfos = res
-        })
+        context.store.commit("loading/setLoading", false)
     },
-    computed: {
-        musicFileData () {
-            return this.$store.getters.musicFileData
-        }
+    created: function() {
+        this.followedId = this.$store.getters['musicFiles/followedId']
+        this.userId = this.$store.getters['musicFiles/userId']
+        this.commentInfos = this.$store.getters['musicFiles/commentInfos']
     },
     methods: {
         async follow (clickedFileUserId, clickedLoginUserId) {
+            this.followedId = clickedFileUserId
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
             this.$store.dispatch('musicFiles/follow', {
@@ -173,7 +164,7 @@ export default {
             })
         },
         async unfollow (clickedFileUserId, clickedLoginUserId) {
-            this.followingId = false
+            this.followedId = false
             this.clickedFileUserId = clickedFileUserId
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`)
@@ -185,6 +176,7 @@ export default {
                 })
         },
         async like (clickedFileId, clickedLoginUserId) {
+            this.userId = clickedLoginUserId
             this.clickedFileId = clickedFileId
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.post('api/like', {
@@ -211,9 +203,9 @@ export default {
             this.userId = false
             this.clickedFileId = clickedFileId
             this.clickedLoginUserId = clickedLoginUserId
-            await this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unfollow`)
+            await this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unlike`)
                 .then(res => {
-                    // console.log(res)
+                    console.log(res)
                 })
                 .catch(err => {
                     console.log(err)
@@ -231,7 +223,7 @@ export default {
             .then(res => {
                 this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getCommentInfo`)
                 .then(res => {
-                    this.commentInfos = res
+                    this.commentInfos = res.commentInfo
                 })
                 .catch(err => {
                     console.log(err)

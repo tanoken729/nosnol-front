@@ -87,7 +87,10 @@
             </button>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
         <div v-for="(commentInfo, index) in commentInfos" :key="index">
-            {{commentInfo.text}}
+            <p><font size="2">{{commentInfo.created_at}}</font></p>
+            <h2><font size="3">{{commentInfo.user_id}}</font></h2>
+            <p><font size="5">{{commentInfo.text}}</font></p>
+            <br>
         </div>
         </div>
         </div>

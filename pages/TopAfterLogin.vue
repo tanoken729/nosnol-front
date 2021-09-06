@@ -8,8 +8,9 @@
       <NuxtLink to="/musicfiledetail">
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
-            <h3>{{ item.title }}</h3>
-            <audio id="bgm1" preload>
+            <h3 class="item-title">{{ item.title }}</h3>
+            <h3 class="item-user-name">{{ item.user_name }}</h3>
+            <audio v-bind:id="`fileindex-${index}`" preload>
               <source
                 :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
                 type="audio/mp3"
@@ -17,8 +18,8 @@
             </audio>
         </div>
       </NuxtLink>
-            <button v-if="!play" @click="playAction(item.music_file)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
-            <button v-else @click="pauseAction(item.music_file)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
+            <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
+            <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
       </div>
       </div>
     </main>
@@ -78,41 +79,21 @@ export default {
         clickedFileId: this.clickedFileId,
       })
     },
-    playAction (mp3File) {
-      this.play = true
-      const bgm1 = document.querySelector("#bgm1");       // <audio>
-      bgm1.play();
-
-      // /*++++ オーディオ要素のリスト ++++*/
-      // var audios = document.querySelectorAll( "audio" );
-      // var audios2 = document.querySelectorAll( "audio" );
-
-      // /*++++ イベント ++++*/
-      // for(var i=0;i<audios2.length;i++){
-      // audios[ i ].addEventListener( "play", function(){
-      // for(var j=0;j<audios2.length;j++){
-      // if( audios[ j ]!=this ){ audios[ j ].play() }
-      // }
-      // }, true );
-      // }
+    playAction (index) {
+      this.play = index
+      this.fileindex = index
+      console.log(this.fileindex)
+      var audios = document.getElementById(`fileindex-${index}`);
+      console.log(audios)
+      audios.play();
     },
-    pauseAction (mp3File) {
+    pauseAction (index) {
       this.play = false
-      const bgm1 = document.querySelector("#bgm1");       // <audio>
-      bgm1.pause();
-
-      // /*++++ オーディオ要素のリスト ++++*/
-      // var audios = this.items
-      // console.log(this.items)
-
-      // /*++++ イベント ++++*/
-      // for(var i=0;i<audios.length;i++){
-      // audios[ i ].addEventListener( "play", function(){
-      // for(var j=0;j<audios.length;j++){
-      // if( audios[ j ]!=this ){ audios[ j ].pause() }
-      // }
-      // }, false );
-      // }
+      this.fileindex = index
+      console.log(this.fileindex)
+      var audios = document.getElementById(`fileindex-${index}`);
+      console.log(audios)
+      audios.pause();
     },
   },
   // computed: {
@@ -167,7 +148,7 @@ export default {
   background: rgba(255, 255, 255, 0.3);/*背景を半透明に*/
 }
 .content button:hover{/*カーソルを当てたとき*/
-  background: #000CFF;/*背景を半透明に*/
+  background: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
   }
 
 .content:hover {
@@ -176,7 +157,7 @@ export default {
   /* border: 1px solid #d4d3d3; */
   display: inline-block;
   margin: 10px;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+  /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
 	transition: .3s;
   /* background-color: #e5e9f7; */
   color: #696969;
@@ -185,6 +166,7 @@ export default {
   height: 200px;
   width: 200px;
   display: flex;
+  border-radius: 0.5rem;
 }
 audio {
   width: 200px;
@@ -195,5 +177,18 @@ audio {
 .content-fit {
   max-width: 100%;
   margin: 10px;
+}
+.item-title {
+  font-size: 16px;
+  color: #333333;
+  /* font-weight: bold; */
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+}
+.item-user-name {
+  font-size: 14px;
+  color: #999999;
+}
+a {
+  text-decoration: none;
 }
 </style>

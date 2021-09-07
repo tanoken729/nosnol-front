@@ -2,6 +2,7 @@ const solid = [
     'faHeart',
     'faPlay',
     'faPause',
+    'faUserCheck',
 ]
 
 // ここに追記するだけ

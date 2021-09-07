@@ -87,32 +87,35 @@ export default {
 .logo {
   padding: 10px;
   font-size: 25px;
+  color:#fff;
 }
 a {
   text-decoration: none;
   color: #000;
 }
 .header {
-  background-color: #fff;
+  background: linear-gradient(rgb(7, 22, 110), transparent);
   display: flex;
   justify-content: space-between;
   font-size: 15px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  padding-bottom: 30px;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5); */
 }
 .btn {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
   color: #fff;
   font-size: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 .btn:hover {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to left, rgb(38, 0, 255), rgb(0, 140, 255));
   color: #fff;
   font-size: 15px;
 }

@@ -14,16 +14,20 @@
             </div>
             <div class="user-music-file-detail-body">
                 <!-- 音声ファイルのタイトル -->
-                <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }} - Single</h3>
+                <h3 class="record-type" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }} - Single</h3>
                 <!-- 音声ファイルデータ -->
                 <div class="user-music-file-data">
-                    <audio id="bgm1" preload v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
+                    <audio id="bgm" preload v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
                         <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
                     </audio>
                 </div>
-                <ul @click="playAction()" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`eighth-${index}`">
+                <div class="botton-list-flex">
+                <button v-if="play" @click="pauseAction(index)" class="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
+                <button v-else @click="playAction(index)" class="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
+                <ul v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`eighth-${index}`">
                     <li>{{ musicFiledatum.clickedFileTitle }}</li>
                 </ul>
+                </div>
             </div>
         </div>
         <!-- いいね部分 -->
@@ -66,6 +70,7 @@
                     class="btn-after-follow"
                     @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
                 >
+                    <font-awesome-icon :icon="['fas', 'user-check']"/>&nbsp;
                     フォロー中
                 </button>
                 <button
@@ -83,7 +88,10 @@
         <!-- 詳細ファイルの下の余白をカラー指定するためのdiv -->
         <div class="full-page">
         <div class="comment-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
-            <div>
+            <div class="display-flex-icon-comment">
+                <div class="comment-user-icon">
+                    <img src="" alt="">
+                </div>
                 <input type="text" v-model="comment" class="comment-text-box">
                 <button
                     @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
@@ -93,13 +101,18 @@
                 </button>
             </div>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
-            <div v-for="(commentInfo, index) in commentInfos" :key="index">
-                <div class="comment-info">
-                    {{commentInfo.commenter_name}}
-                    {{commentInfo.comments_created_at}}
+            <div class="display-flex-icon-comment" v-for="(commentInfo, index) in commentInfos" :key="index">
+                <div class="comment-user-icon">
+                    <img src="" alt="">
                 </div>
-                <p class="comment">{{commentInfo.text}}</p>
-                <br>
+                <div class="comment-info">
+                    <div class="commenter-info">
+                        {{commentInfo.commenter_name}}
+                        {{commentInfo.comments_created_at}}
+                    </div>
+                    <p class="comment">{{commentInfo.text}}</p>
+                    <br>
+                </div>
             </div>
         </div>
         </div>
@@ -122,6 +135,7 @@ export default {
             userId: '',
             comment: '',
             commentInfos: [],
+            play: false,
         }
     },
     asyncData: async function(context) {
@@ -247,39 +261,13 @@ export default {
         },
         playAction (mp3File) {
         this.play = true
-        const bgm1 = document.querySelector("#bgm1");       // <audio>
-        bgm1.play();
-
-        // /*++++ オーディオ要素のリスト ++++*/
-        // var audios = document.querySelectorAll( "audio" );
-        // var audios2 = document.querySelectorAll( "audio" );
-
-        // /*++++ イベント ++++*/
-        // for(var i=0;i<audios2.length;i++){
-        // audios[ i ].addEventListener( "play", function(){
-        // for(var j=0;j<audios2.length;j++){
-        // if( audios[ j ]!=this ){ audios[ j ].play() }
-        // }
-        // }, true );
-        // }
+        const bgm = document.querySelector("#bgm");       // <audio>
+        bgm.play();
         },
         pauseAction (mp3File) {
         this.play = false
-        const bgm1 = document.querySelector("#bgm1");       // <audio>
-        bgm1.pause();
-
-        // /*++++ オーディオ要素のリスト ++++*/
-        // var audios = this.items
-        // console.log(this.items)
-
-        // /*++++ イベント ++++*/
-        // for(var i=0;i<audios.length;i++){
-        // audios[ i ].addEventListener( "play", function(){
-        // for(var j=0;j<audios.length;j++){
-        // if( audios[ j ]!=this ){ audios[ j ].pause() }
-        // }
-        // }, false );
-        // }
+        const bgm = document.querySelector("#bgm");       // <audio>
+        bgm.pause();
         },
     }
 }
@@ -290,26 +278,30 @@ export default {
   outline: solid 1px #000;
 } */
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
+.display-flex-icon-comment {
+    display: flex;
+    margin-top: 10px;
+}
 .border-for-header-body {
     border-bottom: 1px solid rgb(185, 184, 184);
-    width: 60%;
+    width: 50%;
     margin: 0 auto;
 }
 .user-music-file-detail-header {
     /* text-align: center; */
     display: flex;
     margin: 0 auto;
-    width: 60%;
+    width: 50%;
     padding: 0;
     background-color: #fff;
     margin-top: 30px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 .user-music-file-detail-header2 {
     /* text-align: center; */
     display: flex;
     margin: 0 auto;
-    width: 60%;
+    width: 50%;
     padding: 0;
     background-color: #fff;
     margin-top: 30px;
@@ -326,9 +318,16 @@ export default {
     height: 50px;
     margin-right: 20px;
 }
+.comment-user-icon {
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 5rem;
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
 
 .like-display {
-    width: 60%;
+    width: 50%;
     margin: 0 auto;
     /* border-right: 1px solid rgb(185, 184, 184);
     border-left: 1px solid rgb(185, 184, 184); */
@@ -342,7 +341,7 @@ export default {
     margin-bottom: 10px;
 }
 .comment-display {
-    width: 60%;
+    width: 50%;
     margin: 0 auto;
     /* border-right: 1px solid rgb(185, 184, 184);
     border-left: 1px solid rgb(185, 184, 184); */
@@ -352,12 +351,14 @@ export default {
 }
 .comment-text-box {
     margin-bottom: 20px;
+    height: 30px;
 }
 .comment-button {
+    height: 30px;
 }
 .comment-button:hover {
 }
-.comment-info {
+.commenter-info {
     font-size: 13px;
 }
 .comment {
@@ -376,7 +377,7 @@ export default {
   padding: 7px 20px;
   border-radius: 0.5rem;
   border: 1px solid #696969;
-  background-color: rgb(60, 39, 247);
+  background-color: rgb(50, 39, 247);
   color: #fff;
   font-size: 15px;
 }
@@ -406,6 +407,7 @@ footer {
   height: 200px;
   width: 200px;
   display: flex;
+  border-radius: 0.5rem;
 }
 .audio-image {
   height: 200px;
@@ -423,5 +425,25 @@ footer {
 .like-font-solid {
     font-size: 30px ;
     color: #f83979;
+}
+.btn-play {
+  padding: 15px 17px;
+  background: #fff;
+  border: none;
+}
+.botton-list-flex {
+    display: flex;
+}
+ul {
+    list-style: none;
+    font-size: 17px;
+    padding-left: 0;
+    padding-top: 12px;
+}
+.user-music-file-detail-body {
+    margin-left: 30px;
+}
+.record-type {
+    font-size: 30px;
 }
 </style>

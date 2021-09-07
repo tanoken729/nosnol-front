@@ -10,7 +10,7 @@
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3 class="item-title">{{ item.title }}</h3>
             <h3 class="item-user-name">{{ item.user_name }}</h3>
-            <audio v-bind:id="`fileindex-${index}`" preload>
+            <audio v-bind:id="`bgm-${index}`" preload>
               <source
                 :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
                 type="audio/mp3"
@@ -81,17 +81,17 @@ export default {
     },
     playAction (index) {
       this.play = index
-      this.fileindex = index
-      console.log(this.fileindex)
-      var audios = document.getElementById(`fileindex-${index}`);
+      this.bgm = index
+      console.log(this.bgm)
+      var audios = document.getElementById(`bgm-${index}`);
       console.log(audios)
       audios.play();
     },
     pauseAction (index) {
       this.play = false
-      this.fileindex = index
-      console.log(this.fileindex)
-      var audios = document.getElementById(`fileindex-${index}`);
+      this.bgm = index
+      console.log(this.bgm)
+      var audios = document.getElementById(`bgm-${index}`);
       console.log(audios)
       audios.pause();
     },

@@ -3,6 +3,7 @@ const solid = [
     'faPlay',
     'faPause',
     'faUserCheck',
+    'faSignOutAlt',
 ]
 
 // ここに追記するだけ

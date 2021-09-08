@@ -5,8 +5,11 @@
             <nav class="nav">
             <ul>
                 <!-- <li>検索</li> -->
-                <li>{{ $store.state.auth.user.name }}</li>
-                <button @click="logout">ログアウト</button>
+                <li>
+                  <div class="user-icon">
+                    <img src="" alt="icon" @click="openMenuBar">
+                  </div>
+                </li>
                 <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
@@ -32,12 +35,22 @@
             ></AfterMusicUploadModal>
           </transition>
         </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <MenuBar
+              v-show="showMenuBar"
+              @click.self="closeMenuBar"
+              @closeMenuBar="closeMenuBar"
+            ></MenuBar>
+          </transition>
+        </div>
     </div>
 </template>
 
 <script>
 import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
 import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
+import MenuBar from '@/components/MenuBar.vue'
 
 export default {
     transition: {
@@ -46,7 +59,8 @@ export default {
   },
   components: {
     BeforeMusicUploadModal,
-    AfterMusicUploadModal
+    AfterMusicUploadModal,
+    MenuBar,
   },
   data () {
     return {
@@ -54,6 +68,7 @@ export default {
       showContent2: false,
       musicFile: '',
       musicFileName: '',
+      showMenuBar: false,
     }
   },
   methods: {
@@ -75,6 +90,12 @@ export default {
     },
     logout() {
       this.$auth.logout();
+    },
+    openMenuBar () {
+      this.showMenuBar = true
+    },
+    closeMenuBar () {
+      this.showMenuBar = false
     },
   },
 }
@@ -130,7 +151,19 @@ a {
   display: inline;
   list-style-type: none;
   padding-left: 30px;
+  vertical-align: middle;
+  padding-left: 0;
+  display: inline-block;
 }
 .modal-enter-active, .modal-leave-active { transition: opacity .5s; }
 .modal-enter, .modal-leave-active { opacity: 0; }
+
+.user-icon {
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 5rem;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    margin-right: 10px;
+}
 </style>

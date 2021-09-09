@@ -5,7 +5,7 @@
       <sideBar />
       <div class="content-fit">
       <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
-      <NuxtLink to="/musicfiledetail">
+      <router-link :to="`musicfiledetail/${item.title}`">
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3 class="item-title">{{ item.title }}</h3>
@@ -17,7 +17,7 @@
               >
             </audio>
         </div>
-      </NuxtLink>
+      </router-link>
             <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
             <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
       </div>
@@ -95,6 +95,10 @@ export default {
       console.log(audios)
       audios.pause();
     },
+    movePage (i) {
+      console.log(this.$router.push({ path: `musicfiledetail/${this.items[i].title}` }))
+      this.$router.push({ path: `musicfiledetail/${this.items[i].title}` });
+    }
   },
   // computed: {
   //   items: function () {

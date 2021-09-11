@@ -5,7 +5,8 @@
       <sideBar />
       <div class="content-fit">
       <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
-      <router-link :to="`musicfiledetail/${item.title}`">
+      <!-- <router-link :to="{ path: `/musicfiledetail/${item.title}`}"> -->
+      <router-link :to="{ name: 'musicfiledetail-title', params:  {title: `${item.title}`} }">
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3 class="item-title">{{ item.title }}</h3>

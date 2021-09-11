@@ -5,6 +5,7 @@
             <nav class="nav">
             <ul>
                 <!-- <li>検索</li> -->
+                <li class="serch-icon"><font-awesome-icon :icon="['fas', 'search']"/></li>
                 <li>
                   <div class="user-icon">
                     <img src="" alt="icon" @click="openMenuBar">
@@ -165,5 +166,10 @@ a {
     height: 40px;
     background: #fff;
     margin-right: 10px;
+}
+.serch-icon {
+  font-size: 20px;
+  color: #fff;
+  margin-right: 10px;
 }
 </style>

@@ -105,9 +105,9 @@ export default {
 </script>
 
 <style scoped>
-/* * {
+* {
   outline: solid 1px #000;
-} */
+}
 /* メイン */
 #btn-play {
   padding: 15px 17px;
@@ -163,8 +163,8 @@ export default {
   color: #696969;
 }
 .cover-image {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   display: flex;
   border-radius: 0.5rem;
 }

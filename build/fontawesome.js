@@ -4,6 +4,7 @@ const solid = [
     'faPause',
     'faUserCheck',
     'faSignOutAlt',
+    'faSearch',
 ]
 
 // ここに追記するだけ

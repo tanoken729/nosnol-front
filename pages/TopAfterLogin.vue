@@ -4,7 +4,7 @@
     <main class="main">
       <sideBar />
       <div class="content-fit">
-      <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
+      <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
       <NuxtLink to="/musicfiledetail">
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
@@ -50,16 +50,9 @@ export default {
       play: false,
     }
   },
-  mounted: function() {
-    this.$axios
-      .$get('api/musicFileData')
-      .then(response => {
-        this.items = response
-        // console.log(this.items)
-      })
-      .catch(error => {
-        // console.log(error)
-      })
+  asyncData: async function(context) {
+      // すべての音声ファイルを取得する
+    context.store.dispatch('musicFiles/musicFileTopPageData')
   },
   methods: {
     setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId) {
@@ -97,17 +90,14 @@ export default {
     },
   },
   // computed: {
-  //   items: function () {
-  //     return this.$store.getters.musicFileData
-  //   },
   // },
 };
 </script>
 
 <style scoped>
-* {
+/* * {
   outline: solid 1px #000;
-}
+} */
 /* メイン */
 #btn-play {
   padding: 15px 17px;

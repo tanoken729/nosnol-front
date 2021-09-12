@@ -1,11 +1,12 @@
 <template>
     <nav class="side-bar">
+      <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="genre-label">すべて</label>
     <h3>感情</h3>
         <div class="emotion">
-        <input type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
-        <input type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
-        <input type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
-        <input type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
+        <input @click="musicFileFilterEmotionJoy" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
+        <input @click="musicFileFilterEmotionAngry" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
+        <input @click="musicFileFilterEmotionSorrow" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
+        <input @click="musicFileFilterEmotionEasy" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
         </div>
     <h3>ジャンル</h3>
         <div class="genre">
@@ -24,12 +25,65 @@
     </nav>
 </template>
 
+<script>
+import store from '../store';
+
+export default {
+  methods: {
+    musicFileFilterEmotionJoy () {
+      //「すべて」のチェックを外す
+      const element = document.getElementById('all')
+      element.checked = false;
+      // joyでフィルターするapiをstoreで実行する
+      this.$store.dispatch('musicFiles/filterByJoy')
+    },
+    musicFileFilterEmotionAngry () {
+      //「すべて」のチェックを外す
+      const element = document.getElementById('all')
+      element.checked = false;
+      // angryでフィルターするapiをstoreで実行する
+      this.$store.dispatch('musicFiles/filterByAngry')
+    },
+    musicFileFilterEmotionSorrow () {
+      //「すべて」のチェックを外す
+      const element = document.getElementById('all')
+      element.checked = false;
+      // sorrowでフィルターするapiをstoreで実行する
+      this.$store.dispatch('musicFiles/filterBySorrow')
+    },
+    musicFileFilterEmotionEasy () {
+      //「すべて」のチェックを外す
+      const element = document.getElementById('all')
+      element.checked = false;
+      // easyでフィルターするapiをstoreで実行する
+      this.$store.dispatch('musicFiles/filterByEasy')
+    },
+    musicFileNoFilter () {
+      //「感情」のチェックを外す
+      for (const element of document.getElementsByName('emotion')) {
+        element.checked = false;
+      }
+      //「ジャンル」のチェックを外す
+      for (const element of document.getElementsByName('genre')) {
+        element.checked = false;
+      }
+      // すべての音声ファイルを取得する
+      this.$store.dispatch('musicFiles/musicFileTopPageData')
+    },
+  }
+}
+</script>
+
+
 <style>
+/* * {
+  outline: #696969 1px solid;
+} */
 /* サイドバー */
 .side-bar {
   /* border: solid 1px; */
   padding: 10px;
-  min-width: 150px;
+  max-width: 150px;
 }
 .side-bar ul {
   list-style: none;

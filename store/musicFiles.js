@@ -4,7 +4,8 @@ export const state = () => ({
   // clickedLoginUserId: '',
   followedId:'',
   userId:'',
-  commentInfos:''
+  commentInfos:'',
+  items: [],
 })
 
 export const getters = {
@@ -13,7 +14,8 @@ export const getters = {
   // clickedLoginUserId: state => state.clickedLoginUserId,
   followedId: (state) => state.followedId,
   userId: (state) => state.userId,
-  commentInfos: (state) => state.commentInfos
+  commentInfos: (state) => state.commentInfos,
+  items: (state) => state.items,
 }
 
 export const mutations = {
@@ -26,6 +28,10 @@ export const mutations = {
     state.followedId = followedId
     state.userId = userId
     state.commentInfos = commentInfos
+  },
+  setmusicFileTopPageData (state, items) {
+    state.items = items
+    console.log(items)
   }
   // setFileUserId(state, clickedFileUserId) {
   //   // console.log(state.clickedFileUserId)
@@ -94,4 +100,65 @@ export const actions = {
         context.commit('setMusicDetailPageData', { followedId: followedId, userId: userId, commentInfos: commentInfos })
     })
   },
+  // 感情絞り込み
+  filterByJoy(context) {
+    let items = []
+    this.$axios.$get('api/musicfile/musicFileFilterEmotionJoy')
+      .then(response => {
+        items = response
+        console.log(items)
+        context.commit('setmusicFileTopPageData', items)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  filterByAngry(context) {
+    let items = []
+    this.$axios.$get('api/musicfile/musicFileFilterEmotionAngry')
+      .then(response => {
+        items = response
+        console.log(items)
+        context.commit('setmusicFileTopPageData', items)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  filterBySorrow(context) {
+    let items = []
+    this.$axios.$get('api/musicfile/musicFileFilterEmotionSorrow')
+      .then(response => {
+        items = response
+        console.log(items)
+        context.commit('setmusicFileTopPageData', items)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  filterByEasy(context) {
+    let items = []
+    this.$axios.$get('api/musicfile/musicFileFilterEmotionEasy')
+      .then(response => {
+        items = response
+        console.log(items)
+        context.commit('setmusicFileTopPageData', items)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  musicFileTopPageData(context) {
+    let items = []
+    this.$axios.$get('api/musicFileData')
+      .then(response => {
+        items = response
+        console.log(items)
+        context.commit('setmusicFileTopPageData', items)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 }

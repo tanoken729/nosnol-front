@@ -5,7 +5,7 @@
             <nav class="nav">
             <ul>
                 <!-- <li>検索</li> -->
-                <li class="serch-icon"><font-awesome-icon :icon="['fas', 'search']"/></li>
+                <li><input type="text" placeholder="検索" class="serch-form"><font-awesome-icon :icon="['fas', 'search']" class="serch-icon"/></li>
                 <li>
                   <div class="user-icon">
                     <img src="" alt="icon" @click="openMenuBar">
@@ -171,5 +171,17 @@ a {
   font-size: 20px;
   color: #fff;
   margin-right: 10px;
+}
+.serch-form {
+  margin-right: 10px;
+  height: 30px;
+  width: 250px;
+  border-radius: 0.3rem;
+  border: none;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+::placeholder {
+  font-size: 15px;
 }
 </style>

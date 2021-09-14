@@ -5,7 +5,7 @@
             <nav class="nav">
             <ul>
                 <!-- <li>検索</li> -->
-                <li><input type="text" placeholder="検索" class="serch-form"><font-awesome-icon :icon="['fas', 'search']" class="serch-icon"/></li>
+                <li><font-awesome-icon :icon="['fas', 'search']" class="search-icon" @click="openSearchForm"/></li>
                 <li>
                   <div class="user-icon">
                     <img src="" alt="icon" @click="openMenuBar">
@@ -45,6 +45,15 @@
             ></MenuBar>
           </transition>
         </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <SearchForm
+              v-show="showSearchForm"
+              @click.self="closeSearchForm"
+              @closeSearchForm="closeSearchForm"
+            ></SearchForm>
+          </transition>
+        </div>
     </div>
 </template>
 
@@ -52,6 +61,7 @@
 import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
 import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
 import MenuBar from '@/components/MenuBar.vue'
+import SearchForm from '@/components/SearchForm.vue'
 
 export default {
     transition: {
@@ -62,6 +72,7 @@ export default {
     BeforeMusicUploadModal,
     AfterMusicUploadModal,
     MenuBar,
+    SearchForm,
   },
   data () {
     return {
@@ -70,6 +81,7 @@ export default {
       musicFile: '',
       musicFileName: '',
       showMenuBar: false,
+      showSearchForm: false,
     }
   },
   methods: {
@@ -98,6 +110,13 @@ export default {
     closeMenuBar () {
       this.showMenuBar = false
     },
+    openSearchForm () {
+      this.showSearchForm = true
+      console.log(this.showSearchForm)
+    },
+    closeSearchForm () {
+      this.showSearchForm = false
+    }
   },
 }
 </script>
@@ -167,21 +186,9 @@ a {
     background: #fff;
     margin-right: 10px;
 }
-.serch-icon {
+.search-icon {
   font-size: 20px;
   color: #fff;
   margin-right: 10px;
-}
-.serch-form {
-  margin-right: 10px;
-  height: 30px;
-  width: 250px;
-  border-radius: 0.3rem;
-  border: none;
-  padding-top: 5px;
-  padding-left: 10px;
-}
-::placeholder {
-  font-size: 15px;
 }
 </style>

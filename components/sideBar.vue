@@ -83,7 +83,7 @@ export default {
 .side-bar {
   /* border: solid 1px; */
   padding: 10px;
-  max-width: 150px;
+  min-width: 150px;
 }
 .side-bar ul {
   list-style: none;

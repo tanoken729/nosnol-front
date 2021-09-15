@@ -105,6 +105,9 @@ export default {
 }
 .main {
   display: flex;
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 /* メインコンテンツ */
 .content {

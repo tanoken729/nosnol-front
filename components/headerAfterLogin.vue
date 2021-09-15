@@ -4,14 +4,15 @@
             <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
-                <!-- <li>検索</li> -->
-                <li><font-awesome-icon :icon="['fas', 'search']" class="search-icon" @click="openSearchForm"/></li>
-                <li>
-                  <div class="user-icon">
-                    <img src="" alt="icon" @click="openMenuBar">
-                  </div>
-                </li>
-                <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
+              <li>
+                <SearchForm />
+              </li>
+              <li>
+                <div class="user-icon">
+                  <img src="" alt="icon" @click="openMenuBar">
+                </div>
+              </li>
+              <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
         </header>
@@ -43,15 +44,6 @@
               @click.self="closeMenuBar"
               @closeMenuBar="closeMenuBar"
             ></MenuBar>
-          </transition>
-        </div>
-        <div>
-          <transition name="modal" mode="out-in">
-            <SearchForm
-              v-show="showSearchForm"
-              @click.self="closeSearchForm"
-              @closeSearchForm="closeSearchForm"
-            ></SearchForm>
           </transition>
         </div>
     </div>
@@ -110,13 +102,6 @@ export default {
     closeMenuBar () {
       this.showMenuBar = false
     },
-    openSearchForm () {
-      this.showSearchForm = true
-      console.log(this.showSearchForm)
-    },
-    closeSearchForm () {
-      this.showSearchForm = false
-    }
   },
 }
 </script>
@@ -170,7 +155,6 @@ a {
 .nav li {
   display: inline;
   list-style-type: none;
-  padding-left: 30px;
   vertical-align: middle;
   padding-left: 0;
   display: inline-block;
@@ -185,10 +169,5 @@ a {
     height: 40px;
     background: #fff;
     margin-right: 10px;
-}
-.search-icon {
-  font-size: 20px;
-  color: #fff;
-  margin-right: 10px;
 }
 </style>

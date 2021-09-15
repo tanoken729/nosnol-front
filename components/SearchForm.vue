@@ -1,6 +1,7 @@
 <template>
-    <div id="overlay" v-show="showSearchForm" @click.self="closeSearchForm">
-            <input type="text" placeholder="検索" class="search-form">
+    <div>
+        <input type="text" placeholder="検索" class="search-form">
+        <button @click="searchMusicFile"><font-awesome-icon :icon="['fas', 'search']" class="search-icon"/></button>
     </div>
 </template>
 
@@ -13,8 +14,8 @@ export default {
         }
     },
     methods: {
-        closeSearchForm (){
-        this.$emit('closeSearchForm');
+        searchMusicFile (){
+            console.log('searchMusicFile')
         },
     }
 }
@@ -24,39 +25,31 @@ export default {
 /* * {
     outline: #000 1px solid;
 } */
-#overlay{
-    /*　要素を重ねた時の順番　*/
-    z-index:1;
-
-    /*　画面全体を覆う設定　*/
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-
-    /*　画面の中央に要素を表示させる設定　*/
-    display: flex;
-    align-items: top;
-    justify-content: right;
-    padding: 0%;
-}
-/* #main-content{
-    z-index:2;
-    margin-top: 80px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.32);
-} */
 .search-form {
-    margin-top: 30px;
-    margin-right: 240px;
     height: 30px;
     width: 250px;
     border-radius: 0.3rem;
     border: none;
     padding-top: 5px;
     padding-left: 10px;
-}
-::placeholder {
+    background: #07166e;
     font-size: 15px;
+    color: #fff;
+}
+    ::placeholder {
+        font-size: 15px;
+    }
+.search-icon {
+  font-size: 20px;
+  color: #fff;
+  margin: 0 10px;
+}
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    appearance: none;
 }
 </style>

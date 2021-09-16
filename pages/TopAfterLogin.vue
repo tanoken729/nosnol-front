@@ -170,6 +170,7 @@ audio {
 .content-fit {
   max-width: 100%;
   margin: 10px;
+  width: 1030px;
 }
 .item-title {
   font-size: 16px;

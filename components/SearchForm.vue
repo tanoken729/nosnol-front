@@ -32,12 +32,14 @@ export default {
     border: none;
     padding-top: 5px;
     padding-left: 10px;
-    background: #07166e;
+    background: transparent;
+    box-shadow: inset 0 10px 25px 0 rgba(0, 0, 0, .5);
     font-size: 15px;
     color: #fff;
 }
     ::placeholder {
         font-size: 15px;
+        color: rgb(194, 196, 211);
     }
 .search-icon {
   font-size: 20px;

@@ -100,46 +100,15 @@ export const actions = {
         context.commit('setMusicDetailPageData', { followedId: followedId, userId: userId, commentInfos: commentInfos })
     })
   },
-  // 感情絞り込み
-  filterByJoy(context) {
+  // 感情・ジャンル絞り込み
+  FilterMusicFile(context, payload) {
     let items = []
-    this.$axios.$get('api/musicfile/musicFileFilterEmotionJoy')
-      .then(response => {
-        items = response
-        console.log(items)
-        context.commit('setmusicFileTopPageData', items)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  },
-  filterByAngry(context) {
-    let items = []
-    this.$axios.$get('api/musicfile/musicFileFilterEmotionAngry')
-      .then(response => {
-        items = response
-        console.log(items)
-        context.commit('setmusicFileTopPageData', items)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  },
-  filterBySorrow(context) {
-    let items = []
-    this.$axios.$get('api/musicfile/musicFileFilterEmotionSorrow')
-      .then(response => {
-        items = response
-        console.log(items)
-        context.commit('setmusicFileTopPageData', items)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  },
-  filterByEasy(context) {
-    let items = []
-    this.$axios.$get('api/musicfile/musicFileFilterEmotionEasy')
+    this.$axios.$get('api/musicFileFilter/emotion/genre', {
+      params: {
+        emotion: payload.selectedEmotion,
+        genre: payload.selectedGenre
+      }
+    })
       .then(response => {
         items = response
         console.log(items)

@@ -3,24 +3,24 @@
       <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="genre-label">すべて</label>
     <h3>感情</h3>
         <div class="emotion">
-        <input @click="musicFileFilterEmotionJoy" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
-        <input @click="musicFileFilterEmotionAngry" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
-        <input @click="musicFileFilterEmotionSorrow" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
-        <input @click="musicFileFilterEmotionEasy" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
         </div>
     <h3>ジャンル</h3>
         <div class="genre">
-        <input type="radio" name="genre" value="j-pop" id="j-pop"><label for="j-pop" class="genre-label">J-POP</label>
-        <input type="radio" name="genre" value="anime" id="anime"><label for="anime" class="genre-label">アニメ</label>
-        <input type="radio" name="genre" value="hiphop-rnb-reggae" id="hiphop-rnb-reggae"><label for="hiphop-rnb-reggae" class="genre-label">ヒップホップ/R&B/レゲエ</label>
-        <input type="radio" name="genre" value="rock" id="rock"><label for="rock" class="genre-label">ロック</label>
-        <input type="radio" name="genre" value="dance-electronica" id="dance-electronica"><label for="dance-electronica" class="genre-label">ダンス/エレクトロニカ</label>
-        <input type="radio" name="genre" value="k-pop" id="k-pop"><label for="k-pop" class="genre-label">K-POP/ワールド・ミュージック</label>
-        <input type="radio" name="genre" value="western-music" id="western-music"><label for="western-music" class="genre-label">洋楽総合</label>
-        <input type="radio" name="genre" value="western-pop" id="western-pop"><label for="western-pop" class="genre-label">洋楽ポップス</label>
-        <input type="radio" name="genre" value="kayokyoku-enka" id="kayokyoku-enka"><label for="kayokyoku-enka" class="genre-label">歌謡曲/演歌</label>
-        <input type="radio" name="genre" value="jazz" id="jazz"><label for="jazz" class="genre-label">ジャズ</label>
-        <input type="radio" name="genre" value="classic" id="classic"><label for="classic" class="genre-label">クラシック</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="j-pop" id="j-pop"><label for="j-pop" class="genre-label">J-POP</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="anime" id="anime"><label for="anime" class="genre-label">アニメ</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="hiphop-rnb-reggae" id="hiphop-rnb-reggae"><label for="hiphop-rnb-reggae" class="genre-label">ヒップホップ/R&B/レゲエ</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="rock" id="rock"><label for="rock" class="genre-label">ロック</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="dance-electronica" id="dance-electronica"><label for="dance-electronica" class="genre-label">ダンス/エレクトロニカ</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="k-pop" id="k-pop"><label for="k-pop" class="genre-label">K-POP/ワールド・ミュージック</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="western-music" id="western-music"><label for="western-music" class="genre-label">洋楽総合</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="western-pop" id="western-pop"><label for="western-pop" class="genre-label">洋楽ポップス</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="kayokyoku-enka" id="kayokyoku-enka"><label for="kayokyoku-enka" class="genre-label">歌謡曲/演歌</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="jazz" id="jazz"><label for="jazz" class="genre-label">ジャズ</label>
+        <input @click="FilterMusicFile" type="radio" name="genre" value="classic" id="classic"><label for="classic" class="genre-label">クラシック</label>
         </div>
     </nav>
 </template>
@@ -29,36 +29,34 @@
 import store from '../store';
 
 export default {
+    data () {
+        return {
+            selectedEmotion: '',
+            selectedGenre: '',
+        }
+    },
   methods: {
-    musicFileFilterEmotionJoy () {
-      //「すべて」のチェックを外す
-      const element = document.getElementById('all')
-      element.checked = false;
-      // joyでフィルターするapiをstoreで実行する
-      this.$store.dispatch('musicFiles/filterByJoy')
-    },
-    musicFileFilterEmotionAngry () {
-      //「すべて」のチェックを外す
-      const element = document.getElementById('all')
-      element.checked = false;
-      // angryでフィルターするapiをstoreで実行する
-      this.$store.dispatch('musicFiles/filterByAngry')
-    },
-    musicFileFilterEmotionSorrow () {
-      //「すべて」のチェックを外す
-      const element = document.getElementById('all')
-      element.checked = false;
-      // sorrowでフィルターするapiをstoreで実行する
-      this.$store.dispatch('musicFiles/filterBySorrow')
-    },
-    musicFileFilterEmotionEasy () {
+    FilterMusicFile (event) {
+      if (event.target.name === 'emotion') {
+        // dataに格納することで次のリクエストでも続けて値を渡せるようにする
+        this.selectedEmotion = event.target.value
+      }
+      else if (event.target.name === 'genre') {
+        // dataに格納することで次のリクエストでも続けて値を渡せるようにする
+        this.selectedGenre = event.target.value
+      }
       //「すべて」のチェックを外す
       const element = document.getElementById('all')
       element.checked = false;
       // easyでフィルターするapiをstoreで実行する
-      this.$store.dispatch('musicFiles/filterByEasy')
+      this.$store.dispatch('musicFiles/FilterMusicFile', {
+        selectedEmotion: this.selectedEmotion,
+        selectedGenre: this.selectedGenre
+      })
     },
     musicFileNoFilter () {
+      this.selectedEmotion = ""
+      this.selectedGenre = ""
       //「感情」のチェックを外す
       for (const element of document.getElementsByName('emotion')) {
         element.checked = false;
@@ -83,7 +81,7 @@ export default {
 .side-bar {
   /* border: solid 1px; */
   padding: 10px;
-  min-width: 150px;
+  min-width: 180px;
 }
 .side-bar ul {
   list-style: none;

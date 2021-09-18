@@ -1,7 +1,7 @@
 <template>
     <div>
         <header class="header">
-            <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
+            <NuxtLink to="/TopAfterLogin"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
               <li>

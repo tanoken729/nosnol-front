@@ -103,10 +103,11 @@ export const actions = {
   // 感情・ジャンル絞り込み
   FilterMusicFile(context, payload) {
     let items = []
-    this.$axios.$get('api/musicFileFilter/emotion/genre', {
+    this.$axios.$get('api/musicFileFilter/emotion/genre/title', {
       params: {
         emotion: payload.selectedEmotion,
-        genre: payload.selectedGenre
+        genre: payload.selectedGenre,
+        title: payload.searchMusicFileTitle,
       }
     })
       .then(response => {

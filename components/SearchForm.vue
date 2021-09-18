@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" placeholder="検索" class="search-form">
+        <input v-model="searchMusicFileTitle" type="text" placeholder="検索" class="search-form">
         <button @click="searchMusicFile"><font-awesome-icon :icon="['fas', 'search']" class="search-icon"/></button>
     </div>
 </template>
@@ -11,10 +11,14 @@ export default {
     data () {
         return {
             showSearchForm: false,
+            searchMusicFileTitle: '',
         }
     },
     methods: {
         searchMusicFile (){
+            this.$store.dispatch('musicFiles/FilterMusicFile', {
+                searchMusicFileTitle: this.searchMusicFileTitle,
+            })
             console.log('searchMusicFile')
         },
     }

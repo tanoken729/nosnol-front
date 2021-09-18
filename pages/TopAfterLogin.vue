@@ -9,7 +9,7 @@
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3 class="item-title">{{ item.title }}</h3>
-            <h3 class="item-user-name">{{ item.user_name }}</h3>
+            <NuxtLink to="/userdetail"><h3 class="item-user-name">{{ item.user_name }}</h3></NuxtLink>
             <audio v-bind:id="`bgm-${index}`" preload>
               <source
                 :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"

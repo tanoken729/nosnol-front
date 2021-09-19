@@ -2,57 +2,68 @@
 <div class="wrapper">
   <Header />
     <main class="main">
-      <nav class="side-bar">
-        <h3>感情アイコン</h3>
-        <ul class="emotion">
-          <li>喜</li>
-          <li>怒</li>
-          <li>哀</li>
-          <li>楽</li>
-        </ul>
-        <h3>ジャンル</h3>
-        <ul class="genre">
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-          <li>ジャンル名</li>
-        </ul>
-      </nav>
-      <div class="content">
-        <p>{{data}}</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
-        <p>音声ファイル</p>
+      <sideBar />
+      <div class="content-fit">
+      <NuxtLink to="/musicfiledetail">
+      <div class="content" v-for="(item, index) in items" :key="index" @click="setMusicFileData">
+        <div>
+            <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
+            <h3>{{ item.title }}</h3>
+            <audio controls>
+              <source :src="`${$axios.defaults.baseURL}storage/${item.music_file}`" type="audio/mp3">
+            </audio>
+        </div>
       </div>
-      <div>
-          <h1>Laravel & Nuxt.js</h1>
-          <h2>URL</h2>
-          {{ url }}
-          <h2>Result</h2>
-          {{ message }}
+      </NuxtLink>
       </div>
     </main>
 </div>
 </template>
 
 <script>
-import Header from "@/components/header.vue";
+import headerAfterLogin from "@/components/headerAfterLogin.vue";
+import store from '../store';
 
 export default {
+  // middleware: 'user_auth',
   components: {
-    Header,
+    headerAfterLogin,
   },
-  async asyncData({app}) {
-    const url = 'http://localhost/api/test' //Laravel の API URI
-    const message = await app.$axios.$get(url)
+  data(){
     return {
-        url,
-        message
-     };
-  }
+      musicFile: "",
+      coverImage: "",
+      title: "",
+      genre: "",
+      emotions: "",
+      userId: "",
+      items: []
+    }
+  },
+  mounted: function() {
+    this.$axios
+      .$get('api/musicFileData')
+      .then(response => {
+        this.items = response
+        // console.log(this.items)
+      })
+      .catch(error => {
+        // console.log(error)
+      })
+  },
+  methods: {
+    setMusicFileData () {
+      this.$store.dispatch('setMusicFileData', {
+        items: this.items
+      })
+      console.log(this.items)
+    }
+  },
+  // computed: {
+  //   items: function () {
+  //     return this.$store.getters.musicFileData
+  //   },
+  // },
 };
 </script>
 
@@ -64,27 +75,50 @@ export default {
 .main {
   display: flex;
 }
-/* サイドバー */
-.side-bar {
-  border: solid 1px;
-  padding: 10px;
-}
-.side-bar ul {
-  list-style: none;
-  padding: 0;
-}
-.side-bar li {
-  padding: 10px;
-}
-.emotion li {
-  padding-left: 45px;
-}
 /* メインコンテンツ */
 .content {
-  display: flex;
+  /* display: flex; */
   padding: 10px;
+  /* height: 200px;
+  width: 295px; */
 }
-.content p {
-  padding: 10px;
+.content {
+  /* padding-top: 70px; */
+  border-radius: 0.5rem;
+  border: 1px solid #d4d3d3;
+  display: inline-block;
+  margin: 10px;
+  /* box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22); */
+	transition: .3s;
+  /* background-color: #e5e9f7; */
+  color: #696969;
+  padding: 5px;
+  /* background-color: rgb(230, 231, 252); */
+}
+.content:hover {
+  /* padding-top: 70px; */
+  border-radius: 0.5rem;
+  border: 1px solid #d4d3d3;
+  display: inline-block;
+  margin: 10px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+	transition: .3s;
+  /* background-color: #e5e9f7; */
+  color: #696969;
+}
+.cover-image {
+  height: 200px;
+  width: 200px;
+  display: flex;
+}
+audio {
+  width: 200px;
+  /* height: 50px; */
+  margin-top: 5px;
+  /* background-color: #000CFF; */
+}
+.content-fit {
+  max-width: 100%;
+  margin: 10px;
 }
 </style>

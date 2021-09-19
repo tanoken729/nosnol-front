@@ -1,47 +1,106 @@
 <template>
     <div>
         <header class="header">
-            <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
+            <NuxtLink to="/TopAfterLogin"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
-                <li>検索</li>
-                <li>ユーザー名</li>
-                <li><button class="btn" @click="openMusicUploadModal">アップロード</button></li>
+              <li>
+                <SearchForm />
+              </li>
+              <li>
+                <div class="user-icon">
+                  <img src="" alt="icon" @click="openMenuBar">
+                </div>
+              </li>
+              <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
             </ul>
             </nav>
         </header>
         <div>
-          <transition>
-            <MusicUploadModal
+          <transition name="modal" mode="out-in">
+            <BeforeMusicUploadModal
               v-show="showContent"
-              @click.self="closeMusicUploadModal"
-              @openMusicUploadModal="openMusicUploadModal"
-              @closeMusicUploadModal="closeMusicUploadModal"
-            ></MusicUploadModal>
+              @click.self="closeBeforeMusicUploadModal"
+              @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
+              @openAfterMusicUploadModal="openAfterMusicUploadModal"
+            ></BeforeMusicUploadModal>
+          </transition>
+        </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <AfterMusicUploadModal
+              :musicFile="musicFile" 
+              :musicFileName="musicFileName" 
+              v-show="showContent2"
+              @click.self="closeAfterMusicUploadModal"
+              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
+            ></AfterMusicUploadModal>
+          </transition>
+        </div>
+        <div>
+          <transition name="modal" mode="out-in">
+            <MenuBar
+              v-show="showMenuBar"
+              @click.self="closeMenuBar"
+              @closeMenuBar="closeMenuBar"
+            ></MenuBar>
           </transition>
         </div>
     </div>
 </template>
 
 <script>
-import MusicUploadModal from '@/components/MusicUploadModal.vue'
+import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
+import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
+import MenuBar from '@/components/MenuBar.vue'
+import SearchForm from '@/components/SearchForm.vue'
 
 export default {
+    transition: {
+    name: 'modal',
+    mode: 'out-in'
+  },
   components: {
-    MusicUploadModal,
+    BeforeMusicUploadModal,
+    AfterMusicUploadModal,
+    MenuBar,
+    SearchForm,
   },
   data () {
     return {
       showContent: false,
+      showContent2: false,
+      musicFile: '',
+      musicFileName: '',
+      showMenuBar: false,
+      showSearchForm: false,
     }
   },
   methods: {
-    openMusicUploadModal () {
-      // モーダルウィンドウを表示する
+    openBeforeMusicUploadModal () {
       this.showContent = true
     },
-    closeMusicUploadModal () {
+    closeBeforeMusicUploadModal () {
       this.showContent = false
+    },
+    openAfterMusicUploadModal (musicFile, musicFileName) {
+      this.showContent = false
+      this.showContent2 = true
+      //BeforeModelからのmusicFileNameをセット
+      this.musicFile = musicFile
+      this.musicFileName = musicFileName
+    },
+    closeAfterMusicUploadModal () {
+      this.showContent2 = false
+    },
+    logout() {
+      this.$auth.logout();
+    },
+    openMenuBar () {
+      this.showMenuBar = true
+    },
+    closeMenuBar () {
+      this.showMenuBar = false
     },
   },
 }
@@ -54,30 +113,35 @@ export default {
 .logo {
   padding: 10px;
   font-size: 25px;
+  color:#fff;
 }
 a {
   text-decoration: none;
   color: #000;
 }
 .header {
-  background-color: #C0C1EB;
+  background: linear-gradient(rgb(7, 22, 110), transparent);
   display: flex;
   justify-content: space-between;
   font-size: 15px;
+  padding-bottom: 30px;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5); */
 }
 .btn {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
   color: #fff;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 .btn:hover {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to left, rgb(38, 0, 255), rgb(0, 140, 255));
   color: #fff;
   font-size: 15px;
 }
@@ -91,6 +155,19 @@ a {
 .nav li {
   display: inline;
   list-style-type: none;
-  padding-left: 30px;
+  vertical-align: middle;
+  padding-left: 0;
+  display: inline-block;
+}
+.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
+.modal-enter, .modal-leave-active { opacity: 0; }
+
+.user-icon {
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 5rem;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    margin-right: 10px;
 }
 </style>

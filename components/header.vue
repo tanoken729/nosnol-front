@@ -4,7 +4,7 @@
             <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
             <nav class="nav">
             <ul>
-                <li>検索</li>
+                <!-- <li>検索</li> -->
                 <NuxtLink tag="li" to="/signin"><a>ログイン</a></NuxtLink>
                 <NuxtLink tag="li" to="/signup"><button class="btn">新規登録</button></NuxtLink>
             </ul>
@@ -26,10 +26,11 @@ a {
   color: #000;
 }
 .header {
-  background-color: #C0C1EB;
+  background-color: #fff;
   display: flex;
   justify-content: space-between;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 .btn {
   padding: 7px 20px;
@@ -38,6 +39,7 @@ a {
   background-color: #000CFF;
   color: #fff;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 }
 .btn:hover {
   padding: 7px 20px;

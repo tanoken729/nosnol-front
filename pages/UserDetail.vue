@@ -1,7 +1,6 @@
 <template>
 <div class="wrapper">
   <headerAfterLogin />
-  <body>
         <!-- 詳細ファイルの上部分 -->
         <div class="user-music-file-detail-header">
             <!-- クリエイターネーム・アイコン・フォロー数フォロワー数 -->
@@ -43,63 +42,30 @@
         <!-- 上と下を分ける境界線 -->
         <div class="border-for-header-body"></div>
         <!-- 詳細ファイルの下部分 -->
-        <div class="user-music-file-detail-body">
-            <!-- 音声ファイルのタイトル -->
-            <h3 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`third-${index}`">{{ musicFiledatum.clickedFileTitle }}</h3>
-            <!-- 音声ファイルデータ -->
-            <div class="user-music-file-data">
-                <audio controls v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
-                    <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
-                </audio>
-            </div>
-            <!-- エフェクト・音声ファイルカバー画像 -->
-            <div class="user-music-file-image">
-                <!-- エフェクト -->
-                <div class="user-music-file-audio-image">
-                    <img src="1051470.png" alt="audio visualizer" class="audio-image">
+        <div class="content-fit">
+            <div class="content" v-for="(userDetailItem, index) in userDetailItems.userDetailItems" :key="index" @click="setMusicFileData(userDetailItem.title, userDetailItem.cover_image, userDetailItem.music_file, userDetailItem.user_name, userDetailItem.user_id, userDetailItem.id)">
+            <NuxtLink to="/musicfiledetail">
+                <div>
+                    <img :src="`${$axios.defaults.baseURL}storage/${userDetailItem.cover_image}`" class="cover-image">
+                    <h3 class="userDetailItem-title">{{ userDetailItem.title }}</h3>
+                    <NuxtLink to="/userdetail"><h3 class="userDetailItem-user-name">{{ userDetailItem.user_name }}</h3></NuxtLink>
+                    <audio v-bind:id="`bgm-${index}`" preload>
+                    <source
+                        :src="`${$axios.defaults.baseURL}storage/${userDetailItem.music_file}`"
+                        type="audio/mp3"
+                    >
+                    </audio>
                 </div>
-                <!-- 音声ファイルカバー画像 -->
-                <div class="user-music-file-cover-image">
-                    <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fifth-${index}`"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
-                </div>
+            </NuxtLink>
+                    <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
+                    <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
             </div>
         </div>
-        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`sixth-${index}`">
-            <font-awesome-icon
-                :icon="['fas', 'heart']"
-                class="like-font-solid"
-                v-if="userId === $store.state.auth.user.id"
-                @click="unlike(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
-            />
-            <font-awesome-icon
-                :icon="['far', 'heart']"
-                class="like-font-regular"
-                v-else
-                @click="like(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
-            />
         </div>
-        <div class="like-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
-            <input type="text" v-model="comment">
-            <button
-                @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
-            >
-                コメント
-            </button>
-            <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
-        <div v-for="(commentInfo, index) in commentInfos" :key="index">
-            <p><font size="2">{{commentInfo.created_at}}</font></p>
-            <h2><font size="3">{{commentInfo.user_id}}</font></h2>
-            <p><font size="5">{{commentInfo.text}}</font></p>
-            <br>
-        </div>
-        </div>
-        </div>
-  </body>
 </div>
 </template>
 
 <script>
-import store from '../store';
 
 export default {
     data(){
@@ -109,10 +75,8 @@ export default {
             followInfo: [],
             followedId: '',
             clickedFileId: '',
-            likeInfo: [],
-            userId: '',
-            comment: '',
-            commentInfos: [],
+            play: false,
+            userDetailItems: [],
         }
     },
     asyncData: async function(context) {
@@ -122,21 +86,14 @@ export default {
         context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
         });
-        let clickedFileId = ''
-        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
-            clickedFileId = musicFiledatum.clickedFileId
-        });
-        await context.store.dispatch('musicFiles/musicDetailPageData', {
-            clickedLoginUserId: context.store.state.auth.user.id,
-            clickedFileId: clickedFileId,
+        await context.store.dispatch('musicFiles/userDetailPageData', {
             clickedFileUserId: clickedFileUserId,
         })
         context.store.commit("loading/setLoading", false)
     },
     created: function() {
         this.followedId = this.$store.getters['musicFiles/followedId']
-        this.userId = this.$store.getters['musicFiles/userId']
-        this.commentInfos = this.$store.getters['musicFiles/commentInfos']
+        this.userDetailItems = this.$store.getters['musicFiles/userDetailItems']
     },
     methods: {
         async follow (clickedFileUserId, clickedLoginUserId) {
@@ -152,7 +109,6 @@ export default {
                 followed_id: this.clickedFileUserId,
             })
             .then(res => {
-                // console.log(res)
                 this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/getFollowInfo`)
                 .then(res => {
                     this.followInfo = res
@@ -172,68 +128,42 @@ export default {
             this.clickedLoginUserId = clickedLoginUserId
             await this.$axios.$get(`api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`)
                 .then(res => {
-                    // console.log(res)
                 })
                 .catch(err => {
                     console.log(err)
                 })
         },
-        async like (clickedFileId, clickedLoginUserId) {
-            this.userId = clickedLoginUserId
-            this.clickedFileId = clickedFileId
-            this.clickedLoginUserId = clickedLoginUserId
-            await this.$axios.post('api/like', {
-                user_id: this.clickedLoginUserId,
-                // ここでリクエストするのはユーザーのidでなくファイルのid
-                music_file_id: this.clickedFileId,
-            })
-            .then(res => {
-                // console.log(res)
-                this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getLikeInfo`)
-                .then(res => {
-                    this.likeInfo = res
-                    this.userId = this.likeInfo.likeInfo[0].user_id
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        playAction (index) {
+            this.play = index
+            this.bgm = index
+            console.log(this.bgm)
+            var audios = document.getElementById(`bgm-${index}`);
+            console.log(audios)
+            audios.play();
         },
-        async unlike (clickedFileId, clickedLoginUserId) {
-            this.userId = false
-            this.clickedFileId = clickedFileId
-            this.clickedLoginUserId = clickedLoginUserId
-            await this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unlike`)
-                .then(res => {
-                    console.log(res)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+        pauseAction (index) {
+            this.play = false
+            this.bgm = index
+            console.log(this.bgm)
+            var audios = document.getElementById(`bgm-${index}`);
+            console.log(audios)
+            audios.pause();
         },
-        async addComment (clickedFileId, clickedLoginUserId) {
+        setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId) {
+            this.clickedFileTitle = clickedFileTitle
+            this.clickedFileCoverImage = clickedFileCoverImage
+            this.clickedFileMusicfile = clickedFileMusicfile
+            this.clickedFileUserName = clickedFileUserName
+            this.clickedFileUserId = clickedFileUserId
             this.clickedFileId = clickedFileId
-            this.clickedLoginUserId = clickedLoginUserId
-            await this.$axios.post('api/comment', {
-                text: this.comment,
-                user_id: this.clickedLoginUserId,
-                // ここでリクエストするのはユーザーのidでなくファイルのid
-                music_file_id: this.clickedFileId,
-            })
-            .then(res => {
-                this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getCommentInfo`)
-                .then(res => {
-                    this.commentInfos = res.commentInfo
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            })
-            .catch(err => {
-                console.log(err)
+            this.$store.dispatch('musicFiles/setMusicFileData', {
+                clickedFileTitle: this.clickedFileTitle,
+                clickedFileCoverImage: this.clickedFileCoverImage,
+                clickedFileMusicfile: this.clickedFileMusicfile,
+                clickedFileUserName: this.clickedFileUserName,
+                // フォローで渡すためのやつ
+                clickedFileUserId: this.clickedFileUserId,
+                clickedFileId: this.clickedFileId,
             })
         },
     }
@@ -250,11 +180,11 @@ body {
   padding: 0;
 }
 
-.full-page {
+/* .full-page {
   width: 100vw;
   height: 100vh;
   background-color: #F0F1F8
-}
+} */
 
 h2 {
     font-size: 20px;
@@ -263,7 +193,7 @@ h2 {
     /* text-align: center; */
     display: flex;
     margin: 0 auto;
-    width: 60%;
+    width: 50%;
     padding: 0;
     background-color: #fff;
 }
@@ -274,18 +204,16 @@ h2 {
 .user-icon {
     padding: 60px 10px;
     border: 1px solid rgb(185, 184, 184);
-    border-radius: 0.5rem;
+    border-radius: 5rem;
     min-width: 150px;
     height: 150px;
 }
 .user-status {
     padding: 10px 10px;
 }
+/* フォロー情報 */
 .follow {
     color: #696969;
-}
-a {
-  text-decoration: none;
 }
 .follow:hover {
     color: #000;
@@ -306,28 +234,7 @@ a {
     border-bottom: 1px solid rgb(185, 184, 184);
     background-color: #fff;
 }
-.user-music-file-data {
-    padding: 10px;
-}
-.user-music-file-audio-image {
-    padding: 10px;
-}
-.user-music-file-cover-image {
-    padding: 10px;
-}
-.user-music-file-image {
-    display: flex;
-    justify-content: space-between;
-}
-.like-display {
-    width: 70%;
-    margin: 0 auto;
-    border-right: 1px solid rgb(185, 184, 184);
-    border-left: 1px solid rgb(185, 184, 184);
-    border-bottom: 1px solid rgb(185, 184, 184);
-    padding: 0 10px;
-    background-color: #fff;
-}
+/* フォローボタン */
 .btn-before-follow {
   padding: 7px 20px;
   border-radius: 0.5rem;
@@ -360,12 +267,6 @@ a {
   color: #000;
   font-size: 15px;
 }
-footer {
-  width:100%;
-  height: 100px;
-  position: absolute;
-  bottom: 0;
-}
 .cover-image {
   height: 200px;
   width: 200px;
@@ -375,17 +276,77 @@ footer {
   height: 200px;
   width: 200px;
 }
-.like-font-regular {
-    font-size: 30px ;
+
+/* コンテンツ */
+.content {
+    border-radius: 0.5rem;
+    display: inline-block;
+    margin: 10px;
+    transition: .3s;
+    color: #696969;
+    padding: 5px;
+    position: relative;
+}
+.content button {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    /*以下装飾*/
+    margin:0;/*余計な隙間を除く*/
+    font-size: 20px;/*文字サイズ*/
+    border: none; /*線で囲う*/
+    padding: 7px;/*文字と線の間の余白*/
+    color: white;/*文字色*/
+    text-decoration: none;/*下線を表示させない*/
+    background: rgba(255, 255, 255, 0.3);/*背景を半透明に*/
+}
+.content button:hover{/*カーソルを当てたとき*/
+    background: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
+}
+.content:hover {
+    border-radius: 0.5rem;
+    display: inline-block;
+    margin: 10px;
+	transition: .3s;
     color: #696969;
 }
-.like-font-regular:hover {
-    font-size: 30px ;
-    color: #696969;
-    background-color: rgba(22, 24, 35, 0.06);
+.cover-image {
+    height: 150px;
+    width: 150px;
+    display: flex;
+    border-radius: 0.5rem;
 }
-.like-font-solid {
-    font-size: 30px ;
-    color: #f83979;
+audio {
+    width: 200px;
+    margin-top: 5px;
+}
+.content-fit {
+    width: 50%;
+    /* width: 1030px; */
+    margin: 0 auto;
+}
+/* item-titleとstyle同じのためあとで継承させる */
+.userDetailItem-title {
+    font-size: 16px;
+    color: #333333;
+    height: 25px;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.userDetailItem-user-name {
+    font-size: 14px;
+    color: #999999;
+}
+a {
+    text-decoration: none;
+}
+#btn-play {
+    padding: 15px 17px;
+    border-radius: 5rem;
 }
 </style>

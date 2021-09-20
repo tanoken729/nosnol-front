@@ -59,7 +59,7 @@
                 <!-- クリエイターネーム -->
                 <div class="user-status">
                     <!-- クリエイターネーム -->
-                    <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2>
+                    <NuxtLink to="/userdetail"><h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2></NuxtLink>
                 </div>
             </div>
             <!-- フォローボタン -->

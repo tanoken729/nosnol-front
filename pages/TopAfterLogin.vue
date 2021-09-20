@@ -9,7 +9,7 @@
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3 class="item-title">{{ item.title }}</h3>
-            <h3 class="item-user-name">{{ item.user_name }}</h3>
+            <NuxtLink to="/userdetail"><h3 class="item-user-name">{{ item.user_name }}</h3></NuxtLink>
             <audio v-bind:id="`bgm-${index}`" preload>
               <source
                 :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
@@ -175,6 +175,11 @@ audio {
 .item-title {
   font-size: 16px;
   color: #333333;
+  height: 25px;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   /* font-weight: bold; */
   /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }

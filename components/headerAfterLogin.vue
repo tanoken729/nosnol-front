@@ -1,15 +1,15 @@
 <template>
     <div>
         <header class="header">
-            <NuxtLink to="/TopAfterLogin"><h1 class="logo">Sound Matching</h1></NuxtLink>
+            <NuxtLink to="/TopAfterLogin"><h1 class="logo">Beat Space</h1></NuxtLink>
             <nav class="nav">
             <ul>
               <li>
                 <SearchForm />
               </li>
               <li>
-                <div class="user-icon">
-                  <img src="" alt="icon" @click="openMenuBar">
+                <div>
+                  <img class="user-icon" :src="`${$axios.defaults.baseURL}storage/${$store.state.auth.user.user_icon}`" alt="icon" @click="openMenuBar">
                 </div>
               </li>
               <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
@@ -163,11 +163,12 @@ a {
 .modal-enter, .modal-leave-active { opacity: 0; }
 
 .user-icon {
-    border: 1px solid rgb(185, 184, 184);
+    border-style: none;
     border-radius: 5rem;
-    width: 40px;
-    height: 40px;
-    background: #fff;
+    width: 30px;
+    height: 30px;
+    background: #d3d3d4;
     margin-right: 10px;
+    vertical-align: bottom;
 }
 </style>

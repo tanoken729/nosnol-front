@@ -1,14 +1,14 @@
 <template>
     <nav class="side-bar">
-      <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="genre-label">すべて</label>
-    <h3>感情</h3>
+        <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="all-tracks">All tracks</label>
+    <h3>Emotions</h3>
         <div class="emotion">
         <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
         <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
         <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
         <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
         </div>
-    <h3>ジャンル</h3>
+    <h3>Genres</h3>
         <div class="genre">
         <input @click="FilterMusicFile" type="radio" name="genre" value="j-pop" id="j-pop"><label for="j-pop" class="genre-label">J-POP</label>
         <input @click="FilterMusicFile" type="radio" name="genre" value="anime" id="anime"><label for="anime" class="genre-label">アニメ</label>
@@ -97,6 +97,7 @@ export default {
 .side-bar h3 {
   padding: 10px;
   color: #696969;
+  font-size: 20px;
 }
 /* 感情 */
 .joy:hover {
@@ -166,20 +167,20 @@ input[type="radio"]:checked + .emotion-label {
   margin: 10px auto;
 }
 .emotion-label {
-  border: 1px solid #d4d3d3;
+  /* border: 1px solid #d4d3d3; */
   margin-bottom: 10px;
   border-radius: 0.5rem;
   width: 50px;
   text-align: center;
   padding: 10px 10px;
-  margin: 10px auto;
+  /* margin: 10px auto; */
   display:block;
   position:relative;
 }
 .emotion-label:hover {
   color: #000CFF;
   background-color: #e5e9f7;
-  margin: 10px auto;
+  /* margin: 10px auto; */
 }
 
 input[type="radio"]:checked + .genre-label {
@@ -193,16 +194,41 @@ input[type="radio"]:checked + .genre-label {
   margin: 10px auto;
 }
 .genre-label {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border-radius: 0.5rem;
   padding: 10px 10px;
-  margin: 10px auto;
+  /* margin: 10px auto; */
   display:block;
   position:relative;
 }
 .genre-label:hover {
   color: #000CFF;
   background-color: #e5e9f7;
-  margin: 10px auto;
+  /* margin: 10px auto; */
+}
+.all-tracks {
+  /* margin-bottom: 10px; */
+  border-radius: 0.5rem;
+  padding: 10px;
+  margin: 0;
+  display:block;
+  position:relative;
+  font-size: 20px;
+  font-weight: bold;
+}
+.all-tracks:hover {
+  color: #000CFF;
+  background-color: #e5e9f7;
+  /* margin: 10px auto; */
+}
+input[type="radio"]:checked + .all-tracks {
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  border-radius: 0.5rem;
+  color: #000CFF;
+  background-color: #e5e9f7;
+  font-weight: bold;
+  /* padding: 10px 10px; */
+  /* margin: 10px auto; */
 }
 </style>

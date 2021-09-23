@@ -5,11 +5,11 @@
       <sideBar />
       <div class="content-fit">
       <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
-      <NuxtLink to="/musicfiledetail">
+      <nuxt-link :to="{ name: 'user-title', params: {user: `${item.user_name}`, title: `${item.title}`} }">
         <div>
             <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
             <h3 class="item-title">{{ item.title }}</h3>
-            <NuxtLink to="/userdetail"><h3 class="item-user-name">{{ item.user_name }}</h3></NuxtLink>
+            <nuxt-link :to="{ name: 'user', params: {user: `${item.user_name}`} }"><h3 class="item-user-name">{{ item.user_name }}</h3></nuxt-link>
             <audio v-bind:id="`bgm-${index}`" preload>
               <source
                 :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
@@ -17,7 +17,7 @@
               >
             </audio>
         </div>
-      </NuxtLink>
+      </nuxt-link>
             <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
             <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
       </div>
@@ -99,6 +99,9 @@ export default {
   outline: solid 1px #000;
 } */
 /* メイン */
+/* * {
+  background: #333333;
+} */
 #btn-play {
   padding: 15px 17px;
   border-radius: 5rem;
@@ -160,6 +163,7 @@ export default {
   width: 150px;
   display: flex;
   border-radius: 0.5rem;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
 }
 audio {
   width: 200px;

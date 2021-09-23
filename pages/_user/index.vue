@@ -6,8 +6,9 @@
             <!-- クリエイターネーム・アイコン・フォロー数フォロワー数 -->
             <div class="user-info">
                 <!-- アイコン -->
-                <div class="user-icon">
-                    <img src="" alt="">
+                <div v-for="(userDetailItem, index) in userDetailItems" :key="index">
+                    <!-- 配列全てを取得すると、ユーザーの持つファイル数分アイコン画像が表示されるため、indexを0に指定して１つだけ表示させる -->
+                    <img :src="`${$axios.defaults.baseURL}storage/${userDetailItem[0].user_icon}`" alt="" class="user-icon">
                 </div>
                 <!-- クリエイターネーム・フォロー数フォロワー数 -->
                 <div class="user-status">
@@ -44,7 +45,7 @@
         <!-- 詳細ファイルの下部分 -->
         <div class="content-fit">
             <div class="content" v-for="(userDetailItem, index) in userDetailItems.userDetailItems" :key="index" @click="setMusicFileData(userDetailItem.title, userDetailItem.cover_image, userDetailItem.music_file, userDetailItem.user_name, userDetailItem.user_id, userDetailItem.id)">
-            <NuxtLink to="/musicfiledetail">
+            <nuxt-link :to="{ name: 'user-title', params: {user: `${userDetailItem.user_name}`, title: `${userDetailItem.title}`} }">
                 <div>
                     <img :src="`${$axios.defaults.baseURL}storage/${userDetailItem.cover_image}`" class="cover-image">
                     <h3 class="userDetailItem-title">{{ userDetailItem.title }}</h3>
@@ -56,7 +57,7 @@
                     >
                     </audio>
                 </div>
-            </NuxtLink>
+            </nuxt-link>
                     <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
                     <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
             </div>
@@ -202,11 +203,12 @@ h2 {
     display: flex;
 }
 .user-icon {
-    padding: 60px 10px;
-    border: 1px solid rgb(185, 184, 184);
+    /* padding: 10px 10px; */
+    /* border: 1px solid rgb(185, 184, 184); */
     border-radius: 5rem;
     min-width: 150px;
     height: 150px;
+    background: #d3d3d4;
 }
 .user-status {
     padding: 10px 10px;

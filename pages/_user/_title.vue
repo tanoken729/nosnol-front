@@ -57,9 +57,10 @@
                     <img src="" alt="">
                 </div>
                 <!-- クリエイターネーム -->
-                <div class="user-status">
+                <div class="user-status" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">
                     <!-- クリエイターネーム -->
-                    <NuxtLink to="/userdetail"><h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2></NuxtLink>
+                    <nuxt-link :to="{ name: 'user', params: {user: `${musicFiledatum.clickedFileUserName}`} }"><h2>{{ musicFiledatum.clickedFileUserName }}</h2></nuxt-link>
+                    <!-- <NuxtLink to="/userdetail"><h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2></NuxtLink> -->
                 </div>
             </div>
             <!-- フォローボタン -->
@@ -121,7 +122,7 @@
 </template>
 
 <script>
-import store from '../store';
+import store from '../../store';
 
 export default {
     data(){

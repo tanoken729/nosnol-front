@@ -5,7 +5,7 @@ const ENV = require('dotenv').config().parsed;
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'sound-matching',
+    title: 'Beat Space',
     htmlAttrs: {
       lang: 'en'
     },

@@ -198,9 +198,19 @@ h2 {
     padding: 0;
     background-color: #fff;
 }
+@media screen and (max-width: 750px){
+  .user-music-file-detail-header{
+    width: 100%;
+  }
+}
 .user-info {
     margin: 40px auto;
     display: flex;
+}
+@media screen and (max-width: 750px){
+  .user-info{
+    margin: 0;
+  }
 }
 .user-icon {
     /* padding: 10px 10px; */
@@ -210,8 +220,21 @@ h2 {
     height: 150px;
     background: #d3d3d4;
 }
+@media screen and (max-width: 750px){
+  .user-icon{
+    min-width: 50px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+}
 .user-status {
     padding: 10px 10px;
+}
+@media screen and (max-width: 750px){
+  .user-status{
+    padding: 10px 5px;
+  }
 }
 /* フォロー情報 */
 .follow {
@@ -223,6 +246,12 @@ h2 {
 .follow-action-to-user {
     padding: 30px 10px;
     margin: 0 auto;
+}
+@media screen and (max-width: 750px){
+  .follow-action-to-user{
+    padding: 10px 10px;
+    margin: 0;
+  }
 }
 .border-for-header-body {
     border-bottom: 1px solid rgb(185, 184, 184);
@@ -329,6 +358,13 @@ audio {
     width: 50%;
     /* width: 1030px; */
     margin: 0 auto;
+}
+@media screen and (max-width: 750px){
+  .content-fit{
+    width: 100%;
+    width: 360px;
+    margin: 0 auto;
+  }
 }
 /* item-titleとstyle同じのためあとで継承させる */
 .userDetailItem-title {

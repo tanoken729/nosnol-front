@@ -173,8 +173,14 @@ audio {
 }
 .content-fit {
   max-width: 100%;
-  margin: 10px;
-  width: 1030px;
+  width: 1000px;
+}
+@media screen and (max-width: 750px){
+  .content-fit{
+    width: 100%;
+    width: 360px;
+    margin: 0 auto;
+  }
 }
 .item-title {
   font-size: 16px;

@@ -83,6 +83,11 @@ export default {
   padding: 10px;
   min-width: 180px;
 }
+@media screen and (max-width: 750px){
+  .side-bar{
+    display:none;
+  }
+}
 .side-bar ul {
   list-style: none;
   padding: 0;

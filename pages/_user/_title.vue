@@ -288,6 +288,13 @@ export default {
     width: 50%;
     margin: 0 auto;
 }
+@media screen and (max-width: 750px){
+  .border-for-header-body{
+    border-bottom: 1px solid rgb(185, 184, 184);
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 .user-music-file-detail-header {
     /* text-align: center; */
     display: flex;
@@ -297,6 +304,18 @@ export default {
     background-color: #fff;
     margin-top: 30px;
     /* justify-content: space-between; */
+}
+@media screen and (max-width: 750px){
+  .user-music-file-detail-header{
+    /* text-align: center; */
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    padding: 0;
+    background-color: #fff;
+    margin-top: 30px;
+    /* justify-content: space-between; */
+  }
 }
 .user-music-file-detail-header2 {
     /* text-align: center; */
@@ -308,6 +327,19 @@ export default {
     margin-top: 30px;
     margin-bottom: 30px;
     justify-content: space-between;
+}
+@media screen and (max-width: 750px){
+  .user-music-file-detail-header2{
+    /* text-align: center; */
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+    padding: 0;
+    background-color: #fff;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+  }
 }
 .user-icon-user-status {
     display: flex;
@@ -326,7 +358,15 @@ export default {
     height: 40px;
     margin-right: 20px;
 }
-
+@media screen and (max-width: 750px){
+  .comment-user-icon{
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 5rem;
+    min-width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+}
 .like-display {
     width: 50%;
     margin: 0 auto;
@@ -336,6 +376,18 @@ export default {
     background-color: #fff;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+@media screen and (max-width: 750px){
+  .like-display{
+    width: 90%;
+    margin: 0 auto;
+    /* border-right: 1px solid rgb(185, 184, 184);
+    border-left: 1px solid rgb(185, 184, 184); */
+    padding: 10px;
+    background-color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 .like-icon {
     margin-top: 10px;
@@ -349,6 +401,11 @@ export default {
     background-color: #fff;
     margin-top: 30px;
     margin-bottom: 10px;
+}
+@media screen and (max-width: 750px){
+  .comment-display{
+    width: 90%;
+  }
 }
 .comment-text-box {
     margin-bottom: 20px;
@@ -446,5 +503,10 @@ ul {
 }
 .record-type {
     font-size: 30px;
+}
+@media screen and (max-width: 750px){
+  .record-type{
+    font-size: 20px;
+  }
 }
 </style>

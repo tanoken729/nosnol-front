@@ -119,11 +119,27 @@ a {
 }
 .form {
   margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  width: 400px;
+  padding: 30px 10px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 750px){
+  .form{
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  width: 350px;
+  padding: 30px 10px;
+  margin: 0 auto;
+  }
 }
 input {
   margin: 10px 0;
@@ -146,12 +162,6 @@ input {
   color: #fff;
   font-size: 15px;
 }
-.form {
-  border: 1px solid #dcdcdc;
-  width: 400px;
-  padding: 30px 10px;
-  margin: 0 auto;;
-}
 input.text-box {
   width: 300px;
   border: 1px solid #dcdcdc;
@@ -160,13 +170,28 @@ input.text-box {
   font-size: 23px;
 }
 .guide-sentence {
-  margin: 0 auto;;
+  margin: 0 auto;
+}
+@media screen and (max-width: 750px){
+  .guide-sentence{
+    margin: 0 auto;
+    font-size: 10px;
+    text-align: center;
+  }
 }
 .aaa {
   display: flex;
   margin:  100px auto;
   width: 50%;
   padding: 0;
+}
+@media screen and (max-width: 750px){
+  .aaa{
+    display: block;
+    margin:  20px 0;
+    width: 100%;
+    padding: 0;
+  }
 }
 .error-message {
   color: #ff0000;

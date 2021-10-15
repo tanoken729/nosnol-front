@@ -3,6 +3,7 @@ import * as FontAwesome from './build/fontawesome'
 process.env.DEBUG = 'nuxt:*'
 const ENV = require('dotenv').config().parsed;
 export default {
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Beat Space',
@@ -125,7 +126,7 @@ export default {
           user:{
             url:'/api/v1/auth/me',
             method:'get',
-            propertyName:false
+            propertyName:'user'
           }
         }
       },

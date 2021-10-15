@@ -76,6 +76,9 @@ export default {
       showSearchForm: false,
     }
   },
+  // mounted () {
+  //   console.log(this.$store)
+  // },
   methods: {
     openBeforeMusicUploadModal () {
       this.showContent = true

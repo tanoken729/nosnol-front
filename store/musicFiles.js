@@ -114,7 +114,7 @@ export const actions = {
         context.commit('setUserDetailPageData', UserDetailItems)
       })
     },
-  // 感情・ジャンル絞り込み
+  // 感情・ジャンル絞り込み、ファイル名検索
   FilterMusicFile(context, payload) {
     let items = []
     this.$axios.$get('api/musicFileFilter/emotion/genre/title', {

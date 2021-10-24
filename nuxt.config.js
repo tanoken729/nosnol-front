@@ -2,11 +2,12 @@ import * as FontAwesome from './build/fontawesome'
 
 process.env.DEBUG = 'nuxt:*'
 const ENV = require('dotenv').config().parsed;
+// export default ENV;
 export default {
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Beat Space',
+    title: 'A platform for independent artists | Nosnol',
     htmlAttrs: {
       lang: 'en'
     },
@@ -16,7 +17,7 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/android-chrome-36x36.png' }
     ]
   },
 
@@ -62,34 +63,15 @@ export default {
   env:ENV,
   // axiosを利用してサーバにリクエストを送る
   axios: {
-    // baseURL: 'http://localhost:3000',
-    // baseURL: 'http://localhost:8000',
-    // baseURL: 'http://localhost:8000/api/v1',
     baseURL: ENV.API_BASE_URL,
     browserBaseURL: 'http://localhost:8000/',
     proxy: true
   },
   proxy: {
-    // '/api': 'http://sound-matching_api_app_1:8000/api/test',
-    // '/api': {
-    //   target: 'http://localhost:8000',
-    //   pathRewrite: {
-    //     '^/api': '/'
-    //   }
-    // }
-    // '/api1/': 'http://localhost:8000',
-    // '/api2/': {
-    //   target: 'http://localhost:8000',
-    //   pathRewrite: {'^/api/': ''}
-    // },
     '/proxy/': {
       target: 'http://localhost:8000',
       pathRewrite: {'^/api/': '/'}
     },
-    // '/api3/': {
-    //   target: 'http://localhost:8000',
-    //   pathRewrite: {'^/api/': ''}
-    // },
     "secure": false
   },
 
@@ -142,3 +124,5 @@ export default {
     standalone: true,
   }
 }
+console.log('hoge')
+console.log(ENV.API_BASE_URL)

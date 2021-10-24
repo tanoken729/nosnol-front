@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper">
     <Header />
-    <div class="aaa">
+    <div class="signin-form-positon-adjustment">
       <form @submit.stop.prevent="submit" class="form">
           <h2 class="title">ログイン</h2>
           <table>
@@ -63,6 +63,7 @@ export default {
     async submit() {
         if(this.checkFormHasError()) return;
 
+        this.$store.commit("loading/setLoading", true)
         try{
           const response = await this.$auth.loginWith('local', { data: this.form })
           console.log(response)
@@ -70,6 +71,7 @@ export default {
         } catch(error){
           console.log(error)
         }
+        this.$store.commit("loading/setLoading", false)
     }
   },
 }
@@ -92,7 +94,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #000CFF;
+  color: rgb(84, 71, 255);
   text-decoration: none;
 }
 .form {
@@ -101,10 +103,11 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  border: 1px solid #dcdcdc;
+  /* border: 1px solid #dcdcdc; */
   width: 400px;
   padding: 30px 10px;
   margin: 0 auto;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
 }
 @media screen and (max-width: 750px){
   .form{
@@ -124,22 +127,25 @@ input {
   padding: 10px;
 }
 .btn {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
   margin: 20px;
 }
 .btn:hover {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to left, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
 }
+
 input.text-box {
   width: 300px;
   border: 1px solid #dcdcdc;
@@ -147,15 +153,16 @@ input.text-box {
 .title {
   font-size: 23px;
 }
-.aaa {
+.signin-form-positon-adjustment {
   display: flex;
-  margin:  100px auto;
+  margin:  0 auto;
   width: 50%;
   padding: 0;
+  margin-top: 200px;
 }
 @media screen and (max-width: 750px){
-  .aaa{
-    margin:  50px 0;
+  .signin-form-positon-adjustment{
+    margin-top: 150px;
     width: 100%;
     padding: 0;
   }

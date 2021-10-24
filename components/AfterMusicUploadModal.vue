@@ -5,7 +5,7 @@
       <div class="sections">
         <form method="post" enctype="multipart/form-data">
         <div>
-          {{musicFile}}
+          <!-- {{musicFile}} -->
           <h3>カバー画像</h3>
           <div class="drop_area" 
             @dragenter="dragEnter" 
@@ -17,13 +17,9 @@
             <p>クリックして画像を追加</p>
             <p>10MB以内 .jpg .png .heic に対応しています。</p>
           </div>
-          {{coverImages[0]}}
+          <!-- {{coverImages[0]}} -->
         </div>
         </form>
-<!-- <form method="POST" action="<URL>" enctype="multipart/form-data">
-  <input type="file" name="file"/><br>
-  <input type="submit" value="SUBMIT" @change="dropFile"/>
-</form> -->
         <h3>タイトル</h3>
           <input type="text" class="text-box" v-model="musicFileName">
         <h3>ジャンル選択</h3>
@@ -43,7 +39,7 @@
             <option value="jazz">ジャズ</option>
             <option value="classic">クラシック</option>
           </select>
-          {{genre}}
+          <!-- {{genre}} -->
           </div>
         <h3>感情</h3>
         <div class="emotion">
@@ -52,13 +48,7 @@
           <input type="radio" name="emotion-in-modal" value="sorrow" @change="selectedEmotion" id="sorrow-in-modal"><label for="sorrow-in-modal" class="emotion-label">哀</label>
           <input type="radio" name="emotion-in-modal" value="easy" @change="selectedEmotion" id="easy-in-modal"><label for="easy-in-modal" class="emotion-label">楽</label>
         </div>
-        {{emotion}}
-          <!-- <ul class="emotion">
-            <li class="joy">喜</li>
-            <li class="angry">怒</li>
-            <li class="sorrow">哀</li>
-            <li class="easy">楽</li>
-          </ul> -->
+        <!-- {{emotion}} -->
       </div>
       <div class="button-content">
         <button class="cancel-btn" @click="closeAfterMusicUploadModal">キャンセル</button>
@@ -97,6 +87,7 @@ export default {
       this.$emit('closeAfterMusicUploadModal');
     },
     async uploadMusicFile () {
+      this.$store.commit("loading/setLoading", true)
       let formData = new FormData();
 
       formData.append('music_file', this.musicFile);
@@ -128,6 +119,7 @@ export default {
       .catch(err => {
         console.log(err)
       })
+      this.$store.commit("loading/setLoading", false)
     },
     dragEnter() {
         // console.log('Enter Drop Area');
@@ -168,7 +160,7 @@ export default {
 } */
 #overlay{
   /*　要素を重ねた時の順番　*/
-  z-index:1;
+  z-index:30;
 
   /*　画面全体を覆う設定　*/
   position:fixed;
@@ -220,7 +212,7 @@ export default {
   padding: 7px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
 }
@@ -228,7 +220,7 @@ export default {
   padding: 7px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to left, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
 }
@@ -277,7 +269,7 @@ input[type="radio"]:checked + .emotion-label {
   margin-bottom: 10px;
   border-radius: 0.5rem;
   width: 50px;
-  color: #000CFF;
+  color: rgb(255, 255, 255);
   background-color: #e5e9f7;
   font-weight: bold;
   padding: 10px 10px;
@@ -307,7 +299,7 @@ border: 2px solid #006DD9;
 border-radius: 5px; */
 }
 .emotion-label:hover {
-  color: #000CFF;
+  color: rgb(255, 255, 255);
   background-color: #e5e9f7;
   border: 1px solid #d4d3d3;
   margin-top: 10px;

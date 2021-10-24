@@ -2,25 +2,30 @@
 <div class="wrapper">
   <Header />
     <main class="main">
-      <sideBar />
-      <div class="content-fit">
-      <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
-      <nuxt-link :to="{ name: 'user-title', params: {user: `${item.user_name}`, title: `${item.title}`} }">
-        <div>
-            <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
-            <h3 class="item-title">{{ item.title }}</h3>
-            <nuxt-link :to="{ name: 'user', params: {user: `${item.user_name}`} }"><h3 class="item-user-name">{{ item.user_name }}</h3></nuxt-link>
-            <audio v-bind:id="`bgm-${index}`" preload>
-              <source
-                :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
-                type="audio/mp3"
-              >
-            </audio>
+      <SideBar />
+      <div class="tracks-title-adjustment">
+        <div class="tracks-title">
+          <h1>Tracks</h1>
         </div>
-      </nuxt-link>
+        <div class="content-fit">
+          <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
+          <NuxtLink to="/signin">
+            <div>
+                <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
+                <h3 class="item-title">{{ item.title }}</h3>
+                <nuxt-link :to="{ name: 'user', params: {user: `${item.user_name}`} }"><h3 class="item-user-name">{{ item.user_name }}</h3></nuxt-link>
+                <audio v-bind:id="`bgm-${index}`" preload>
+                  <source
+                    :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
+                    type="audio/mp3"
+                  >
+                </audio>
+            </div>
+          </NuxtLink>
             <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
             <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
-      </div>
+          </div>
+        </div>
       </div>
     </main>
 </div>
@@ -102,6 +107,31 @@ export default {
 /* * {
   background: #333333;
 } */
+.tracks-title-adjustment {
+  margin: 0 auto;
+}
+@media screen and (max-width: 750px){
+  .tracks-title-adjustment{
+    width: 100%;
+    width: 360px;
+    margin: 0 auto;
+  }
+}
+.tracks-title {
+    /* margin: 0px auto; */
+    padding: 10px 15px;
+    display: block;
+    min-width: 50%;
+    width: 720px;
+    color: #333333;
+    max-width: 100%;
+    margin-left: 250px;
+}
+@media screen and (max-width: 750px){
+  .tracks-title{
+    margin: 15px 0 0 0;
+  }
+}
 #btn-play {
   padding: 15px 17px;
   border-radius: 5rem;
@@ -111,6 +141,8 @@ export default {
   width: 1200px;
   max-width: 100%;
   margin: 0 auto;
+  margin-top: 100px;
+  z-index: 0;
 }
 /* メインコンテンツ */
 .content {
@@ -129,7 +161,7 @@ export default {
 }
 .content button {
   position: absolute;
-  top: 45%;
+  top: 42%;
   left: 50%;
   -ms-transform: translate(-50%,-50%);
   -webkit-transform: translate(-50%,-50%);
@@ -139,12 +171,13 @@ export default {
   font-size: 20px;/*文字サイズ*/
   border: none; /*線で囲う*/
   padding: 7px;/*文字と線の間の余白*/
-  color: white;/*文字色*/
+  color: transparent;/*文字色*/
   text-decoration: none;/*下線を表示させない*/
-  background: rgba(255, 255, 255, 0.3);/*背景を半透明に*/
+  background: transparent;/*背景を半透明に*/
 }
 .content button:hover{/*カーソルを当てたとき*/
-  background: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   }
 
 .content:hover {
@@ -173,13 +206,15 @@ audio {
 }
 .content-fit {
   max-width: 100%;
-  width: 1000px;
+  width: 900px;
+  margin: 0 auto;
+  margin-left: 250px;
 }
 @media screen and (max-width: 750px){
   .content-fit{
     width: 100%;
     width: 360px;
-    margin: 0 auto;
+    margin: inherit;
   }
 }
 .item-title {

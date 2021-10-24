@@ -79,9 +79,11 @@ export default {
 } */
 /* サイドバー */
 .side-bar {
-  /* border: solid 1px; */
   padding: 10px;
   min-width: 180px;
+  position: fixed;
+  height: calc(100% - 100px);
+  overflow-y: scroll;
 }
 @media screen and (max-width: 750px){
   .side-bar{
@@ -95,7 +97,6 @@ export default {
 }
 .side-bar li {
   padding: 10px;
-  /* text-align: center; */
   margin: 0 auto;
   color: #696969;
 }
@@ -105,6 +106,32 @@ export default {
   font-size: 20px;
 }
 /* 感情 */
+.emotion {
+  list-style: none;
+  margin: 0 auto;
+}
+input[type=radio] {
+  display: none;
+}
+input[type="radio"]:checked + .emotion-label {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+  font-weight: bold;
+}
+.emotion-label {
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 10px 10px;
+  display:block;
+  position:relative;
+  text-align: left;
+}
+.emotion-label:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+  font-weight: bold;
+}
 .joy:hover {
   border: 1px solid #FF7F00;
   margin-top: 10px;
@@ -147,72 +174,38 @@ export default {
 }
 /* ジャンル */
 .genre li:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
+  /* color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   font-weight: bold;
-  border-radius: 0.5rem;
-}
-.emotion {
-  list-style: none;
-  margin: 0 auto;
-}
-input[type=radio] {
-  display: none;
-}
-input[type="radio"]:checked + .emotion-label {
-  border: 1px solid #d4d3d3;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 0.5rem;
-  width: 50px;
-  color: #000CFF;
-  background-color: #e5e9f7;
-  font-weight: bold;
-  padding: 10px 10px;
-  margin: 10px auto;
-}
-.emotion-label {
-  /* border: 1px solid #d4d3d3; */
-  margin-bottom: 10px;
-  border-radius: 0.5rem;
-  width: 50px;
-  text-align: center;
-  padding: 10px 10px;
-  /* margin: 10px auto; */
-  display:block;
-  position:relative;
-}
-.emotion-label:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
-  /* margin: 10px auto; */
+  border-radius: 0.5rem; */
 }
 
+.genre-label {
+  border-radius: 0.5rem;
+  padding: 10px 10px;
+  display:block;
+  position:relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.genre-label:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+}
 input[type="radio"]:checked + .genre-label {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 0.5rem;
-  color: #000CFF;
+  color: #fff;
   background-color: #e5e9f7;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   font-weight: bold;
   padding: 10px 10px;
   margin: 10px auto;
 }
-.genre-label {
-  /* margin-bottom: 10px; */
-  border-radius: 0.5rem;
-  padding: 10px 10px;
-  /* margin: 10px auto; */
-  display:block;
-  position:relative;
-}
-.genre-label:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
-  /* margin: 10px auto; */
-}
+
+
 .all-tracks {
-  /* margin-bottom: 10px; */
   border-radius: 0.5rem;
   padding: 10px;
   margin: 0;
@@ -222,18 +215,13 @@ input[type="radio"]:checked + .genre-label {
   font-weight: bold;
 }
 .all-tracks:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
-  /* margin: 10px auto; */
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
 }
 input[type="radio"]:checked + .all-tracks {
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
   border-radius: 0.5rem;
-  color: #000CFF;
-  background-color: #e5e9f7;
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   font-weight: bold;
-  /* padding: 10px 10px; */
-  /* margin: 10px auto; */
 }
 </style>

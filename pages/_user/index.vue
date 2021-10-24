@@ -1,6 +1,7 @@
 <template>
 <div class="wrapper">
-  <headerAfterLogin />
+    <headerAfterLogin />
+    <div class="user-music-file-detail">
         <!-- 詳細ファイルの上部分 -->
         <div class="user-music-file-detail-header">
             <!-- クリエイターネーム・アイコン・フォロー数フォロワー数 -->
@@ -15,8 +16,8 @@
                     <!-- クリエイターネーム -->
                     <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2>
                     <!-- フォロー数フォロワー数 -->
-                    <NuxtLink to="" class="follow">フォロー</NuxtLink>
-                    <NuxtLink to="" class="follow">フォロワー</NuxtLink>
+                    <!-- <NuxtLink to="" class="follow">フォロー</NuxtLink>
+                    <NuxtLink to="" class="follow">フォロワー</NuxtLink> -->
                 </div>
             </div>
             <!-- フォローボタン -->
@@ -63,6 +64,7 @@
             </div>
         </div>
         </div>
+    </div>
 </div>
 </template>
 
@@ -173,18 +175,26 @@ export default {
 
 <style scoped>
 /* * {
-  outline: solid 1px #000;
+    outline: solid 1px #000;
 } */
+.user-music-file-detail {
+    margin-top: 100px;
+}
+@media screen and (max-width: 750px) {
+    .user-music-file-detail {
+        margin-top: 200px;
+    }
+}
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
 body {
-  margin-top: 10px;
-  padding: 0;
+    margin-top: 10px;
+    padding: 0;
 }
 
 /* .full-page {
-  width: 100vw;
-  height: 100vh;
-  background-color: #F0F1F8
+    width: 100vw;
+    height: 100vh;
+    background-color: #F0F1F8
 } */
 
 h2 {
@@ -199,42 +209,43 @@ h2 {
     background-color: #fff;
 }
 @media screen and (max-width: 750px){
-  .user-music-file-detail-header{
-    width: 100%;
-  }
+    .user-music-file-detail-header{
+        width: 100%;
+    }
 }
 .user-info {
     margin: 40px auto;
     display: flex;
 }
 @media screen and (max-width: 750px){
-  .user-info{
-    margin: 0;
-  }
+    .user-info{
+        margin: 0;
+    }
 }
 .user-icon {
     /* padding: 10px 10px; */
     /* border: 1px solid rgb(185, 184, 184); */
     border-radius: 5rem;
     min-width: 150px;
+    max-width: 150px;
     height: 150px;
     background: #d3d3d4;
 }
 @media screen and (max-width: 750px){
-  .user-icon{
-    min-width: 50px;
-    height: 50px;
-    margin-top: 10px;
-    margin-left: 5px;
-  }
+    .user-icon{
+        min-width: 50px;
+        height: 50px;
+        margin-top: 10px;
+        margin-left: 5px;
+    }
 }
 .user-status {
     padding: 10px 10px;
 }
 @media screen and (max-width: 750px){
-  .user-status{
-    padding: 10px 5px;
-  }
+    .user-status{
+        padding: 10px 5px;
+    }
 }
 /* フォロー情報 */
 .follow {
@@ -248,10 +259,10 @@ h2 {
     margin: 0 auto;
 }
 @media screen and (max-width: 750px){
-  .follow-action-to-user{
-    padding: 10px 10px;
-    margin: 0;
-  }
+    .follow-action-to-user{
+        padding: 10px 10px;
+        margin: 0;
+    }
 }
 .border-for-header-body {
     border-bottom: 1px solid rgb(185, 184, 184);
@@ -267,45 +278,45 @@ h2 {
 }
 /* フォローボタン */
 .btn-before-follow {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #c0c0c0;
-  background-color: #000CFF;
-  color: #fff;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #c0c0c0;
+    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+    color: #fff;
+    font-size: 15px;
 }
 .btn-before-follow:hover {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #696969;
-  background-color: rgb(60, 39, 247);
-  color: #fff;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #696969;
+    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+    color: #fff;
+    font-size: 15px;
 }
 .btn-after-follow {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #c0c0c0;
-  background-color: #fff;
-  color: #000;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #c0c0c0;
+    background-color: #fff;
+    color: #000;
+    font-size: 15px;
 }
 .btn-after-follow:hover {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #696969;
-  background-color: #fff;
-  color: #000;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #696969;
+    background-color: #fff;
+    color: #000;
+    font-size: 15px;
 }
 .cover-image {
-  height: 200px;
-  width: 200px;
-  display: flex;
+    height: 200px;
+    width: 200px;
+    display: flex;
 }
 .audio-image {
-  height: 200px;
-  width: 200px;
+    height: 200px;
+    width: 200px;
 }
 
 /* コンテンツ */
@@ -360,11 +371,11 @@ audio {
     margin: 0 auto;
 }
 @media screen and (max-width: 750px){
-  .content-fit{
-    width: 100%;
-    width: 360px;
-    margin: 0 auto;
-  }
+    .content-fit{
+        width: 100%;
+        width: 360px;
+        margin: 0 auto;
+    }
 }
 /* item-titleとstyle同じのためあとで継承させる */
 .userDetailItem-title {

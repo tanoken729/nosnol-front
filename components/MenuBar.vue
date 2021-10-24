@@ -3,6 +3,7 @@
     <div id="main-content">
         <ul>
         <li id="user-name">{{ $store.state.auth.user.name }}</li>
+        <NuxtLink to="/profilesettings"><li><font-awesome-icon :icon="['fas', 'cogs']" class="cogs-font-solid"/>設定</li></NuxtLink>
         <li @click="logout"><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="sign-out-font-solid"/>ログアウト</li>
         </ul>
     </div>
@@ -21,8 +22,10 @@ export default {
         closeMenuBar (){
         this.$emit('closeMenuBar');
         },
-        logout() {
-        this.$auth.logout();
+        async logout() {
+        this.$store.commit("loading/setLoading", true)
+        await this.$auth.logout();
+        this.$store.commit("loading/setLoading", false)
         },
     }
 }
@@ -35,7 +38,7 @@ export default {
 } */
 #overlay{
     /*　要素を重ねた時の順番　*/
-    z-index:1;
+    z-index:30;
 
     /*　画面全体を覆う設定　*/
     position:fixed;
@@ -57,7 +60,7 @@ export default {
     border-radius: 0.5rem;
     margin-top: 80px;
     margin-right: 20px;
-    max-height: 100px;
+    height: 120px;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.32);
     padding: 8px 0;
 }
@@ -82,6 +85,13 @@ li:hover {
 }
 .sign-out-font-solid {
     margin-right: 10px;
-    color: #0606a5;
+    color: rgb(84, 71, 255);
+}
+.cogs-font-solid {
+    margin-right: 10px;
+    color: rgb(84, 71, 255);
+}
+a {
+    text-decoration: none;
 }
 </style>

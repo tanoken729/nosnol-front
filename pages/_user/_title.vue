@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper">
   <headerAfterLogin />
-  <body>
+  <div class="user-music-file-detail">
         <!-- 詳細ファイルの上部分 -->
         <div class="user-music-file-detail-header">
             <div class="user-info">
@@ -25,7 +25,7 @@
                 <button v-if="play" @click="pauseAction(index)" class="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
                 <button v-else @click="playAction(index)" class="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
                 <ul v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`eighth-${index}`">
-                    <li>{{ musicFiledatum.clickedFileTitle }}</li>
+                    <li class="file-title">{{ musicFiledatum.clickedFileTitle }}</li>
                 </ul>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <!-- クリエイターネーム -->
                 <div class="user-status" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">
                     <!-- クリエイターネーム -->
-                    <nuxt-link :to="{ name: 'user', params: {user: `${musicFiledatum.clickedFileUserName}`} }"><h2>{{ musicFiledatum.clickedFileUserName }}</h2></nuxt-link>
+                    <nuxt-link :to="{ name: 'user', params: {user: `${musicFiledatum.clickedFileUserName}`} }"><h2 class="user-name">{{ musicFiledatum.clickedFileUserName }}</h2></nuxt-link>
                     <!-- <NuxtLink to="/userdetail"><h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2></NuxtLink> -->
                 </div>
             </div>
@@ -89,16 +89,14 @@
         <!-- 詳細ファイルの下の余白をカラー指定するためのdiv -->
         <div class="full-page">
         <div class="comment-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
-            <div class="display-flex-icon-comment">
-                <div class="comment-user-icon">
-                    <img src="" alt="">
-                </div>
+            <div class="display-flex-icon-comment-login-user">
+                    <img class="comment-user-icon" :src="`${$axios.defaults.baseURL}storage/${$store.state.auth.user.user_icon}`" alt="icon">
                 <input type="text" v-model="comment" class="comment-text-box">
                 <button
                     @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
                     class="comment-button"
                 >
-                    コメント
+                    投稿
                 </button>
             </div>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
@@ -109,15 +107,15 @@
                 <div class="comment-info">
                     <div class="commenter-info">
                         {{commentInfo.commenter_name}}
-                        {{commentInfo.comments_created_at}}
                     </div>
                     <p class="comment">{{commentInfo.text}}</p>
+                    <p class="comment-date">{{commentInfo.comments_created_at}}</p>
                     <br>
                 </div>
             </div>
         </div>
         </div>
-  </body>
+    </div>
 </div>
 </template>
 
@@ -276,12 +274,26 @@ export default {
 
 <style scoped>
 /* * {
-  outline: solid 1px #000;
+    outline: solid 1px #000;
 } */
+.user-music-file-detail {
+    margin-top: 150px;
+}
+@media screen and (max-width: 750px) {
+    .user-music-file-detail {
+        margin-top: 200px;
+    }
+}
 /* 何かのバグでindex.vueにも反映されるためbody→.bodyに修正 */
+.display-flex-icon-comment-login-user {
+    display: flex;
+    margin-top: 10px;
+}
 .display-flex-icon-comment {
     display: flex;
     margin-top: 10px;
+    /* border: 1px solid #333333;
+    border-radius: 0.5rem; */
 }
 .border-for-header-body {
     border-bottom: 1px solid rgb(185, 184, 184);
@@ -289,11 +301,11 @@ export default {
     margin: 0 auto;
 }
 @media screen and (max-width: 750px){
-  .border-for-header-body{
-    border-bottom: 1px solid rgb(185, 184, 184);
-    width: 90%;
-    margin: 0 auto;
-  }
+    .border-for-header-body{
+        border-bottom: 1px solid rgb(185, 184, 184);
+        width: 90%;
+        margin: 0 auto;
+    }
 }
 .user-music-file-detail-header {
     /* text-align: center; */
@@ -306,16 +318,16 @@ export default {
     /* justify-content: space-between; */
 }
 @media screen and (max-width: 750px){
-  .user-music-file-detail-header{
-    /* text-align: center; */
-    display: block;
-    margin: 0 auto;
-    width: 50%;
-    padding: 0;
-    background-color: #fff;
-    margin-top: 30px;
-    /* justify-content: space-between; */
-  }
+    .user-music-file-detail-header{
+        /* text-align: center; */
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+        padding: 0;
+        background-color: #fff;
+        margin-top: 30px;
+        /* justify-content: space-between; */
+    }
 }
 .user-music-file-detail-header2 {
     /* text-align: center; */
@@ -329,17 +341,17 @@ export default {
     justify-content: space-between;
 }
 @media screen and (max-width: 750px){
-  .user-music-file-detail-header2{
-    /* text-align: center; */
-    display: flex;
-    margin: 0 auto;
-    width: 90%;
-    padding: 0;
-    background-color: #fff;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    justify-content: space-between;
-  }
+    .user-music-file-detail-header2{
+        /* text-align: center; */
+        display: flex;
+        margin: 0 auto;
+        width: 90%;
+        padding: 0;
+        background-color: #fff;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        justify-content: space-between;
+    }
 }
 .user-icon-user-status {
     display: flex;
@@ -356,16 +368,16 @@ export default {
     border-radius: 5rem;
     width: 40px;
     height: 40px;
-    margin-right: 20px;
+    margin: 20px 20px;
 }
 @media screen and (max-width: 750px){
-  .comment-user-icon{
-    border: 1px solid rgb(185, 184, 184);
-    border-radius: 5rem;
-    min-width: 40px;
-    height: 40px;
-    margin-right: 20px;
-  }
+    .comment-user-icon{
+        border: 1px solid rgb(185, 184, 184);
+        border-radius: 5rem;
+        min-width: 40px;
+        height: 40px;
+        margin-right: 20px;
+    }
 }
 .like-display {
     width: 50%;
@@ -378,16 +390,16 @@ export default {
     margin-bottom: 10px;
 }
 @media screen and (max-width: 750px){
-  .like-display{
-    width: 90%;
-    margin: 0 auto;
-    /* border-right: 1px solid rgb(185, 184, 184);
-    border-left: 1px solid rgb(185, 184, 184); */
-    padding: 10px;
-    background-color: #fff;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+    .like-display{
+        width: 90%;
+        margin: 0 auto;
+        /* border-right: 1px solid rgb(185, 184, 184);
+        border-left: 1px solid rgb(185, 184, 184); */
+        padding: 10px;
+        background-color: #fff;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }
 .like-icon {
     margin-top: 10px;
@@ -403,73 +415,82 @@ export default {
     margin-bottom: 10px;
 }
 @media screen and (max-width: 750px){
-  .comment-display{
-    width: 90%;
-  }
+    .comment-display{
+        width: 90%;
+    }
 }
 .comment-text-box {
+    margin-top: 20px;
     margin-bottom: 20px;
-    height: 30px;
+    height: 40px;
+    width: 400px;
 }
 .comment-button {
-    height: 30px;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 14px;
+    padding: 0 20px 0 20px;
 }
 .comment-button:hover {
 }
 .commenter-info {
-    font-size: 13px;
+    font-size: 18px;
+    font-weight: bold;
 }
 .comment {
+    font-size: 16px;
+    margin: 10px 0 10px 0;
+}
+.comment-date {
     font-size: 14px;
 }
-
 .btn-before-follow {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #c0c0c0;
-  background-color: #000CFF;
-  color: #fff;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #c0c0c0;
+    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+    color: #fff;
+    font-size: 15px;
 }
 .btn-before-follow:hover {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #696969;
-  background-color: rgb(50, 39, 247);
-  color: #fff;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #c0c0c0;
+    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+    color: #fff;
+    font-size: 15px;
 }
 .btn-after-follow {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #c0c0c0;
-  background-color: #fff;
-  color: #000;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #c0c0c0;
+    background-color: #fff;
+    color: #000;
+    font-size: 15px;
 }
 .btn-after-follow:hover {
-  padding: 7px 20px;
-  border-radius: 0.5rem;
-  border: 1px solid #696969;
-  background-color: #fff;
-  color: #000;
-  font-size: 15px;
+    padding: 7px 20px;
+    border-radius: 0.5rem;
+    border: 1px solid #696969;
+    background-color: #fff;
+    color: #000;
+    font-size: 15px;
 }
 footer {
-  width:100%;
-  height: 100px;
-  position: absolute;
-  bottom: 0;
+    width:100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
 }
 .cover-image {
-  height: 200px;
-  width: 200px;
-  display: flex;
-  border-radius: 0.5rem;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    border-radius: 0.5rem;
 }
 .audio-image {
-  height: 200px;
-  width: 200px;
+    height: 200px;
+    width: 200px;
 }
 .like-font-regular {
     font-size: 30px ;
@@ -485,12 +506,16 @@ footer {
     color: #f83979;
 }
 .btn-play {
-  padding: 15px 17px;
-  background: #fff;
-  border: none;
+    padding: 15px 17px;
+    background: #fff;
+    border: none;
+    font-size: 20px;
 }
 .botton-list-flex {
     display: flex;
+}
+.file-title {
+    font-size: 20px;
 }
 ul {
     list-style: none;
@@ -508,5 +533,21 @@ ul {
   .record-type{
     font-size: 20px;
   }
+}
+a {
+    text-decoration: none;
+}
+.user-status {
+    display: flex;
+    align-items: center;
+}
+.user-name {
+    font-size: 25px;
+    color:#000;
+}
+.user-name:hover {
+    font-size: 25px;
+    color:#000;
+    color: rgb(84, 71, 255);
 }
 </style>

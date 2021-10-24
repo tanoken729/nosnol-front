@@ -1,9 +1,9 @@
 <template>
 <div class="wrapper">
     <Header />
-    <div class="aaa">
+    <div class="signup-form-positon-adjustment">
       <div class="guide-sentence">
-        <h1>SoundMatchingにようこそ！</h1>
+        <h1>Welcome to NOSNOL！</h1>
       </div>
       <form class="form" @submit.prevent="registerUser">
         <h2 class="title">新規登録</h2>
@@ -85,13 +85,15 @@ export default {
     async registerUser(){
       if(this.checkFormHasError()) return;
       
-      try{ 
+      this.$store.commit("loading/setLoading", true)
+      try{
         await this.$axios.post('http://localhost:8000/api/register',this.user)
         this.$router.push('/TopAfterLogin')
       } catch(error){
         console.log(error)
         this.$router.push('/signup')
       }
+      this.$store.commit("loading/setLoading", false)
     },
   }
 }
@@ -114,7 +116,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #000CFF;
+  color: rgb(84, 71, 255);
   text-decoration: none;
 }
 .form {
@@ -123,10 +125,11 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  border: 1px solid #dcdcdc;
+  /* border: 1px solid #dcdcdc; */
   width: 400px;
   padding: 30px 10px;
   margin: 0 auto;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
 }
 @media screen and (max-width: 750px){
   .form{
@@ -146,19 +149,21 @@ input {
   padding: 10px;
 }
 .btn {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
   margin: 20px;
 }
 .btn:hover {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to left, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
 }
@@ -179,16 +184,18 @@ input.text-box {
     text-align: center;
   }
 }
-.aaa {
+.signup-form-positon-adjustment {
   display: flex;
-  margin:  100px auto;
-  width: 50%;
+  margin:  0 auto;
+  min-width: 50%;
+  width: 900px;
   padding: 0;
+  margin-top: 200px;
 }
 @media screen and (max-width: 750px){
-  .aaa{
+  .signup-form-positon-adjustment{
     display: block;
-    margin:  20px 0;
+    margin-top: 150px;
     width: 100%;
     padding: 0;
   }

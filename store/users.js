@@ -15,7 +15,7 @@ export const mutations = {
 export const actions = {
     // プロフィール画面情報取得
     async setProfileData (context, payload) {
-        await this.$axios.$get(`api/getLoginUserProfileData/${payload.clickedLoginUserId}`)
+        await this.$axios.$get(`api/loginUserProfileData/${payload.clickedLoginUserId}`)
         .then(response => {
             const loginUserProfileItems = response
             console.log(loginUserProfileItems)

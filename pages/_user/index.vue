@@ -15,6 +15,8 @@
                 <div class="user-status">
                     <!-- クリエイターネーム -->
                     <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2>
+                    <!-- 自己紹介 -->
+                    <p class="click-file-user-description" v-for="(userDetailItem, index) in userDetailItems" :key="index">{{userDetailItem[0].description}}</p>
                     <!-- フォロー数フォロワー数 -->
                     <!-- <NuxtLink to="" class="follow">フォロー</NuxtLink>
                     <NuxtLink to="" class="follow">フォロワー</NuxtLink> -->
@@ -397,5 +399,11 @@ a {
 #btn-play {
     padding: 15px 17px;
     border-radius: 5rem;
+}
+.click-file-user-description {
+    width: 200px;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; */
 }
 </style>

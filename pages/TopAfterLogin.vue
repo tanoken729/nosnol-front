@@ -8,7 +8,7 @@
           <h1>Tracks</h1>
         </div>
         <div class="content-fit">
-          <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id)">
+          <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id, item.description)">
           <nuxt-link :to="{ name: 'user-title', params: {user: `${item.user_name}`, title: `${item.title}`} }">
             <div>
                 <!-- <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image"> -->
@@ -67,18 +67,21 @@ export default {
     context.store.dispatch('musicFiles/musicFileTopPageData')
   },
   methods: {
-    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId) {
+    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId, clickedFileUserDescription) {
       this.clickedFileTitle = clickedFileTitle
       this.clickedFileCoverImage = clickedFileCoverImage
       this.clickedFileMusicfile = clickedFileMusicfile
       this.clickedFileUserName = clickedFileUserName
       this.clickedFileUserId = clickedFileUserId
       this.clickedFileId = clickedFileId
+      this.clickedFileUserDescription = clickedFileUserDescription
+      console.log(clickedFileUserDescription)
       this.$store.dispatch('musicFiles/setMusicFileData', {
         clickedFileTitle: this.clickedFileTitle,
         clickedFileCoverImage: this.clickedFileCoverImage,
         clickedFileMusicfile: this.clickedFileMusicfile,
         clickedFileUserName: this.clickedFileUserName,
+        clickedFileUserDescription: this.clickedFileUserDescription,
         // フォローで渡すためのやつ
         clickedFileUserId: this.clickedFileUserId,
         clickedFileId: this.clickedFileId,

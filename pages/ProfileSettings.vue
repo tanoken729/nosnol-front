@@ -85,7 +85,7 @@ export default {
         console.log(this.description)
         console.log(formData)
 
-        await this.$axios.post(`api/putLoginUserProfileData/${this.$store.state.auth.user.id}`, formData, config)
+        await this.$axios.post(`api/loginUserProfileData/${this.$store.state.auth.user.id}`, formData, config)
         .then(res => {
             console.log(res)
         })

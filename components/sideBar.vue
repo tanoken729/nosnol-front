@@ -3,10 +3,10 @@
         <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="all-tracks">All tracks</label>
     <h3>Emotions</h3>
         <div class="emotion">
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label"><font-awesome-icon :icon="['fas', 'smile-beam']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label"><font-awesome-icon :icon="['fas', 'sad-tear']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label"><font-awesome-icon :icon="['fas', 'angry']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label"><font-awesome-icon :icon="['fas', 'kiss-beam']"/></label>
         </div>
     <h3>Genres</h3>
         <div class="genre">
@@ -126,6 +126,7 @@ input[type="radio"]:checked + .emotion-label {
   display:block;
   position:relative;
   text-align: left;
+  font-size: 25px;
 }
 .emotion-label:hover {
   color: #fff;

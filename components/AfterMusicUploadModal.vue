@@ -43,10 +43,10 @@
           </div>
         <h3>感情</h3>
         <div class="emotion">
-          <input type="radio" name="emotion-in-modal" value="joy" @change="selectedEmotion" id="joy-in-modal"><label for="joy-in-modal" class="emotion-label">喜</label>
-          <input type="radio" name="emotion-in-modal" value="angry" @change="selectedEmotion" id="angry-in-modal"><label for="angry-in-modal" class="emotion-label">怒</label>
-          <input type="radio" name="emotion-in-modal" value="sorrow" @change="selectedEmotion" id="sorrow-in-modal"><label for="sorrow-in-modal" class="emotion-label">哀</label>
-          <input type="radio" name="emotion-in-modal" value="easy" @change="selectedEmotion" id="easy-in-modal"><label for="easy-in-modal" class="emotion-label">楽</label>
+          <input type="radio" name="emotion-in-modal" value="joy" @change="selectedEmotion" id="joy-in-modal"><label for="joy-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'smile-beam']"/></label>
+          <input type="radio" name="emotion-in-modal" value="angry" @change="selectedEmotion" id="angry-in-modal"><label for="angry-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'sad-tear']"/></label>
+          <input type="radio" name="emotion-in-modal" value="sorrow" @change="selectedEmotion" id="sorrow-in-modal"><label for="sorrow-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'angry']"/></label>
+          <input type="radio" name="emotion-in-modal" value="easy" @change="selectedEmotion" id="easy-in-modal"><label for="easy-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'kiss-beam']"/></label>
         </div>
         <!-- {{emotion}} -->
       </div>
@@ -96,7 +96,7 @@ export default {
       formData.append('genre', this.genre);
       formData.append('emotions', this.emotion);
       formData.append('user_id', this.$store.state.auth.user.id);
-      formData.append('user_name', this.$store.state.auth.user.name);
+      // formData.append('user_name', this.$store.state.auth.user.name);
 
       let config = {
         headers: {

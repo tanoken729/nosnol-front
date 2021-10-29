@@ -26,14 +26,14 @@
             <div class="follow-action-to-user" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`second-${index}`">
                 <!-- <button class="btn">メッセージ</button> -->
                 <button
-                    v-if="musicFiledatum.clickedFileUserId === followedId"
+                    v-if="musicFiledatum.clickedFileUserId === followedId && musicFiledatum.clickedFileUserId !== $store.state.auth.user.id"
                     class="btn-after-follow"
                     @click="unfollow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
                 >
                     フォロー中
                 </button>
                 <button
-                    v-else
+                    v-if="musicFiledatum.clickedFileUserId !== followedId && musicFiledatum.clickedFileUserId !== $store.state.auth.user.id"
                     class="btn-before-follow"
                     @click="follow(musicFiledatum.clickedFileUserId, $store.state.auth.user.id)"
                 >

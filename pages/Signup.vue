@@ -87,7 +87,11 @@ export default {
       
       this.$store.commit("loading/setLoading", true)
       try{
-        await this.$axios.post('http://localhost:8000/api/register',this.user)
+        await this.$axios.$post('api/register',this.user)
+        .then( () =>{
+          // 新規登録時にログイン処理を行い、userデータをトップ画面に反映させる
+          this.$auth.loginWith('local', { data: this.user })
+        })
         this.$router.push('/TopAfterLogin')
       } catch(error){
         console.log(error)

@@ -62,6 +62,7 @@ export const actions = {
       clickedFileUserName: payload.clickedFileUserName,
       clickedFileUserId: payload.clickedFileUserId,
       clickedFileId: payload.clickedFileId,
+      clickedFileUserDescription: payload.clickedFileUserDescription,
     }
     const musicFileData = [];
     musicFileData.push(musicFiledatum)

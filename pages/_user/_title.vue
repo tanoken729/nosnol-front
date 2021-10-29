@@ -8,7 +8,7 @@
                 <div class="user-music-file-image">
                     <!-- 音声ファイルカバー画像 -->
                     <div class="user-music-file-cover-image">
-                        <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fifth-${index}`"><img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
+                        <p v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fifth-${index}`"><img :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${musicFiledatum.clickedFileCoverImage}`" class="cover-image"></p>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <!-- 音声ファイルデータ -->
                 <div class="user-music-file-data">
                     <audio id="bgm" preload v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`fourth-${index}`">
-                        <source :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
+                        <source :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${musicFiledatum.clickedFileMusicfile}`" type="audio/mp3">
                     </audio>
                 </div>
                 <div class="botton-list-flex">
@@ -92,7 +92,7 @@
         <div class="full-page">
         <div class="comment-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
             <div class="display-flex-icon-comment-login-user">
-                    <img class="comment-user-icon" :src="`${$axios.defaults.baseURL}storage/${$store.state.auth.user.user_icon}`" alt="icon">
+                    <img class="comment-user-icon" :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${$store.state.auth.user.user_icon}`" alt="icon">
                 <input type="text" v-model="comment" class="comment-text-box">
                 <button
                     @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
@@ -512,9 +512,13 @@ footer {
     background: #fff;
     border: none;
     font-size: 20px;
+    margin-right: 20px;
 }
 .botton-list-flex {
     display: flex;
+    border-top: rgb(163, 162, 162) 1px solid;
+    border-bottom: rgb(163, 162, 162) 1px solid;
+    margin-top: 20px;
 }
 .file-title {
     font-size: 20px;
@@ -527,6 +531,7 @@ ul {
 }
 .user-music-file-detail-body {
     margin-left: 30px;
+    width: 100%;
 }
 .record-type {
     font-size: 30px;
@@ -540,7 +545,7 @@ a {
     text-decoration: none;
 }
 .user-status {
-    display: flex;
+    /* display: flex; */
     align-items: center;
 }
 .user-name {

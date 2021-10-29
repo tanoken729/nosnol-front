@@ -50,12 +50,12 @@
             <div class="content" v-for="(userDetailItem, index) in userDetailItems.userDetailItems" :key="index" @click="setMusicFileData(userDetailItem.title, userDetailItem.cover_image, userDetailItem.music_file, userDetailItem.user_name, userDetailItem.user_id, userDetailItem.id)">
             <nuxt-link :to="{ name: 'user-title', params: {user: `${userDetailItem.user_name}`, title: `${userDetailItem.title}`} }">
                 <div>
-                    <img :src="`${$axios.defaults.baseURL}storage/${userDetailItem.cover_image}`" class="cover-image">
+                    <img :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${userDetailItem.cover_image}`" class="cover-image">
                     <h3 class="userDetailItem-title">{{ userDetailItem.title }}</h3>
                     <NuxtLink to="/userdetail"><h3 class="userDetailItem-user-name">{{ userDetailItem.user_name }}</h3></NuxtLink>
                     <audio v-bind:id="`bgm-${index}`" preload>
                     <source
-                        :src="`${$axios.defaults.baseURL}storage/${userDetailItem.music_file}`"
+                        :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${userDetailItem.music_file}`"
                         type="audio/mp3"
                     >
                     </audio>

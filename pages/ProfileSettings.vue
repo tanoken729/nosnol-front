@@ -22,7 +22,7 @@
             <button type="button" class="update-button" @click="updateProfile">更新</button>
         </div>
     </form>
-        <!-- <button @click="env">env</button> -->
+    <button class="account-delete" @click="deleteAccount">アカウント削除</button>
 </div>
 </template>
 
@@ -94,11 +94,17 @@ export default {
         })
         this.$store.commit("loading/setLoading", false)
         },
-        // env() {
-        //     console.log('hoge')
-        // // console.log(process.env)
-        // console.log(env)
-        // }
+        async deleteAccount() {
+            console.log('unko')
+            var answer = confirm('アカウントを削除しますか？');
+            if(answer) { //true or false
+                this.$store.commit("loading/setLoading", true)
+                await this.$axios.post('api/deleteUser', {
+                    id: this.$store.state.auth.user.id,
+                })
+                this.$store.commit("loading/setLoading", false)
+            }
+        }
     },
 }
 </script>
@@ -192,6 +198,19 @@ input[type="file"] {
     border-radius: 0.5rem;
     color: #fff;
     font-size: 15px;
+    font-weight: bold;
+}
+.account-delete {
+    color: rgb(255, 0, 0);
+    display: block;
+    margin-right: 200px;
+    text-decoration: none;
+    height: 50px;
+    width: 200px;
+    margin-left: auto;
+    background: rgb(251, 212, 212);
+    border: none;
+    border-radius: 0.5rem;
     font-weight: bold;
 }
 </style>

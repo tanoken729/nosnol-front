@@ -60,6 +60,8 @@
                 <div class="user-status" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">
                     <!-- クリエイターネーム -->
                     <nuxt-link :to="{ name: 'user', params: {user: `${musicFiledatum.clickedFileUserName}`} }"><h2 class="user-name">{{ musicFiledatum.clickedFileUserName }}</h2></nuxt-link>
+                    <!-- 自己紹介 -->
+                    <p class="click-file-user-description">{{musicFiledatum.clickedFileUserDescription}}</p>
                     <!-- <NuxtLink to="/userdetail"><h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2></NuxtLink> -->
                 </div>
             </div>
@@ -549,5 +551,16 @@ a {
     font-size: 25px;
     color:#000;
     color: rgb(84, 71, 255);
+}
+.click-file-user-description {
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media screen and (max-width: 750px) {
+    .click-file-user-description {
+        display: none;
+    }
 }
 </style>

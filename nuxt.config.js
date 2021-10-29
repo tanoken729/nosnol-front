@@ -1,7 +1,7 @@
 import * as FontAwesome from './build/fontawesome'
 
 process.env.DEBUG = 'nuxt:*'
-const ENV = require('dotenv').config().parsed;
+const ENV = require('dotenv').config()
 // export default ENV;
 export default {
   ssr: false,
@@ -20,7 +20,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/android-chrome-36x36.png' }
     ]
   },
-
+  browser: {
+    fs: false
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/main.css',
@@ -29,7 +31,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "~/plugins/vuelidate.js",
-    'plugins/axios',
+    '~/plugins/axios',
     '~plugins/vue-aplayer.js',
     { src: '~/plugins/localStorage.js', ssr: false },
     {
@@ -58,18 +60,20 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     '@nuxtjs/proxy',
+    '@nuxtjs/dotenv',
   ],
 
-  env:ENV,
   // axiosを利用してサーバにリクエストを送る
   axios: {
-    baseURL: ENV.API_BASE_URL,
-    browserBaseURL: 'http://localhost:8000/',
-    proxy: true
+    // proxyを使用する場合baseURLは併用できないためコメントアウト
+      // baseURL: process.env.API_BASE_URL,
+    // baseURL と proxy を同時に使用できないためprefixを設定し、baseURLとして使用する
+    prefix: process.env.API_BASE_URL,
+    proxy: true,
   },
   proxy: {
     '/proxy/': {
-      target: 'http://localhost:8000',
+      target: process.env.API_BASE_URL,
       pathRewrite: {'^/api/': '/'}
     },
     "secure": false
@@ -122,6 +126,11 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     standalone: true,
+    extend(config, ctx) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
   }
 }
 console.log('hoge')

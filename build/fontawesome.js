@@ -10,6 +10,7 @@ const solid = [
     'faSadTear',
     'faAngry',
     'faKissBeam',
+    'faMinusCircle',
 ]
 
 // ここに追記するだけ

@@ -61,6 +61,7 @@
                     </audio>
                 </div>
             </nuxt-link>
+                    <font-awesome-icon :icon="['fas', 'minus-circle']" class="ellipsis-h" @click="deleteMusicFile(userDetailItem.id)"/>
                     <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
                     <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
             </div>
@@ -171,6 +172,17 @@ export default {
                 clickedFileId: this.clickedFileId,
             })
         },
+        async deleteMusicFile(clickedFileId) {
+            this.clickedFileId = clickedFileId
+            var answer = confirm('このファイルを削除しますか？');
+            if(answer) { //true or false
+                this.$store.commit("loading/setLoading", true)
+                await this.$axios.$post(`api/deleteMusicfile`, {
+                    id: this.clickedFileId
+                })
+                this.$store.commit("loading/setLoading", false)
+            }
+        }
     }
 }
 </script>
@@ -405,5 +417,17 @@ a {
     /* overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; */
+}
+.ellipsis-h {
+    position: absolute;
+    top: 1%;
+    left: 74%;
+    /*以下装飾*/
+    margin:0;/*余計な隙間を除く*/
+    font-size: 40px;/*文字サイズ*/
+    border: none; /*線で囲う*/
+    padding: 7px;/*文字と線の間の余白*/
+    color: rgb(226, 226, 226);/*文字色*/
+    text-decoration: none;/*下線を表示させない*/
 }
 </style>

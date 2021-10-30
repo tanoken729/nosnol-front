@@ -2,7 +2,8 @@
 <div id="overlay" v-show="showMenuBar" @click.self="closeMenuBar">
     <div id="main-content">
         <ul>
-        <nuxt-link :to="{ name: 'user', params: {user: `${$store.state.auth.user.name}`} }"><li id="user-name">{{ $store.state.auth.user.name }}</li></nuxt-link>
+        <!-- clickedFileUserIdを渡せれば良い -->
+        <nuxt-link :to="{ name: 'user', params: {user: `${$store.state.auth.user.name}`} }"><li id="user-name" @click="setMusicFileData($store.state.auth.user.id)">{{ $store.state.auth.user.name }}</li></nuxt-link>
         <NuxtLink to="/profilesettings"><li><font-awesome-icon :icon="['fas', 'cogs']" class="cogs-font-solid"/>設定</li></NuxtLink>
         <li @click="logout"><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="sign-out-font-solid"/>ログアウト</li>
         </ul>
@@ -16,6 +17,7 @@ export default {
     data () {
         return {
             showMenuBar: false,
+            clickedFileUserId: '',
         }
     },
     methods: {
@@ -26,6 +28,13 @@ export default {
         this.$store.commit("loading/setLoading", true)
         await this.$auth.logout();
         this.$store.commit("loading/setLoading", false)
+        },
+        setMusicFileData (clickedFileUserId) {
+        this.clickedFileUserId = clickedFileUserId
+        this.$store.dispatch('musicFiles/setMusicFileData', {
+            clickedFileUserId: this.clickedFileUserId,
+        })
+        console.log(clickedFileUserId)//4
         },
     }
 }

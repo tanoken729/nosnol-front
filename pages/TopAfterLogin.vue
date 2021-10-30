@@ -8,7 +8,7 @@
           <h1>Tracks</h1>
         </div>
         <div class="content-fit">
-          <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id, item.description)">
+          <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id, item.description, item.user_icon)">
           <nuxt-link :to="{ name: 'user-title', params: {user: `${item.user_name}`, title: `${item.title}`} }">
             <div>
                 <!-- <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image"> -->
@@ -67,7 +67,8 @@ export default {
     context.store.dispatch('musicFiles/musicFileTopPageData')
   },
   methods: {
-    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId, clickedFileUserDescription) {
+    // musicFileTopPageDataで取得したデータを詳細ページにセットする
+    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId, clickedFileUserDescription, clickedFileUserUserIcon) {
       this.clickedFileTitle = clickedFileTitle
       this.clickedFileCoverImage = clickedFileCoverImage
       this.clickedFileMusicfile = clickedFileMusicfile
@@ -75,13 +76,16 @@ export default {
       this.clickedFileUserId = clickedFileUserId
       this.clickedFileId = clickedFileId
       this.clickedFileUserDescription = clickedFileUserDescription
+      this.clickedFileUserUserIcon = clickedFileUserUserIcon
       console.log(clickedFileUserDescription)
+      console.log(clickedFileUserUserIcon)
       this.$store.dispatch('musicFiles/setMusicFileData', {
         clickedFileTitle: this.clickedFileTitle,
         clickedFileCoverImage: this.clickedFileCoverImage,
         clickedFileMusicfile: this.clickedFileMusicfile,
         clickedFileUserName: this.clickedFileUserName,
         clickedFileUserDescription: this.clickedFileUserDescription,
+        clickedFileUserUserIcon: this.clickedFileUserUserIcon,
         // フォローで渡すためのやつ
         clickedFileUserId: this.clickedFileUserId,
         clickedFileId: this.clickedFileId,

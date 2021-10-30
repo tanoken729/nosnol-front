@@ -125,6 +125,7 @@
 import store from '../../store';
 
 export default {
+    middleware: 'user_auth',
     data(){
         return {
             clickedFileUserId :'',

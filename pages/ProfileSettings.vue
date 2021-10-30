@@ -30,6 +30,7 @@
 // import env from '../nuxt.config.js';
 
 export default {
+    middleware: 'user_auth',
     data () {
         return {
             getLoginUserProfileData: [],

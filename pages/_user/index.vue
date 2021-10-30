@@ -14,7 +14,7 @@
                 <!-- クリエイターネーム・フォロー数フォロワー数 -->
                 <div class="user-status">
                     <!-- クリエイターネーム -->
-                    <h2 v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">{{ musicFiledatum.clickedFileUserName }}</h2>
+                    <h2  v-for="(userDetailItem, index) in userDetailItems" :key="index">{{ userDetailItem[0].user_name }}</h2>
                     <!-- 自己紹介 -->
                     <p class="click-file-user-description" v-for="(userDetailItem, index) in userDetailItems" :key="index">{{userDetailItem[0].description}}</p>
                     <!-- フォロー数フォロワー数 -->
@@ -47,7 +47,7 @@
         <div class="border-for-header-body"></div>
         <!-- 詳細ファイルの下部分 -->
         <div class="content-fit">
-            <div class="content" v-for="(userDetailItem, index) in userDetailItems.userDetailItems" :key="index" @click="setMusicFileData(userDetailItem.title, userDetailItem.cover_image, userDetailItem.music_file, userDetailItem.user_name, userDetailItem.user_id, userDetailItem.id)">
+            <div class="content" v-for="(userDetailItem, index) in userDetailItems.userDetailItems" :key="index" @click="setMusicFileData(userDetailItem.title, userDetailItem.cover_image, userDetailItem.music_file, userDetailItem.user_name, userDetailItem.user_id, userDetailItem.id, userDetailItem.description, userDetailItem.user_icon)">
             <nuxt-link :to="{ name: 'user-title', params: {user: `${userDetailItem.user_name}`, title: `${userDetailItem.title}`} }">
                 <div>
                     <img :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${userDetailItem.cover_image}`" class="cover-image">
@@ -156,18 +156,22 @@ export default {
             console.log(audios)
             audios.pause();
         },
-        setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId) {
+        setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId, clickedFileUserDescription, clickedFileUserUserIcon) {
             this.clickedFileTitle = clickedFileTitle
             this.clickedFileCoverImage = clickedFileCoverImage
             this.clickedFileMusicfile = clickedFileMusicfile
             this.clickedFileUserName = clickedFileUserName
             this.clickedFileUserId = clickedFileUserId
             this.clickedFileId = clickedFileId
+            this.clickedFileUserDescription = clickedFileUserDescription
+            this.clickedFileUserUserIcon = clickedFileUserUserIcon
             this.$store.dispatch('musicFiles/setMusicFileData', {
                 clickedFileTitle: this.clickedFileTitle,
                 clickedFileCoverImage: this.clickedFileCoverImage,
                 clickedFileMusicfile: this.clickedFileMusicfile,
                 clickedFileUserName: this.clickedFileUserName,
+                clickedFileUserDescription: this.clickedFileUserDescription,
+                clickedFileUserUserIcon: this.clickedFileUserUserIcon,
                 // フォローで渡すためのやつ
                 clickedFileUserId: this.clickedFileUserId,
                 clickedFileId: this.clickedFileId,

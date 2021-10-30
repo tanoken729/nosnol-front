@@ -53,8 +53,8 @@
         <div class="user-music-file-detail-header2">
             <!-- アイコン -->
             <div class="user-icon-user-status">
-                <div class="user-icon">
-                    <img src="" alt="">
+                <div v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`test-${index}`">
+                    <img :src="`${$axios.defaults.baseURL}storage/${musicFiledatum.clickedFileUserUserIcon}`" alt="icon" class="user-icon">
                 </div>
                 <!-- クリエイターネーム -->
                 <div class="user-status" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`first-${index}`">
@@ -92,7 +92,7 @@
         <div class="full-page">
         <div class="comment-display" v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`seventh-${index}`">
             <div class="display-flex-icon-comment-login-user">
-                    <img class="comment-user-icon" :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${$store.state.auth.user.user_icon}`" alt="icon">
+                    <img class="comment-user-icon" :src="`${$axios.defaults.baseURL}storage/${$store.state.auth.user.user_icon}`" alt="icon">
                 <input type="text" v-model="comment" class="comment-text-box">
                 <button
                     @click="addComment(musicFiledatum.clickedFileId, $store.state.auth.user.id)"
@@ -362,7 +362,7 @@ export default {
 .user-icon {
     border: 1px solid rgb(185, 184, 184);
     border-radius: 5rem;
-    width: 50px;
+    max-width: 50px;
     height: 50px;
     margin-right: 20px;
 }

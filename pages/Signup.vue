@@ -91,8 +91,10 @@ export default {
         .then( () =>{
           // 新規登録時にログイン処理を行い、userデータをトップ画面に反映させる
           this.$auth.loginWith('local', { data: this.user })
+          .then( () =>{
+            this.$router.push('/TopAfterLogin')
+            })
         })
-        this.$router.push('/TopAfterLogin')
       } catch(error){
         console.log(error)
         this.$router.push('/signup')

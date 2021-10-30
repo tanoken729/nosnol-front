@@ -11,12 +11,12 @@
           <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id, item.description)">
           <NuxtLink to="/signin">
             <div>
-                <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image">
+                <img :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${item.cover_image}`" class="cover-image">
                 <h3 class="item-title">{{ item.title }}</h3>
                 <nuxt-link :to="{ name: 'user', params: {user: `${item.user_name}`} }"><h3 class="item-user-name">{{ item.user_name }}</h3></nuxt-link>
                 <audio v-bind:id="`bgm-${index}`" preload>
                   <source
-                    :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
+                    :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${item.music_file}`"
                     type="audio/mp3"
                   >
                 </audio>

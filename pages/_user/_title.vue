@@ -103,8 +103,9 @@
             </div>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
             <div class="display-flex-icon-comment" v-for="(commentInfo, index) in commentInfos" :key="index">
-                <div class="comment-user-icon">
-                    <img src="" alt="">
+                <div>
+                    <!-- コメントしたときにしか反映されない -->
+                    <img :src="`${$axios.defaults.baseURL}storage/${commentInfo.commenter_user_icon}`" alt="" class="comment-user-icon">
                 </div>
                 <div class="comment-info">
                     <div class="commenter-info">
@@ -249,7 +250,7 @@ export default {
                 music_file_id: this.clickedFileId,
             })
             .then(res => {
-                this.$axios.$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/getCommentInfo`)
+                this.$axios.$get(`api/${this.clickedFileId}/getCommentInfo`)
                 .then(res => {
                     this.commentInfos = res.commentInfo
                 })

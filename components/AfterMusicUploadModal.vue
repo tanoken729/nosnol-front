@@ -114,7 +114,7 @@ export default {
         this.posts = res.data.posts
         console.log(this.posts)
         this.closeAfterMusicUploadModal()
-        location.reload();
+        this.$store.dispatch('musicFiles/musicFileTopPageData')
       })
       .catch(err => {
         console.log(err)

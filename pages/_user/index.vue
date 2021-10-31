@@ -274,7 +274,7 @@ h2 {
     color: #000;
 }
 .follow-action-to-user {
-    padding: 30px 10px;
+    padding: 60px 10px;
     margin: 0 auto;
 }
 @media screen and (max-width: 750px){
@@ -299,18 +299,20 @@ h2 {
 .btn-before-follow {
     padding: 7px 20px;
     border-radius: 0.5rem;
-    border: 1px solid #c0c0c0;
-    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
-    color: #fff;
+    border: 1px solid rgb(84, 71, 255);
+    background: #fff;
+    color: rgb(84, 71, 255);
     font-size: 15px;
+    font-weight: bold;
 }
 .btn-before-follow:hover {
     padding: 7px 20px;
     border-radius: 0.5rem;
-    border: 1px solid #696969;
-    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
-    color: #fff;
+    border: 1px solid rgb(84, 71, 255);
+    background: rgb(238, 236, 255);
+    color: rgb(84, 71, 255);
     font-size: 15px;
+    font-weight: bold;
 }
 .btn-after-follow {
     padding: 7px 20px;
@@ -319,12 +321,13 @@ h2 {
     background-color: #fff;
     color: #000;
     font-size: 15px;
+    font-weight: bold;
 }
 .btn-after-follow:hover {
     padding: 7px 20px;
     border-radius: 0.5rem;
-    border: 1px solid #696969;
-    background-color: #fff;
+    border: 1px solid #d4d4d4;
+    background-color: rgb(246, 246, 246);
     color: #000;
     font-size: 15px;
 }
@@ -332,6 +335,7 @@ h2 {
     height: 200px;
     width: 200px;
     display: flex;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
 }
 .audio-image {
     height: 200px;

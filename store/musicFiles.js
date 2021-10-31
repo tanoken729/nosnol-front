@@ -73,7 +73,7 @@ export const actions = {
   //   context.commit('setFileUserId', payload.clickedFileUserId)
   //   context.commit('setLoginUserId', payload.clickedLoginUserId)
   // },
-  // 音声ファイル詳細画面api取得
+  // 音声ファイル詳細画面api取得（フォロー、いいね、コメント）
   async musicDetailPageData(context, payload) {
     await this.$axios.$get(`api/${payload.clickedLoginUserId}/${payload.clickedFileId}/${payload.clickedFileUserId}/musicDetailPageData`)
     .then(response => {

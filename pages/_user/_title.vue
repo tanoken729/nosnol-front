@@ -24,8 +24,8 @@
                 <div class="botton-list-flex">
                 <button v-if="play" @click="pauseAction(index)" class="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
                 <button v-else @click="playAction(index)" class="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
-                <ul v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`eighth-${index}`">
-                    <li class="file-title">{{ musicFiledatum.clickedFileTitle }}</li>
+                <ul v-for="(musicFiledatum, index) in $store.getters['musicFiles/musicFileData']" :key="`eighth-${index}`" class="file-title" >
+                    <li>{{ musicFiledatum.clickedFileTitle }}</li>
                 </ul>
                 </div>
             </div>
@@ -103,9 +103,13 @@
             </div>
             <!-- commentInfos.commentInfoのデータ構造見直す(どうなっているかいまいち不明) -->
             <div class="display-flex-icon-comment" v-for="(commentInfo, index) in commentInfos" :key="index">
-                <div>
+                <div v-if="commentInfo.commenter_user_icon">
                     <!-- コメントしたときにしか反映されない -->
                     <img :src="`${$axios.defaults.baseURL}storage/${commentInfo.commenter_user_icon}`" alt="" class="comment-user-icon">
+                </div>
+                <div v-else>
+                    <!-- コメントしたときにしか反映されない -->
+                    <p>コメントはまだありません。</p>
                 </div>
                 <div class="comment-info">
                     <div class="commenter-info">
@@ -359,11 +363,12 @@ export default {
 }
 .user-icon-user-status {
     display: flex;
+    align-items: center;
 }
 .user-icon {
     border: 1px solid rgb(185, 184, 184);
     border-radius: 5rem;
-    max-width: 50px;
+    width: 50px;
     height: 50px;
     margin-right: 20px;
 }
@@ -428,14 +433,26 @@ export default {
     margin-bottom: 20px;
     height: 40px;
     width: 400px;
+    border: 1px solid rgb(185, 184, 184);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
 .comment-button {
     height: 40px;
     margin-top: 20px;
     font-size: 14px;
     padding: 0 20px 0 20px;
+    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    cursor: pointer;
 }
 .comment-button:hover {
+    background: linear-gradient(to right, rgb(69, 59, 211), rgb(50, 91, 204));
+    color: #fff;
 }
 .commenter-info {
     font-size: 18px;
@@ -448,21 +465,24 @@ export default {
 .comment-date {
     font-size: 14px;
 }
+/* フォローボタン */
 .btn-before-follow {
     padding: 7px 20px;
     border-radius: 0.5rem;
-    border: 1px solid #c0c0c0;
-    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
-    color: #fff;
+    border: 1px solid rgb(84, 71, 255);
+    background: #fff;
+    color: rgb(84, 71, 255);
     font-size: 15px;
+    font-weight: bold;
 }
 .btn-before-follow:hover {
     padding: 7px 20px;
     border-radius: 0.5rem;
-    border: 1px solid #c0c0c0;
-    background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
-    color: #fff;
+    border: 1px solid rgb(84, 71, 255);
+    background: rgb(238, 236, 255);
+    color: rgb(84, 71, 255);
     font-size: 15px;
+    font-weight: bold;
 }
 .btn-after-follow {
     padding: 7px 20px;
@@ -471,12 +491,13 @@ export default {
     background-color: #fff;
     color: #000;
     font-size: 15px;
+    font-weight: bold;
 }
 .btn-after-follow:hover {
     padding: 7px 20px;
     border-radius: 0.5rem;
-    border: 1px solid #696969;
-    background-color: #fff;
+    border: 1px solid #d4d4d4;
+    background-color: rgb(246, 246, 246);
     color: #000;
     font-size: 15px;
 }
@@ -524,12 +545,12 @@ footer {
 }
 .file-title {
     font-size: 20px;
-}
+   display: flex;
+ align-items: center;}
 ul {
     list-style: none;
     font-size: 17px;
     padding-left: 0;
-    padding-top: 12px;
 }
 .user-music-file-detail-body {
     margin-left: 30px;
@@ -570,4 +591,8 @@ a {
         display: none;
     }
 }
+.follow-action-to-user {
+    display: flex;
+align-items: center;
+    }
 </style>

@@ -1,9 +1,9 @@
 <template>
 <div class="wrapper">
     <Header />
-    <div class="aaa">
+    <div class="signup-form-positon-adjustment">
       <div class="guide-sentence">
-        <h1>SoundMatchingにようこそ！</h1>
+        <h1>Welcome to NOSNOL！</h1>
       </div>
       <form class="form" @submit.prevent="registerUser">
         <h2 class="title">新規登録</h2>
@@ -85,13 +85,21 @@ export default {
     async registerUser(){
       if(this.checkFormHasError()) return;
       
-      try{ 
-        await this.$axios.post('http://localhost:8000/api/register',this.user)
-        this.$router.push('/TopAfterLogin')
+      this.$store.commit("loading/setLoading", true)
+      try{
+        await this.$axios.$post('api/register',this.user)
+        .then( () =>{
+          // 新規登録時にログイン処理を行い、userデータをトップ画面に反映させる
+          this.$auth.loginWith('local', { data: this.user })
+          .then( () =>{
+            this.$router.push('/TopAfterLogin')
+            })
+        })
       } catch(error){
         console.log(error)
         this.$router.push('/signup')
       }
+      this.$store.commit("loading/setLoading", false)
     },
   }
 }
@@ -114,43 +122,56 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #000CFF;
+  color: rgb(84, 71, 255);
   text-decoration: none;
 }
 .form {
   margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  /* border: 1px solid #dcdcdc; */
+  width: 400px;
+  padding: 30px 10px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+}
+@media screen and (max-width: 750px){
+  .form{
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  width: 350px;
+  padding: 30px 10px;
+  margin: 0 auto;
+  }
 }
 input {
   margin: 10px 0;
   padding: 10px;
 }
 .btn {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
   margin: 20px;
 }
 .btn:hover {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to left, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
-}
-.form {
-  border: 1px solid #dcdcdc;
-  width: 400px;
-  padding: 30px 10px;
-  margin: 0 auto;;
 }
 input.text-box {
   width: 300px;
@@ -160,13 +181,30 @@ input.text-box {
   font-size: 23px;
 }
 .guide-sentence {
-  margin: 0 auto;;
+  margin: 0 auto;
 }
-.aaa {
+@media screen and (max-width: 750px){
+  .guide-sentence{
+    margin: 0 auto;
+    font-size: 10px;
+    text-align: center;
+  }
+}
+.signup-form-positon-adjustment {
   display: flex;
-  margin:  100px auto;
-  width: 50%;
+  margin:  0 auto;
+  min-width: 50%;
+  width: 900px;
   padding: 0;
+  margin-top: 200px;
+}
+@media screen and (max-width: 750px){
+  .signup-form-positon-adjustment{
+    display: block;
+    margin-top: 150px;
+    width: 100%;
+    padding: 0;
+  }
 }
 .error-message {
   color: #ff0000;

@@ -1,14 +1,18 @@
 <template>
     <div>
         <header class="header">
-            <NuxtLink to="/"><h1 class="logo">Sound Matching</h1></NuxtLink>
+          <div class="header-content">
+            <div class="logo-position-adjustment">
+            <!-- <NuxtLink to="/"><img class="logo" src="" alt="NOSNOL"></NuxtLink> -->
+            <NuxtLink to="/"><h1 class="logo">NOSNOL</h1></NuxtLink>
+            </div>
             <nav class="nav">
             <ul>
-                <!-- <li>検索</li> -->
-                <NuxtLink tag="li" to="/signin"><a>ログイン</a></NuxtLink>
+                <NuxtLink tag="li" to="/signin"><a class="login-btn">ログイン</a></NuxtLink>
                 <NuxtLink tag="li" to="/signup"><button class="btn">新規登録</button></NuxtLink>
             </ul>
             </nav>
+          </div>
         </header>
     </div>
 </template>
@@ -17,41 +21,63 @@
 /* * {
   outline: solid 1px #000;
 } */
+.logo-position-adjustment {
+  display: flex;
+  align-items: center;
+}
 .logo {
-  padding: 10px;
-  font-size: 25px;
+  /* padding: 10px; */
+  font-size: 35px;
+  color:rgb(84, 71, 255);
+  /* height: 100px;
+  line-height: 100px; */
 }
 a {
   text-decoration: none;
   color: #000;
 }
 .header {
-  background-color: #fff;
+  position:fixed;
+  width: 100%;
+  top: 0px;
+  border-bottom: rgb(209, 207, 207) 1px solid;
+  z-index: 10;
+  background: #fff;
+  /* background: linear-gradient(rgb(7, 22, 110), transparent); */
+}
+.header-content {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px 0 20px;
+  z-index: 20;
+  /* padding-bottom: 30px; */
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5); */
 }
 .btn {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #000CFF;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 .btn:hover {
-  padding: 7px 20px;
+  padding: 12px 20px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #060834;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   color: #fff;
   font-size: 15px;
 }
 .nav ul {
   margin: 0 0 0 0;
-  padding: 20px 10px 15px 20px;
+  padding: 20px 20px 20px 20px;
   background-image: none;
   background-repeat: repeat-x;
   text-align: right;
@@ -59,6 +85,25 @@ a {
 .nav li {
   display: inline;
   list-style-type: none;
-  padding-left: 30px;
+  vertical-align: middle;
+  padding-left: 0;
+  display: inline-block;
+}
+.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
+.modal-enter, .modal-leave-active { opacity: 0; }
+
+.user-icon {
+    border-style: none;
+    border-radius: 5rem;
+    width: 30px;
+    height: 30px;
+    background: #d3d3d4;
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+.login-btn {
+  color: #2c55fe;
+  font-weight: bold;
+  margin-right: 10px;
 }
 </style>

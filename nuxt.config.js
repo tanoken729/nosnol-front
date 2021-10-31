@@ -1,11 +1,13 @@
 import * as FontAwesome from './build/fontawesome'
 
 process.env.DEBUG = 'nuxt:*'
-const ENV = require('dotenv').config().parsed;
+const ENV = require('dotenv').config()
+// export default ENV;
 export default {
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'sound-matching',
+    title: 'A platform for independent artists | Nosnol',
     htmlAttrs: {
       lang: 'en'
     },
@@ -15,10 +17,12 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/android-chrome-36x36.png' }
     ]
   },
-
+  browser: {
+    fs: false
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/main.css',
@@ -27,7 +31,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     "~/plugins/vuelidate.js",
-    'plugins/axios',
+    '~/plugins/axios',
     '~plugins/vue-aplayer.js',
     { src: '~/plugins/localStorage.js', ssr: false },
     {
@@ -56,39 +60,22 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     '@nuxtjs/proxy',
+    '@nuxtjs/dotenv',
   ],
 
-  env:ENV,
   // axiosを利用してサーバにリクエストを送る
   axios: {
-    // baseURL: 'http://localhost:3000',
-    // baseURL: 'http://localhost:8000',
-    // baseURL: 'http://localhost:8000/api/v1',
-    baseURL: ENV.API_BASE_URL,
-    browserBaseURL: 'http://localhost:8000/',
-    proxy: true
+    // proxyを使用する場合baseURLは併用できないためコメントアウト
+      // baseURL: process.env.API_BASE_URL,
+    // baseURL と proxy を同時に使用できないためprefixを設定し、baseURLとして使用する
+    prefix: process.env.API_BASE_URL,
+    proxy: true,
   },
   proxy: {
-    // '/api': 'http://sound-matching_api_app_1:8000/api/test',
-    // '/api': {
-    //   target: 'http://localhost:8000',
-    //   pathRewrite: {
-    //     '^/api': '/'
-    //   }
-    // }
-    // '/api1/': 'http://localhost:8000',
-    // '/api2/': {
-    //   target: 'http://localhost:8000',
-    //   pathRewrite: {'^/api/': ''}
-    // },
     '/proxy/': {
-      target: 'http://localhost:8000',
+      target: process.env.API_BASE_URL,
       pathRewrite: {'^/api/': '/'}
     },
-    // '/api3/': {
-    //   target: 'http://localhost:8000',
-    //   pathRewrite: {'^/api/': ''}
-    // },
     "secure": false
   },
 
@@ -125,7 +112,7 @@ export default {
           user:{
             url:'/api/v1/auth/me',
             method:'get',
-            propertyName:false
+            propertyName:'user'
           }
         }
       },
@@ -139,5 +126,12 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     standalone: true,
+    extend(config, ctx) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
   }
 }
+console.log('hoge')
+console.log(ENV.API_BASE_URL)

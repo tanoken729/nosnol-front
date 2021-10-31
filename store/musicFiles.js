@@ -5,7 +5,10 @@ export const state = () => ({
   followedId:'',
   userId:'',
   commentInfos:'',
+  // topページとフィルターで格納されるデータ（api側と変数名同じにしている）
   items: [],
+  // ユーザー詳細ページのデータ（api側と変数名同じにしている）
+  UserDetailItems: [],
 })
 
 export const getters = {
@@ -16,6 +19,7 @@ export const getters = {
   userId: (state) => state.userId,
   commentInfos: (state) => state.commentInfos,
   items: (state) => state.items,
+  userDetailItems: (state) => state.UserDetailItems,
 }
 
 export const mutations = {
@@ -29,9 +33,15 @@ export const mutations = {
     state.userId = userId
     state.commentInfos = commentInfos
   },
+  // 初期表示とフィルターされたデータの格納
   setmusicFileTopPageData (state, items) {
     state.items = items
     console.log(items)
+  },
+  // ユーザー詳細データの格納
+  setUserDetailPageData (state, UserDetailItems) {
+    state.UserDetailItems = UserDetailItems
+    console.log(UserDetailItems)
   }
   // setFileUserId(state, clickedFileUserId) {
   //   // console.log(state.clickedFileUserId)
@@ -52,6 +62,8 @@ export const actions = {
       clickedFileUserName: payload.clickedFileUserName,
       clickedFileUserId: payload.clickedFileUserId,
       clickedFileId: payload.clickedFileId,
+      clickedFileUserDescription: payload.clickedFileUserDescription,
+      clickedFileUserUserIcon: payload.clickedFileUserUserIcon,
     }
     const musicFileData = [];
     musicFileData.push(musicFiledatum)
@@ -61,6 +73,7 @@ export const actions = {
   //   context.commit('setFileUserId', payload.clickedFileUserId)
   //   context.commit('setLoginUserId', payload.clickedLoginUserId)
   // },
+  // 音声ファイル詳細画面api取得（フォロー、いいね、コメント）
   async musicDetailPageData(context, payload) {
     await this.$axios.$get(`api/${payload.clickedLoginUserId}/${payload.clickedFileId}/${payload.clickedFileUserId}/musicDetailPageData`)
     .then(response => {
@@ -88,19 +101,22 @@ export const actions = {
           userId = false
           console.log('like elseだよ')
         }
-        // コメント
-        let commentInfos = musicDetailPageData.musicDetailPageData
-        // const textCheck = musicDetailPageData.musicDetailPageData.some((v) => v.tex);
-        // if (textCheck) {
-        //   commentInfos = musicDetailPageData.musicDetailPageData
-        // } else {
-        //   commentInfos = false
-        // }
-        // console.log(musicDetailPageData.musicDetailPageData.some((v) => v.tex))
-        context.commit('setMusicDetailPageData', { followedId: followedId, userId: userId, commentInfos: commentInfos })
+      // コメント
+      let commentInfos = musicDetailPageData.musicDetailPageData
+      context.commit('setMusicDetailPageData', { followedId: followedId, userId: userId, commentInfos: commentInfos })
     })
   },
-  // 感情・ジャンル絞り込み
+  // ユーザー詳細画面api取得
+  async userDetailPageData(context, payload) {
+    let UserDetailItems = []
+    await this.$axios.$get(`api/${payload.clickedFileUserId}/userDetailPageData`)
+      .then(response => {
+        UserDetailItems = response
+        console.log(response)
+        context.commit('setUserDetailPageData', UserDetailItems)
+      })
+    },
+  // 感情・ジャンル絞り込み、ファイル名検索
   FilterMusicFile(context, payload) {
     let items = []
     this.$axios.$get('api/musicFileFilter/emotion/genre/title', {
@@ -130,5 +146,5 @@ export const actions = {
       .catch(error => {
         console.log(error)
       })
-  }
+  },
 }

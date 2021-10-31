@@ -5,6 +5,12 @@ const solid = [
     'faUserCheck',
     'faSignOutAlt',
     'faSearch',
+    'faCogs',
+    'faSmileBeam',
+    'faSadTear',
+    'faAngry',
+    'faKissBeam',
+    'faMinusCircle',
 ]
 
 // ここに追記するだけ

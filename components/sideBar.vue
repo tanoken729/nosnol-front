@@ -1,14 +1,14 @@
 <template>
     <nav class="side-bar">
-      <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="genre-label">すべて</label>
-    <h3>感情</h3>
+        <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="all-tracks">All tracks</label>
+    <h3>Emotions</h3>
         <div class="emotion">
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label">喜</label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label">怒</label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label">哀</label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label">楽</label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label"><font-awesome-icon :icon="['fas', 'smile-beam']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label"><font-awesome-icon :icon="['fas', 'sad-tear']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label"><font-awesome-icon :icon="['fas', 'angry']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label"><font-awesome-icon :icon="['fas', 'kiss-beam']"/></label>
         </div>
-    <h3>ジャンル</h3>
+    <h3>Genres</h3>
         <div class="genre">
         <input @click="FilterMusicFile" type="radio" name="genre" value="j-pop" id="j-pop"><label for="j-pop" class="genre-label">J-POP</label>
         <input @click="FilterMusicFile" type="radio" name="genre" value="anime" id="anime"><label for="anime" class="genre-label">アニメ</label>
@@ -79,9 +79,16 @@ export default {
 } */
 /* サイドバー */
 .side-bar {
-  /* border: solid 1px; */
   padding: 10px;
   min-width: 180px;
+  position: fixed;
+  height: calc(100% - 100px);
+  overflow-y: scroll;
+}
+@media screen and (max-width: 750px){
+  .side-bar{
+    display:none;
+  }
 }
 .side-bar ul {
   list-style: none;
@@ -90,15 +97,42 @@ export default {
 }
 .side-bar li {
   padding: 10px;
-  /* text-align: center; */
   margin: 0 auto;
   color: #696969;
 }
 .side-bar h3 {
   padding: 10px;
   color: #696969;
+  font-size: 20px;
 }
 /* 感情 */
+.emotion {
+  list-style: none;
+  margin: 0 auto;
+}
+input[type=radio] {
+  display: none;
+}
+input[type="radio"]:checked + .emotion-label {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+  font-weight: bold;
+}
+.emotion-label {
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 10px 10px;
+  display:block;
+  position:relative;
+  text-align: left;
+  font-size: 25px;
+}
+.emotion-label:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+  font-weight: bold;
+}
 .joy:hover {
   border: 1px solid #FF7F00;
   margin-top: 10px;
@@ -141,68 +175,54 @@ export default {
 }
 /* ジャンル */
 .genre li:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
+  /* color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   font-weight: bold;
-  border-radius: 0.5rem;
-}
-.emotion {
-  list-style: none;
-  margin: 0 auto;
-}
-input[type=radio] {
-  display: none;
-}
-input[type="radio"]:checked + .emotion-label {
-  border: 1px solid #d4d3d3;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 0.5rem;
-  width: 50px;
-  color: #000CFF;
-  background-color: #e5e9f7;
-  font-weight: bold;
-  padding: 10px 10px;
-  margin: 10px auto;
-}
-.emotion-label {
-  border: 1px solid #d4d3d3;
-  margin-bottom: 10px;
-  border-radius: 0.5rem;
-  width: 50px;
-  text-align: center;
-  padding: 10px 10px;
-  margin: 10px auto;
-  display:block;
-  position:relative;
-}
-.emotion-label:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
-  margin: 10px auto;
+  border-radius: 0.5rem; */
 }
 
+.genre-label {
+  border-radius: 0.5rem;
+  padding: 10px 10px;
+  display:block;
+  position:relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.genre-label:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+}
 input[type="radio"]:checked + .genre-label {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 0.5rem;
-  color: #000CFF;
+  color: #fff;
   background-color: #e5e9f7;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   font-weight: bold;
   padding: 10px 10px;
   margin: 10px auto;
 }
-.genre-label {
-  margin-bottom: 10px;
+
+
+.all-tracks {
   border-radius: 0.5rem;
-  padding: 10px 10px;
-  margin: 10px auto;
+  padding: 10px;
+  margin: 0;
   display:block;
   position:relative;
+  font-size: 20px;
+  font-weight: bold;
 }
-.genre-label:hover {
-  color: #000CFF;
-  background-color: #e5e9f7;
-  margin: 10px auto;
+.all-tracks:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+}
+input[type="radio"]:checked + .all-tracks {
+  border-radius: 0.5rem;
+  color: #fff;
+  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+  font-weight: bold;
 }
 </style>

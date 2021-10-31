@@ -1,5 +1,5 @@
 {
-  "name": "sound-matching",
+  "name": "nosnol",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,20 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@nuxtjs/auth-next": "5.0.0-1622918202.e815752",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/proxy": "^2.1.0",
     "axios": "^0.21.1",
     "core-js": "^2.6.11",
+    "dotenv-webpack": "^7.0.3",
     "nuxt": "^2.15.3",
     "vue-aplayer": "^1.6.1",
+    "vue-ui-preloader": "^1.2.1",
     "vuelidate": "^0.7.6",
     "vuex-persistedstate": "^4.0.0"
   },

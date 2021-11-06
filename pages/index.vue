@@ -97,8 +97,6 @@ export default {
       audios.pause();
     },
   },
-  // computed: {
-  // },
 };
 </script>
 
@@ -149,17 +147,12 @@ export default {
 }
 /* メインコンテンツ */
 .content {
-  /* padding-top: 70px; */
   border-radius: 0.5rem;
-  /* border: 1px solid #d4d3d3; */
   display: inline-block;
   margin: 10px;
-  /* box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22); */
 	transition: .3s;
-  /* background-color: #e5e9f7; */
   color: #696969;
   padding: 5px;
-  /* background-color: rgb(230, 231, 252); */
   position: relative;
 }
 .content button {
@@ -184,14 +177,10 @@ export default {
   }
 
 .content:hover {
-  /* padding-top: 70px; */
   border-radius: 0.5rem;
-  /* border: 1px solid #d4d3d3; */
   display: inline-block;
   margin: 10px;
-  /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
 	transition: .3s;
-  /* background-color: #e5e9f7; */
   color: #696969;
 }
 .cover-image {
@@ -203,9 +192,7 @@ export default {
 }
 audio {
   width: 200px;
-  /* height: 50px; */
   margin-top: 5px;
-  /* background-color: #000CFF; */
 }
 .content-fit {
   max-width: 100%;
@@ -228,8 +215,6 @@ audio {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* font-weight: bold; */
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 .item-user-name {
   font-size: 14px;

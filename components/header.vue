@@ -26,11 +26,8 @@
   align-items: center;
 }
 .logo {
-  /* padding: 10px; */
   font-size: 35px;
   color:rgb(84, 71, 255);
-  /* height: 100px;
-  line-height: 100px; */
 }
 a {
   text-decoration: none;
@@ -43,7 +40,6 @@ a {
   border-bottom: rgb(209, 207, 207) 1px solid;
   z-index: 10;
   background: #fff;
-  /* background: linear-gradient(rgb(7, 22, 110), transparent); */
 }
 .header-content {
   display: flex;
@@ -54,8 +50,6 @@ a {
   margin: 0 auto;
   padding: 0 20px 0 20px;
   z-index: 20;
-  /* padding-bottom: 30px; */
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5); */
 }
 .btn {
   padding: 12px 20px;
@@ -93,13 +87,13 @@ a {
 .modal-enter, .modal-leave-active { opacity: 0; }
 
 .user-icon {
-    border-style: none;
-    border-radius: 5rem;
-    width: 30px;
-    height: 30px;
-    background: #d3d3d4;
-    margin-right: 10px;
-    vertical-align: bottom;
+  border-style: none;
+  border-radius: 5rem;
+  width: 30px;
+  height: 30px;
+  background: #d3d3d4;
+  margin-right: 10px;
+  vertical-align: bottom;
 }
 .login-btn {
   color: #2c55fe;

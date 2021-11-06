@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import store from '../store';
 
 export default {
     data () {
@@ -174,13 +173,6 @@ input[type="radio"]:checked + .emotion-label {
   font-weight: bold;
 }
 /* ジャンル */
-.genre li:hover {
-  /* color: #fff;
-  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
-  font-weight: bold;
-  border-radius: 0.5rem; */
-}
-
 .genre-label {
   border-radius: 0.5rem;
   padding: 10px 10px;
@@ -204,8 +196,6 @@ input[type="radio"]:checked + .genre-label {
   padding: 10px 10px;
   margin: 10px auto;
 }
-
-
 .all-tracks {
   border-radius: 0.5rem;
   padding: 10px;

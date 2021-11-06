@@ -36,7 +36,6 @@ export default {
     border: 1px solid rgb(150, 152, 161);
     padding: 15px;
     background: transparent;
-    /* box-shadow: inset 0 10px 25px 0 rgba(0, 0, 0, .5); */
     font-size: 15px;
     color: #000;
 }
@@ -45,9 +44,9 @@ export default {
         color: rgb(150, 152, 161);
     }
 .search-icon {
-  font-size: 20px;
-  color: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
-  margin: 0 10px;
+    font-size: 20px;
+    color: linear-gradient(to right, rgb(38, 0, 255), rgb(0, 140, 255));
+    margin: 0 10px;
 }
 button {
     background-color: transparent;

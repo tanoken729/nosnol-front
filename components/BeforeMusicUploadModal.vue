@@ -3,36 +3,22 @@
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
       <form method="post" enctype="multipart/form-data">
-      <div class="drop_area" 
-        @dragenter="dragEnter" 
-        @dragleave="dragLeave" 
-        @dragover.prevent 
-        @drop.prevent="dropFile" 
-        :class="{enter: isEnter}" 
-      >
-        <p>クリックしてファイルを追加</p>
-        <p>最大100MB、形式: MP3, AAC</p>
-        {{files.file}}
-      </div>
+        <div class="drop_area"
+          @dragenter="dragEnter"
+          @dragleave="dragLeave"
+          @dragover.prevent
+          @drop.prevent="dropFile"
+          :class="{enter: isEnter}"
+        >
+          <p>クリックしてファイルを追加</p>
+          <p>最大100MB、形式: MP3, AAC</p>
+          {{files.file}}
+        </div>
       </form>
-<!-- <form method="POST" action="http://localhost:8000/api/musicFileUpload" enctype="multipart/form-data">
-  <input type="file" name="file"/><br>
-  <input type="submit" value="SUBMIT"/>
-</form> -->
-      <!-- <div class="drop_area" v-if="isEnter">
-        <p>ファイルを保持しています。</p>
-        {{ files.name }}
-      </div> -->
       <div class="button-content">
         <button class="cancel-btn" @click="closeBeforeMusicUploadModal">キャンセル</button>
         <button class="disabled-btn" disabled>アップロード</button>
       </div>
-          <!-- <div>
-              <ul>
-                  <li v-for="(file, index) in files" :key="index">{{ file.name }}
-                  </li>
-              </ul>
-          </div> -->
     </div>
   </div>
 </template>
@@ -67,22 +53,7 @@ export default {
     closeAfterMusicUploadModal () {
       this.showContent2 = false
     },
-    // onMusicFileUploaded(e) {
-    //   // event(=e)からMusicFileデータを取得する
-    //   const musicFile = e.target.files[0]
-    //   this.createMusicFile(musicFile)
-    // },
-    // createMusicFile(MusicFile) {
-    //   const reader = new FileReader()
-    //   // MusicFileをreaderにDataURLとしてattachする
-    //   reader.readAsDataURL(MusicFile)
-    //   // readAdDataURLが完了したあと実行される処理
-    //   reader.onload = () => {
-    //     this.submittedArticle.MusicFile = reader.result
-    //   }
-    // },
     dragEnter() {
-        // console.log('Enter Drop Area');
         this.isEnter = true;
     },
     dragLeave() {
@@ -92,18 +63,7 @@ export default {
         console.log('DragOver')
     },
     dropFile(event) {
-        // this.files = event
         this.files = [...event.dataTransfer.files]
-        console.log(this.files[0].name)
-        // this.files.forEach(file => {
-        //     let form = new FormData()
-        //     form.append('file', file)
-        //     this.$axios.post('http://localhost:8000//api/musicFileUpload', form).then(response => {
-        //         console.log(response.data)
-        //     }).catch(error => {
-        //         console.log(error)
-        //     })
-        // })
         this.$emit('openAfterMusicUploadModal', this.files[0], this.files[0].name);
         this.isEnter = false;
     }

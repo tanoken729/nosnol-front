@@ -42,7 +42,7 @@ $ cp .env_local .env
 # Access the following URL
 http://localhost:4000/
 ```
-## Wireframe
+## UI Wireframe
 ### before the start of development
 [adobexd](https://xd.adobe.com/view/8558decb-1b1a-4a45-8f98-4cc82483ab27-d00b/grid)
 

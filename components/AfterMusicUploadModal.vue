@@ -7,12 +7,12 @@
         <div>
           <!-- {{musicFile}} -->
           <h3>カバー画像</h3>
-          <div class="drop_area" 
-            @dragenter="dragEnter" 
-            @dragleave="dragLeave" 
-            @dragover.prevent 
-            @drop.prevent="dropFile" 
-            :class="{enter: isEnter}" 
+          <div class="drop_area"
+            @dragenter="dragEnter"
+            @dragleave="dragLeave"
+            @dragover.prevent
+            @drop.prevent="dropFile"
+            :class="{enter: isEnter}"
           >
             <p>クリックして画像を追加</p>
             <p>10MB以内 .jpg .png .heic に対応しています。</p>
@@ -67,7 +67,6 @@ export default {
     'musicFile',
     'musicFileName',
     ],
-  // props: ['musicFileName'],
   data () {
     return {
       showContent2: false,
@@ -96,7 +95,6 @@ export default {
       formData.append('genre', this.genre);
       formData.append('emotions', this.emotion);
       formData.append('user_id', this.$store.state.auth.user.id);
-      // formData.append('user_name', this.$store.state.auth.user.name);
 
       let config = {
         headers: {
@@ -122,7 +120,6 @@ export default {
       this.$store.commit("loading/setLoading", false)
     },
     dragEnter() {
-        // console.log('Enter Drop Area');
         this.isEnter = true;
     },
     dragLeave() {
@@ -132,19 +129,13 @@ export default {
         console.log('DragOver')
     },
     dropFile(event) {
-      // console.log(event.target)
       this.coverImages = [...event.dataTransfer.files]
-      // console.log(this.coverImages)
-      // console.log(this.musicFile)
-      // console.log(this.musicFileName)
     },
     selectedGenre (e) {
       this.genre = e.target.value
-      // this.$set(this.musicFileData, 'genre', e.target.value)
     },
     selectedEmotion (e) {
       this.emotion = e.target.value
-      // this.$set(this.musicFileData, 'emotion', e.target.value)
     },
     // musicFileNameはこのファイルのpropsから取得
     setMusicFileFromBeforeMusicUploadModal (musicFileName) {
@@ -284,19 +275,6 @@ input[type="radio"]:checked + .emotion-label {
   text-align: center;
   padding: 10px 10px;
   margin: 0px 10px;
-/* display: block;
-float: left;
-margin: 5px;
-width: 100px;
-height: 45px;
-padding-left: 5px;
-padding-right: 5px;
-color: #b20000;
-text-align: center;
-line-height: 45px;
-cursor: pointer;
-border: 2px solid #006DD9;
-border-radius: 5px; */
 }
 .emotion-label:hover {
   color: rgb(255, 255, 255);
@@ -310,12 +288,6 @@ border-radius: 5px; */
   padding: 10px 10px;
   margin: 0px 10px;
 }
-
-
-
-
-
-
 /* セレクト */
 .cp_ipselect select {
 	width: 400px;
@@ -323,7 +295,6 @@ border-radius: 5px; */
 	color: #666666;
   font-size: 15px;
 }
-
 h3 {
   margin-top: 20px;
   margin-bottom: 20px;

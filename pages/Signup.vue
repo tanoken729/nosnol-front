@@ -131,7 +131,6 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid #dcdcdc; */
   width: 400px;
   padding: 30px 10px;
   margin: 0 auto;

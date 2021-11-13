@@ -10,6 +10,7 @@ A service for sharing audio files.
 - node v14.17.0
 - npm 6.14.13
 - docker 19.03.13
+- typescript 3.9.9
 
 ## Usage
 ```bash

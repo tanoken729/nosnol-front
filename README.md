@@ -1,6 +1,6 @@
 # nosnol
 
-image or gif
+![image](https://user-images.githubusercontent.com/49152949/141650271-3e7cc3a2-3443-4f7c-9129-fbd907e97531.png)
 
 ## Overview
 A service for sharing audio files.

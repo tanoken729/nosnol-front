@@ -3,7 +3,7 @@
         <header class="header">
           <div class="header-content">
             <div class="logo-position-adjustment">
-            <!-- <NuxtLink to="/"><img class="logo" src="" alt="NOSNOL"></NuxtLink> -->
+            <NuxtLink to="/"><img class="logo" src="~/assets/Group 25.jpg" alt="NOSNOL"></NuxtLink>
             <NuxtLink to="/"><h1 class="logo">NOSNOL</h1></NuxtLink>
             </div>
             <nav class="nav">
@@ -26,8 +26,9 @@
   align-items: center;
 }
 .logo {
-  font-size: 35px;
+  font-size: 30px;
   color:rgb(84, 71, 255);
+  height: 40px;
 }
 a {
   text-decoration: none;

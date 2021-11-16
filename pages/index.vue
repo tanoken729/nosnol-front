@@ -188,7 +188,7 @@ export default {
   width: 150px;
   display: flex;
   border-radius: 0.5rem;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+  /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
 }
 audio {
   width: 200px;

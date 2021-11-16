@@ -135,6 +135,7 @@ a {
   padding: 30px 10px;
   margin: 0 auto;
   box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+  border-radius: 0.5rem;
 }
 @media screen and (max-width: 750px){
   .form{

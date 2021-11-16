@@ -2,7 +2,7 @@
 <div id="overlay" v-show="showMenuBar" @click.self="closeMenuBar">
     <div id="main-content">
         <ul>
-        <!-- clickedFileUserIdを渡せれば良い -->
+        <!-- 予定：clickedFileUserIdを渡すように修正 -->
         <nuxt-link :to="{ name: 'user', params: {user: `${$store.state.auth.user.name}`} }"><li id="user-name" @click="setMusicFileData($store.state.auth.user.id)">{{ $store.state.auth.user.name }}</li></nuxt-link>
         <NuxtLink to="/profilesettings"><li><font-awesome-icon :icon="['fas', 'cogs']" class="cogs-font-solid"/>設定</li></NuxtLink>
         <li @click="logout"><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="sign-out-font-solid"/>ログアウト</li>
@@ -90,7 +90,6 @@ li:hover {
 }
 #user-name {
     font-weight: bold;
-    /* border-bottom: #000 1px solid; */
 }
 .sign-out-font-solid {
     margin-right: 10px;

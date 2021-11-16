@@ -9,14 +9,12 @@
             メールアドレスを入力してください。
           </div>
           <tr>
-              <!-- <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="$v.form.email.$model"></td> -->
               <td><input type="email" placeholder="メールアドレス" class="text-box" v-model="form.email"></td>
           </tr>
           <div v-if="$v.form.password.$error && !$v.form.password.required" class="error-message">
             パスワードを入力してください。
           </div>
           <tr>
-              <!-- <td><input type="password" placeholder="パスワード" class="text-box" v-model="$v.form.password.$model"></td> -->
               <td><input type="password" placeholder="パスワード" class="text-box" v-model="form.password"></td>
           </tr>
           </table>
@@ -103,11 +101,11 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid #dcdcdc; */
   width: 400px;
   padding: 30px 10px;
   margin: 0 auto;
   box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+  border-radius: 0.5rem;
 }
 @media screen and (max-width: 750px){
   .form{

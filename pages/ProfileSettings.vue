@@ -27,7 +27,6 @@
 </template>
 
 <script>
-// import env from '../nuxt.config.js';
 
 export default {
     middleware: 'user_auth',
@@ -40,10 +39,8 @@ export default {
             userIcon: [],
             name: `${this.$store.getters['users/loginUserProfileItems'].loginUserProfileItems[0].name}`,
             email: `${this.$store.getters['users/loginUserProfileItems'].loginUserProfileItems[0].email}`,
-            // password: `${this.$store.getters['users/loginUserProfileItems'].loginUserProfileItems[0].password}`,
             password: '',
             description: `${this.$store.getters['users/loginUserProfileItems'].loginUserProfileItems[0].description}`,
-            // BaseUrl: ENV.API_BASE_URL
         }
     },
     asyncData: async function(context) {
@@ -142,7 +139,6 @@ input[type="file"] {
     margin-top: 100px;
 }
 .profile-settgins {
-    /* border: 1px solid rgb(197, 196, 196); */
     margin: 10px auto;
     width: 50%;
     width: 720px;
@@ -156,12 +152,7 @@ input[type="file"] {
         display: block;
     }
 }
-.icon-area {
-    /* margin-right: 50px; */
-}
 .user-icon {
-    /* padding: 10px 10px; */
-    /* border: 1px solid rgb(185, 184, 184); */
     border-radius: 5rem;
     width: 110px;
     height: 110px;
@@ -171,7 +162,6 @@ input[type="file"] {
 .text-area {
     display: flex;
     flex-direction: column;
-    /* max-width: 100%; */
 }
 .text {
     width: 570px;
@@ -193,7 +183,6 @@ input[type="file"] {
     width: 115px;
     height: 45px;
     margin: 20px auto;
-    /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
     border: none;
     background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
     border-radius: 0.5rem;

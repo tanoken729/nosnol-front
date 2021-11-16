@@ -11,16 +11,9 @@
           <div class="content" v-for="(item, index) in $store.getters['musicFiles/items'].items" :key="index" @click="setMusicFileData(item.title, item.cover_image, item.music_file, item.user_name, item.user_id, item.id, item.description, item.user_icon)">
           <nuxt-link :to="{ name: 'user-title', params: {user: `${item.user_name}`, title: `${item.title}`} }">
             <div>
-                <!-- <img :src="`${$axios.defaults.baseURL}storage/${item.cover_image}`" class="cover-image"> -->
                 <img :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${item.cover_image}`" class="cover-image">
                 <h3 class="item-title">{{ item.title }}</h3>
                 <nuxt-link :to="{ name: 'user', params: {user: `${item.user_name}`} }"><h3 class="item-user-name">{{ item.user_name }}</h3></nuxt-link>
-                <!-- <audio v-bind:id="`bgm-${index}`" preload>
-                  <source
-                    :src="`${$axios.defaults.baseURL}storage/${item.music_file}`"
-                    type="audio/mp3"
-                  >
-                </audio> -->
                 <audio v-bind:id="`bgm-${index}`" preload>
                   <source
                     :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${item.music_file}`"
@@ -108,8 +101,6 @@ export default {
       audios.pause();
     },
   },
-  // computed: {
-  // },
 };
 </script>
 
@@ -132,7 +123,6 @@ export default {
   }
 }
 .tracks-title {
-    /* margin: 0px auto; */
     padding: 10px;
     display: block;
     min-width: 50%;
@@ -161,17 +151,12 @@ export default {
 }
 /* メインコンテンツ */
 .content {
-  /* padding-top: 70px; */
   border-radius: 0.5rem;
-  /* border: 1px solid #d4d3d3; */
   display: inline-block;
   margin: 10px;
-  /* box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22); */
 	transition: .3s;
-  /* background-color: #e5e9f7; */
   color: #696969;
   padding: 5px;
-  /* background-color: rgb(230, 231, 252); */
   position: relative;
 }
 .content button {
@@ -196,14 +181,10 @@ export default {
   }
 
 .content:hover {
-  /* padding-top: 70px; */
   border-radius: 0.5rem;
-  /* border: 1px solid #d4d3d3; */
   display: inline-block;
   margin: 10px;
-  /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
 	transition: .3s;
-  /* background-color: #e5e9f7; */
   color: #696969;
 }
 .cover-image {
@@ -215,9 +196,7 @@ export default {
 }
 audio {
   width: 200px;
-  /* height: 50px; */
   margin-top: 5px;
-  /* background-color: #000CFF; */
 }
 .content-fit {
   max-width: 100%;
@@ -240,8 +219,6 @@ audio {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* font-weight: bold; */
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 .item-user-name {
   font-size: 14px;

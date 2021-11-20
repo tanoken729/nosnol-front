@@ -3,10 +3,10 @@
         <input @click="musicFileNoFilter" type="radio" id="all" name="all" checked="checked"><label for="all" class="all-tracks">All tracks</label>
     <h3>Emotions</h3>
         <div class="emotion">
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-label"><font-awesome-icon :icon="['fas', 'smile-beam']"/></label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-label"><font-awesome-icon :icon="['fas', 'sad-tear']"/></label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-label"><font-awesome-icon :icon="['fas', 'angry']"/></label>
-        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-label"><font-awesome-icon :icon="['fas', 'kiss-beam']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="joy" id="joy"><label for="joy" class="emotion-joy-label"><font-awesome-icon :icon="['fas', 'smile-beam']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="angry" id="angry"><label for="angry" class="emotion-angry-label"><font-awesome-icon :icon="['fas', 'angry']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="sorrow" id="sorrow"><label for="sorrow" class="emotion-sorrow-label"><font-awesome-icon :icon="['fas', 'sad-tear']"/></label>
+        <input @click="FilterMusicFile" type="radio" name="emotion" value="easy" id="easy"><label for="easy" class="emotion-easy-label"><font-awesome-icon :icon="['fas', 'kiss-beam']"/></label>
         </div>
     <h3>Genres</h3>
         <div class="genre">
@@ -112,25 +112,93 @@ export default {
 input[type=radio] {
   display: none;
 }
-input[type="radio"]:checked + .emotion-label {
-  color: #fff;
-  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
-  font-weight: bold;
-}
-.emotion-label {
+/* joy */
+.emotion-joy-label {
   margin-bottom: 10px;
   border-radius: 0.5rem;
   text-align: center;
-  padding: 10px 10px;
+  padding: 6px 8px;
   display:block;
   position:relative;
-  text-align: left;
-  font-size: 25px;
+  text-align: center;
+  font-size: 20px;
 }
-.emotion-label:hover {
+.emotion-joy-label:hover {
   color: #fff;
-  background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
+  background: linear-gradient(to right, rgb(255, 123, 62), rgb(255, 204, 62));
   font-weight: bold;
+}
+input[type="radio"]:checked + .emotion-joy-label {
+  color: #fff;
+  background: linear-gradient(to right, rgb(255, 123, 62), rgb(255, 204, 62));
+  font-weight: bold;
+  padding: 6px 8px;
+}
+/* angry */
+.emotion-angry-label {
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 6px 8px;
+  display:block;
+  position:relative;
+  text-align: center;
+  font-size: 20px;
+}
+.emotion-angry-label:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(255, 71, 132), rgb(255, 123, 62));
+  font-weight: bold;
+}
+input[type="radio"]:checked + .emotion-angry-label {
+  color: #fff;
+  background: linear-gradient(to right, rgb(255, 71, 132), rgb(255, 123, 62));
+  font-weight: bold;
+  padding: 6px 8px;
+}
+/* sorrow */
+.emotion-sorrow-label {
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 6px 8px;
+  display:block;
+  position:relative;
+  text-align: center;
+  font-size: 20px;
+}
+.emotion-sorrow-label:hover {
+  color: #fff;
+  background:  linear-gradient(to right, rgb(52, 0, 240), rgb(0, 115, 246));
+  font-weight: bold;
+}
+input[type="radio"]:checked + .emotion-sorrow-label {
+  color: #fff;
+  background: linear-gradient(to right, rgb(52, 0, 240), rgb(0, 115, 246));
+  font-weight: bold;
+  padding: 6px 8px;
+}
+/* easy */
+.emotion-easy-label {
+  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 6px 8px;
+  display:block;
+  position:relative;
+  text-align: center;
+  font-size: 20px;
+}
+.emotion-easy-label:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(0, 236, 177), rgb(0, 200, 236));
+  font-weight: bold;
+}
+input[type="radio"]:checked + .emotion-easy-label {
+  color: #fff;
+  background: linear-gradient(to right, rgb(0, 236, 177), rgb(0, 200, 236));
+  font-weight: bold;
+  padding: 6px 8px;
 }
 .joy:hover {
   border: 1px solid #FF7F00;
@@ -153,7 +221,7 @@ input[type="radio"]:checked + .emotion-label {
   font-weight: bold;
 }
 .sorrow:hover {
-  border: 1px solid #FF7F00;
+  border: 1px solid #ad661e;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 0.5rem;
@@ -175,11 +243,12 @@ input[type="radio"]:checked + .emotion-label {
 /* ジャンル */
 .genre-label {
   border-radius: 0.5rem;
-  padding: 10px 10px;
+  padding: 6px 8px;
   display:block;
   position:relative;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 14px;
 }
 .genre-label:hover {
   color: #fff;
@@ -193,7 +262,7 @@ input[type="radio"]:checked + .genre-label {
   background-color: #e5e9f7;
   background: linear-gradient(to right, rgb(84, 71, 255), rgb(62, 114, 255));
   font-weight: bold;
-  padding: 10px 10px;
+  padding: 6px 8px;
   margin: 10px auto;
 }
 .all-tracks {

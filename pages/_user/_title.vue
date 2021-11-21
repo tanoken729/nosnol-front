@@ -145,25 +145,25 @@ export default {
             play: false,
         }
     },
-    asyncData: async function(context) {
-        context.store.commit("loading/setLoading", true)
+    // データをストアに入れてから表示させるため、fetchを使用する
+    // topページからデータをストアに格納→"そのデータを元に詳細データを取得・storeに格納→storeのデータを表示する"の流れ
+    fetch: async function() {
+        this.$store.commit("loading/setLoading", true)
         let clickedFileUserId = ''
         // 配列でclickedFileUserId取得
-        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
         });
         let clickedFileId = ''
-        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileId = musicFiledatum.clickedFileId
         });
-        await context.store.dispatch('musicFiles/musicDetailPageData', {
-            clickedLoginUserId: context.store.state.auth.user.id,
+        await this.$store.dispatch('musicFiles/musicDetailPageData', {
+            clickedLoginUserId: this.$store.state.auth.user.id,
             clickedFileId: clickedFileId,
             clickedFileUserId: clickedFileUserId,
         })
-        context.store.commit("loading/setLoading", false)
-    },
-    created: function() {
+        this.$store.commit("loading/setLoading", false)
         this.followedId = this.$store.getters['musicFiles/followedId']
         this.userId = this.$store.getters['musicFiles/userId']
         this.commentInfos = this.$store.getters['musicFiles/commentInfos']

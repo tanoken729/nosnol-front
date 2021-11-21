@@ -57,11 +57,11 @@ export default {
   },
   asyncData: async function(context) {
       // すべての音声ファイルを取得する
-    context.store.dispatch('musicFiles/musicFileTopPageData')
+    await context.store.dispatch('musicFiles/musicFileTopPageData')
   },
   methods: {
     // musicFileTopPageDataで取得したデータを詳細ページにセットする
-    setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId, clickedFileUserDescription, clickedFileUserUserIcon) {
+    async setMusicFileData (clickedFileTitle, clickedFileCoverImage, clickedFileMusicfile, clickedFileUserName, clickedFileUserId, clickedFileId, clickedFileUserDescription, clickedFileUserUserIcon) {
       this.clickedFileTitle = clickedFileTitle
       this.clickedFileCoverImage = clickedFileCoverImage
       this.clickedFileMusicfile = clickedFileMusicfile
@@ -70,9 +70,7 @@ export default {
       this.clickedFileId = clickedFileId
       this.clickedFileUserDescription = clickedFileUserDescription
       this.clickedFileUserUserIcon = clickedFileUserUserIcon
-      console.log(clickedFileUserDescription)
-      console.log(clickedFileUserUserIcon)
-      this.$store.dispatch('musicFiles/setMusicFileData', {
+      await this.$store.dispatch('musicFiles/setMusicFileData', {
         clickedFileTitle: this.clickedFileTitle,
         clickedFileCoverImage: this.clickedFileCoverImage,
         clickedFileMusicfile: this.clickedFileMusicfile,
@@ -192,7 +190,7 @@ export default {
   width: 150px;
   display: flex;
   border-radius: 0.5rem;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+  /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
 }
 audio {
   width: 200px;

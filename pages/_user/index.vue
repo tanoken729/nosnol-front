@@ -86,19 +86,19 @@ export default {
             userDetailItems: [],
         }
     },
-    asyncData: async function(context) {
-        context.store.commit("loading/setLoading", true)
+    // データをストアに入れてから表示させるため、fetchを使用する
+    // topページからデータをストアに格納→"そのデータを元に詳細データを取得・storeに格納→storeのデータを表示する"の流れ
+    fetch: async function() {
+        this.$store.commit("loading/setLoading", true)
         let clickedFileUserId = ''
         // 配列でclickedFileUserId取得
-        context.store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
+        this.$store.getters['musicFiles/musicFileData'].forEach(musicFiledatum => {
             clickedFileUserId = musicFiledatum.clickedFileUserId
         });
-        await context.store.dispatch('musicFiles/userDetailPageData', {
+        await this.$store.dispatch('musicFiles/userDetailPageData', {
             clickedFileUserId: clickedFileUserId,
         })
-        context.store.commit("loading/setLoading", false)
-    },
-    created: function() {
+        this.$store.commit("loading/setLoading", false)
         this.followedId = this.$store.getters['musicFiles/followedId']
         this.userDetailItems = this.$store.getters['musicFiles/userDetailItems']
     },
@@ -335,7 +335,7 @@ h2 {
     height: 200px;
     width: 200px;
     display: flex;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+    /* box-shadow: 0 0 10px 0 rgba(0,0,0,.22); */
 }
 .audio-image {
     height: 200px;

@@ -60,8 +60,8 @@ export const actions = {
       clickedFileCoverImage: payload.clickedFileCoverImage,
       clickedFileMusicfile: payload.clickedFileMusicfile,
       clickedFileUserName: payload.clickedFileUserName,
-      clickedFileUserId: payload.clickedFileUserId,
-      clickedFileId: payload.clickedFileId,
+      clickedFileUserId: payload.clickedFileUserId, //storeへ格納→詳細ページでのfetchでのapi通信に使用
+      clickedFileId: payload.clickedFileId, //storeへ格納→詳細ページでのfetchでのapi通信に使用
       clickedFileUserDescription: payload.clickedFileUserDescription,
       clickedFileUserUserIcon: payload.clickedFileUserUserIcon,
     }

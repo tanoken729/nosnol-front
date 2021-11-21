@@ -49,7 +49,8 @@
         <div class="content-fit">
             <div class="content" v-for="(userDetailItem, index) in userDetailItems.userDetailItems" :key="index" @click="setMusicFileData(userDetailItem.title, userDetailItem.cover_image, userDetailItem.music_file, userDetailItem.user_name, userDetailItem.user_id, userDetailItem.id, userDetailItem.description, userDetailItem.user_icon)">
             <nuxt-link :to="{ name: 'user-title', params: {user: `${userDetailItem.user_name}`, title: `${userDetailItem.title}`} }">
-                <div>
+                <!-- music_fileのレコードを持っていない場合、画像のスタイルが表示されてしまうのでひとまずタイトル非表示対応する -->
+                <div v-if="userDetailItem.title">
                     <img :src="`https://nosnol-production-image-and-audio.s3.ap-northeast-1.amazonaws.com/${userDetailItem.cover_image}`" class="cover-image">
                     <h3 class="userDetailItem-title">{{ userDetailItem.title }}</h3>
                     <NuxtLink to="/userdetail"><h3 class="userDetailItem-user-name">{{ userDetailItem.user_name }}</h3></NuxtLink>
@@ -61,9 +62,12 @@
                     </audio>
                 </div>
             </nuxt-link>
+                <!-- music_fileのレコードを持っていない場合、画像のスタイルが表示されてしまうのでひとまずタイトル非表示対応する -->
+                <div v-if="userDetailItem.title">
                     <font-awesome-icon :icon="['fas', 'minus-circle']" class="ellipsis-h" @click="deleteMusicFile(userDetailItem.id)"/>
                     <button v-if="play === index" @click="pauseAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'pause']"/></button>
                     <button v-else @click="playAction(index)" id="btn-play" type="button"><font-awesome-icon :icon="['fas', 'play']"/></button>
+                </div>
             </div>
         </div>
         </div>

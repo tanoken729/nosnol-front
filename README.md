@@ -44,13 +44,11 @@ $ cp .env_local .env
 http://localhost:4000/
 ```
 ## UI Wireframe
-- adobexd
-- figma
-### before the start of development
+### adobexd
 <img width="1139" alt="スクリーンショット 2021-11-23 21 45 17" src="https://user-images.githubusercontent.com/49152949/143026238-b3207987-54ef-4018-8df1-72a6a61c7bdf.png">
 https://xd.adobe.com/view/8558decb-1b1a-4a45-8f98-4cc82483ab27-d00b/grid
 
-### latest
+### figma
 <img width="1125" alt="スクリーンショット 2021-11-23 21 35 27" src="https://user-images.githubusercontent.com/49152949/143024886-aca9cdfb-bd4e-4aee-8757-e5db7f5ba60b.png">
 https://www.figma.com/file/DOeKHbpoZ7eco5HBVYhmHX/Nosnol?node-id=0%3A1
 

@@ -21,6 +21,7 @@
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/proxy": "^2.1.0",
     "@types/jest": "^27.0.2",
+    "@types/vuelidate": "^0.7.15",
     "axios": "^0.21.1",
     "core-js": "^2.6.11",
     "dotenv-webpack": "^7.0.3",

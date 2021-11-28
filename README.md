@@ -4,6 +4,9 @@
 
 ## Overview
 A service for sharing audio files.
+- Creators can upload music right from the page they are on.
+- Listeners can intuitively find the music they want to listen to now.
+- A UI that feels like a traditional social network
 
 ## Requirement
 - Nuxt.js v2.15.6
@@ -11,6 +14,10 @@ A service for sharing audio files.
 - npm 6.14.13
 - docker 19.03.13
 - typescript 3.9.9
+
+## In progress
+- testing with jest
+- Moving to Typescript
 
 ## Usage
 ```bash

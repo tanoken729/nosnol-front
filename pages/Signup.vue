@@ -40,11 +40,12 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
 /* eslint-disable */
+import Vue from 'vue'
 
 import {required,maxLength,minLength} from "vuelidate/lib/validators"
-export default {
+export default Vue.extend ({
   name: 'Signup',
   data(){
     return {
@@ -74,16 +75,17 @@ export default {
     }
   },
   methods: {
+    // $v は ts に対応していないためthisのanyマッピング
     checkFormHasError(){
-      this.$v.$touch()
-      if(this.$v.$invalid){
+      (this as any).$v.$touch()
+      if((this as any).$v.$invalid){
         console.log("バリデーションエラー")
       }else{
         // console.log(this.form)
       }
     },
     async registerUser(){
-      if(this.checkFormHasError()) return;
+      if((this as any).checkFormHasError()) return; // "An expression of type 'void' cannot be tested for truthiness."のエラーが出力されるため、ひとまずanyで対応する
       
       this.$store.commit("loading/setLoading", true)
       try{
@@ -102,7 +104,7 @@ export default {
       this.$store.commit("loading/setLoading", false)
     },
   }
-}
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

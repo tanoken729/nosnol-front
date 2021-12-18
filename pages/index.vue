@@ -53,6 +53,7 @@ export default {
       clickedFileCoverImage: '',
       clickedFileId: '',
       play: false,
+      audios: ""
     }
   },
   asyncData: async function(context) {
@@ -83,9 +84,13 @@ export default {
     playAction (index) {
       this.play = index
       this.bgm = index
+      if (this.audios) {
+        this.audios.pause();
+      }
       console.log(this.bgm)
       var audios = document.getElementById(`bgm-${index}`);
       console.log(audios)
+      this.audios = audios
       audios.play();
     },
     pauseAction (index) {

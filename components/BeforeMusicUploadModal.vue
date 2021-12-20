@@ -1,22 +1,29 @@
 <template>
-  <div id="overlay" v-show="showContent" @click.self="closeBeforeMusicUploadModal">
+  <div
+    id="overlay"
+    v-show="showContent"
+    @click.self="closeBeforeMusicUploadModal"
+  >
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
       <form method="post" enctype="multipart/form-data">
-        <div class="drop_area"
+        <div
+          class="drop_area"
           @dragenter="dragEnter"
           @dragleave="dragLeave"
           @dragover.prevent
           @drop.prevent="dropFile"
-          :class="{enter: isEnter}"
+          :class="{ enter: isEnter }"
         >
-          <p>クリックしてファイルを追加</p>
+          <p>ドラッグ&ドロップしてファイルを追加</p>
           <p>最大100MB、形式: MP3, AAC</p>
-          {{files.file}}
+          {{ files.file }}
         </div>
       </form>
       <div class="button-content">
-        <button class="cancel-btn" @click="closeBeforeMusicUploadModal">キャンセル</button>
+        <button class="cancel-btn" @click="closeBeforeMusicUploadModal">
+          キャンセル
+        </button>
         <button class="disabled-btn" disabled>アップロード</button>
       </div>
     </div>
@@ -29,63 +36,66 @@
 export default {
   // ここからheader.vueにクリックイベント（openAfterMusicUploadModal）を渡す
   transition: {
-    name: 'modal',
-    mode: 'out-in'
+    name: "modal",
+    mode: "out-in"
   },
-  components: {
-  },
-  data () {
+  components: {},
+  data() {
     return {
       showContent: false,
       showContent2: false,
-      MusicFile: '',
+      MusicFile: "",
       isEnter: false,
-      files: [],
-    }
+      files: []
+    };
   },
   methods: {
-    openBeforeMusicUploadModal (){
-      this.$emit('openBeforeMusicUploadModal');
+    openBeforeMusicUploadModal() {
+      this.$emit("openBeforeMusicUploadModal");
     },
-    closeBeforeMusicUploadModal (){
-      this.$emit('closeBeforeMusicUploadModal');
+    closeBeforeMusicUploadModal() {
+      this.$emit("closeBeforeMusicUploadModal");
     },
-    closeAfterMusicUploadModal () {
-      this.showContent2 = false
+    closeAfterMusicUploadModal() {
+      this.showContent2 = false;
     },
     dragEnter() {
-        this.isEnter = true;
+      this.isEnter = true;
     },
     dragLeave() {
-        this.isEnter = false;
+      this.isEnter = false;
     },
     dragOver() {
-        console.log('DragOver')
+      console.log("DragOver");
     },
     dropFile(event) {
-        this.files = [...event.dataTransfer.files]
-        this.$emit('openAfterMusicUploadModal', this.files[0], this.files[0].name);
-        this.isEnter = false;
+      this.files = [...event.dataTransfer.files];
+      this.$emit(
+        "openAfterMusicUploadModal",
+        this.files[0],
+        this.files[0].name
+      );
+      this.isEnter = false;
     }
-  },
-}
+  }
+};
 </script>
 
 <style scoped>
 /* * {
   outline: #000 1px solid;
 } */
-#overlay{
+#overlay {
   /*　要素を重ねた時の順番　*/
-  z-index:30;
+  z-index: 30;
 
   /*　画面全体を覆う設定　*/
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color:rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 
   /*　画面の中央に要素を表示させる設定　*/
   display: flex;
@@ -93,16 +103,16 @@ export default {
   justify-content: center;
 }
 
-#main-content{
-  z-index:2;
+#main-content {
+  z-index: 2;
   width: 500px;
   padding-top: 40px;
-  background:#fff;
+  background: #fff;
   text-align: center;
   border-radius: 0.5rem;
 }
 
-.button-content{
+.button-content {
   margin: 30px;
 }
 
@@ -168,12 +178,18 @@ export default {
   pointer-events: none;
 }
 .enter {
-    border: 2px dashed rgb(184, 188, 241);
+  border: 2px dashed rgb(184, 188, 241);
 }
 .title {
   font-size: 20px;
   padding-bottom: 20px;
 }
-.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
-.modal-enter, .modal-leave-active { opacity: 0; }
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.5s;
+}
+.modal-enter,
+.modal-leave-active {
+  opacity: 0;
+}
 </style>

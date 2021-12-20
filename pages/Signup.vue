@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper">
+  <div class="wrapper">
     <Header />
     <div class="signup-form-positon-adjustment">
       <div class="guide-sentence">
@@ -7,104 +7,146 @@
       </div>
       <form class="form" @submit.prevent="registerUser">
         <h2 class="title">新規登録</h2>
-          <table>
-            <div v-if="$v.user.name.$error && !$v.user.name.required" class="error-message">
-              ユーザ名を入力してください。
-            </div>
-            <tr>
-              <td><input type="text" placeholder="ユーザ名" v-model="user.name" class="text-box"></td>
-            </tr>
-            <div v-if="$v.user.email.$error && !$v.user.email.required" class="error-message">
-              メールアドレスを入力してください。
-            </div>
-            <tr>
-              <td><input type="text" placeholder="メールアドレス" v-model="user.email" class="text-box"></td>
-            </tr>
-            <div v-if="$v.user.password.$error && !$v.user.password.required" class="error-message">
-              パスワードを入力してください。
-            </div>
-            <tr>
-              <td><input type="password" placeholder="パスワード" v-model="user.password" class="text-box"></td>
-            </tr>
-            <div v-if="$v.user.password_confirmation.$error && !$v.user.password_confirmation.required" class="error-message">
-              確認用パスワードを入力してください。
-            </div>
-            <tr>
-              <td><input type="password" placeholder="確認用パスワード" v-model="user.password_confirmation" class="text-box"></td>
-            </tr>
-          </table>
+        <table>
+          <div
+            v-if="$v.user.name.$error && !$v.user.name.required"
+            class="error-message"
+          >
+            ユーザ名を入力してください。
+          </div>
+          <tr>
+            <td>
+              <input
+                type="text"
+                placeholder="ユーザ名"
+                v-model="user.name"
+                class="text-box"
+              />
+            </td>
+          </tr>
+          <div
+            v-if="$v.user.email.$error && !$v.user.email.required"
+            class="error-message"
+          >
+            メールアドレスを入力してください。
+          </div>
+          <tr>
+            <td>
+              <input
+                type="text"
+                placeholder="メールアドレス"
+                v-model="user.email"
+                class="text-box"
+              />
+            </td>
+          </tr>
+          <div
+            v-if="$v.user.password.$error && !$v.user.password.required"
+            class="error-message"
+          >
+            パスワードを入力してください。
+          </div>
+          <tr>
+            <td>
+              <input
+                type="password"
+                placeholder="パスワード"
+                v-model="user.password"
+                class="text-box"
+              />
+            </td>
+          </tr>
+          <div
+            v-if="
+              $v.user.password_confirmation.$error &&
+                !$v.user.password_confirmation.required
+            "
+            class="error-message"
+          >
+            確認用パスワードを入力してください。
+          </div>
+          <tr>
+            <td>
+              <input
+                type="password"
+                placeholder="確認用パスワード"
+                v-model="user.password_confirmation"
+                class="text-box"
+              />
+            </td>
+          </tr>
+        </table>
+
         <button class="btn" type="submit">新規登録</button>
         <NuxtLink to="/signin">ログインはこちらから</NuxtLink>
       </form>
     </div>
-</div>
+  </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable */
-import Vue from 'vue'
+import Vue from "vue";
 
-import {required,maxLength,minLength} from "vuelidate/lib/validators"
-export default Vue.extend ({
-  name: 'Signup',
-  data(){
+import { required, maxLength, minLength } from "vuelidate/lib/validators";
+export default Vue.extend({
+  name: "Signup",
+  data() {
     return {
-      user:{
-        name:'',
-        email:'',
-        password:'',
-        password_confirmation:''
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: ""
       }
-    }
+    };
   },
-    // フォーム要素ごとのルールを記述
+  // フォーム要素ごとのルールを記述
   validations: {
     user: {
       name: {
-        required,
+        required
       },
       email: {
-        required,
+        required
       },
       password: {
-        required,
+        required
       },
       password_confirmation: {
-        required,
-      },
+        required
+      }
     }
   },
   methods: {
     // $v は ts に対応していないためthisのanyマッピング
-    checkFormHasError(){
-      (this as any).$v.$touch()
-      if((this as any).$v.$invalid){
-        console.log("バリデーションエラー")
-      }else{
+    checkFormHasError() {
+      (this as any).$v.$touch();
+      if ((this as any).$v.$invalid) {
+        console.log("バリデーションエラー");
+      } else {
         // console.log(this.form)
       }
     },
-    async registerUser(){
-      if((this as any).checkFormHasError()) return; // "An expression of type 'void' cannot be tested for truthiness."のエラーが出力されるため、ひとまずanyで対応する
-      
-      this.$store.commit("loading/setLoading", true)
-      try{
-        await this.$axios.$post('api/register',this.user)
-        .then( () =>{
+    async registerUser() {
+      if ((this as any).checkFormHasError()) return; // "An expression of type 'void' cannot be tested for truthiness."のエラーが出力されるため、ひとまずanyで対応する
+
+      this.$store.commit("loading/setLoading", true);
+      try {
+        await this.$axios.$post("api/register", this.user).then(() => {
           // 新規登録時にログイン処理を行い、userデータをトップ画面に反映させる
-          this.$auth.loginWith('local', { data: this.user })
-          .then( () =>{
-            this.$router.push('/TopAfterLogin')
-            })
-        })
-      } catch(error){
-        console.log(error)
-        this.$router.push('/signup')
+          this.$auth.loginWith("local", { data: this.user }).then(() => {
+            this.$router.push("/TopAfterLogin");
+          });
+        });
+      } catch (error) {
+        console.log(error);
+        this.$router.push("/signup");
       }
-      this.$store.commit("loading/setLoading", false)
-    },
+      this.$store.commit("loading/setLoading", false);
+    }
   }
-})
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -112,7 +154,8 @@ export default Vue.extend ({
 /* * {
   outline: #000 1px solid;
 } */
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
@@ -136,20 +179,20 @@ a {
   width: 400px;
   padding: 30px 10px;
   margin: 0 auto;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,.22);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.22);
   border-radius: 0.5rem;
 }
-@media screen and (max-width: 750px){
-  .form{
-  margin-top: 20px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #dcdcdc;
-  width: 350px;
-  padding: 30px 10px;
-  margin: 0 auto;
+@media screen and (max-width: 750px) {
+  .form {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dcdcdc;
+    width: 350px;
+    padding: 30px 10px;
+    margin: 0 auto;
   }
 }
 input {
@@ -185,8 +228,8 @@ input.text-box {
 .guide-sentence {
   margin: 0 auto;
 }
-@media screen and (max-width: 750px){
-  .guide-sentence{
+@media screen and (max-width: 750px) {
+  .guide-sentence {
     margin: 0 auto;
     font-size: 10px;
     text-align: center;
@@ -194,14 +237,14 @@ input.text-box {
 }
 .signup-form-positon-adjustment {
   display: flex;
-  margin:  0 auto;
+  margin: 0 auto;
   min-width: 50%;
   width: 900px;
   padding: 0;
   margin-top: 200px;
 }
-@media screen and (max-width: 750px){
-  .signup-form-positon-adjustment{
+@media screen and (max-width: 750px) {
+  .signup-form-positon-adjustment {
     display: block;
     margin-top: 150px;
     width: 100%;

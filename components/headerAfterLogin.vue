@@ -1,114 +1,127 @@
 <template>
+  <div>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-position-adjustment">
+          <NuxtLink to="/TopAfterLogin"
+            ><img class="logo" src="~/assets/Group 25.jpg" alt="NOSNOL"
+          /></NuxtLink>
+          <NuxtLink to="/TopAfterLogin"><h1 class="logo">NOSNOL</h1></NuxtLink>
+        </div>
+        <nav class="nav">
+          <ul>
+            <li>
+              <SearchForm />
+            </li>
+            <li>
+              <div>
+                <img
+                  class="user-icon"
+                  :src="
+                    `${$axios.defaults.baseURL}storage/${$store.state.auth.user.user_icon}`
+                  "
+                  alt="icon"
+                  @click="openMenuBar"
+                />
+              </div>
+            </li>
+            <li>
+              <button class="btn" @click="openBeforeMusicUploadModal">
+                アップロード
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
     <div>
-        <header class="header">
-          <div class="header-content">
-            <div class="logo-position-adjustment">
-            <NuxtLink to="/TopAfterLogin"><img class="logo" src="~/assets/Group 25.jpg" alt="NOSNOL"></NuxtLink>
-            <NuxtLink to="/TopAfterLogin"><h1 class="logo">NOSNOL</h1></NuxtLink>
-            </div>
-            <nav class="nav">
-            <ul>
-              <li>
-                <SearchForm />
-              </li>
-              <li>
-                <div>
-                  <img class="user-icon" :src="`${$axios.defaults.baseURL}storage/${$store.state.auth.user.user_icon}`" alt="icon" @click="openMenuBar">
-                </div>
-              </li>
-              <li><button class="btn" @click="openBeforeMusicUploadModal">アップロード</button></li>
-            </ul>
-            </nav>
-          </div>
-        </header>
-        <div>
-          <transition name="modal" mode="out-in">
-            <BeforeMusicUploadModal
-              v-show="showContent"
-              @click.self="closeBeforeMusicUploadModal"
-              @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
-              @openAfterMusicUploadModal="openAfterMusicUploadModal"
-            ></BeforeMusicUploadModal>
-          </transition>
-        </div>
-        <div>
-          <transition name="modal" mode="out-in">
-            <AfterMusicUploadModal
-              :musicFile="musicFile" 
-              :musicFileName="musicFileName" 
-              v-show="showContent2"
-              @click.self="closeAfterMusicUploadModal"
-              @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
-            ></AfterMusicUploadModal>
-          </transition>
-        </div>
-        <div>
-          <transition name="modal" mode="out-in">
-            <MenuBar
-              v-show="showMenuBar"
-              @click.self="closeMenuBar"
-              @closeMenuBar="closeMenuBar"
-            ></MenuBar>
-          </transition>
-        </div>
+      <transition name="modal" mode="out-in">
+        <BeforeMusicUploadModal
+          v-show="showContent"
+          @click.self="closeBeforeMusicUploadModal"
+          @closeBeforeMusicUploadModal="closeBeforeMusicUploadModal"
+          @openAfterMusicUploadModal="openAfterMusicUploadModal"
+        ></BeforeMusicUploadModal>
+      </transition>
     </div>
+    <div>
+      <transition name="modal" mode="out-in">
+        <AfterMusicUploadModal
+          :musicFile="musicFile"
+          :musicFileName="musicFileName"
+          v-show="showContent2"
+          @click.self="closeAfterMusicUploadModal"
+          @closeAfterMusicUploadModal="closeAfterMusicUploadModal"
+        ></AfterMusicUploadModal>
+      </transition>
+    </div>
+    <div>
+      <transition name="modal" mode="out-in">
+        <MenuBar
+          v-show="showMenuBar"
+          @click.self="closeMenuBar"
+          @closeMenuBar="closeMenuBar"
+        ></MenuBar>
+      </transition>
+    </div>
+  </div>
 </template>
 
 <script>
-import BeforeMusicUploadModal from '@/components/BeforeMusicUploadModal.vue'
-import AfterMusicUploadModal from '@/components/AfterMusicUploadModal.vue'
-import MenuBar from '@/components/MenuBar.vue'
-import SearchForm from '@/components/SearchForm.vue'
+import BeforeMusicUploadModal from "@/components/BeforeMusicUploadModal.vue";
+import AfterMusicUploadModal from "@/components/AfterMusicUploadModal.vue";
+import MenuBar from "@/components/MenuBar.vue";
+import SearchForm from "@/components/SearchForm.vue";
 
 export default {
-    transition: {
-    name: 'modal',
-    mode: 'out-in'
+  transition: {
+    name: "modal",
+    mode: "out-in"
   },
   components: {
     BeforeMusicUploadModal,
     AfterMusicUploadModal,
     MenuBar,
-    SearchForm,
+    SearchForm
   },
-  data () {
+  data() {
     return {
       showContent: false,
       showContent2: false,
-      musicFile: '',
-      musicFileName: '',
+      musicFile: "",
+      musicFileName: "",
       showMenuBar: false,
-      showSearchForm: false,
-    }
+      showSearchForm: false
+    };
   },
   methods: {
-    openBeforeMusicUploadModal () {
-      this.showContent = true
+    openBeforeMusicUploadModal() {
+      this.showContent = true;
     },
-    closeBeforeMusicUploadModal () {
-      this.showContent = false
+    closeBeforeMusicUploadModal() {
+      this.showContent = false;
     },
-    openAfterMusicUploadModal (musicFile, musicFileName) {
-      this.showContent = false
-      this.showContent2 = true
+    openAfterMusicUploadModal(musicFile, musicFileName) {
+      this.showContent = false;
+      this.showContent2 = true;
       //BeforeModelからのmusicFileNameをセット
-      this.musicFile = musicFile
-      this.musicFileName = musicFileName
+      this.musicFile = musicFile;
+      this.musicFileName = musicFileName;
     },
-    closeAfterMusicUploadModal () {
-      this.showContent2 = false
+    closeAfterMusicUploadModal() {
+      this.showContent2 = false;
     },
     logout() {
       this.$auth.logout();
     },
-    openMenuBar () {
-      this.showMenuBar = true
+    openMenuBar() {
+      this.showMenuBar = true;
     },
-    closeMenuBar () {
-      this.showMenuBar = false
-    },
-  },
-}
+    closeMenuBar() {
+      this.showMenuBar = false;
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -116,12 +129,12 @@ export default {
   outline: solid 1px #000;
 } */
 .logo-position-adjustment {
-   display: flex;
- align-items: center;
+  display: flex;
+  align-items: center;
 }
 .logo {
   font-size: 30px;
-  color:rgb(84, 71, 255);
+  color: rgb(84, 71, 255);
   height: 40px;
 }
 a {
@@ -129,7 +142,7 @@ a {
   color: #000;
 }
 .header {
-  position:fixed;
+  position: fixed;
   width: 100%;
   top: 0px;
   border-bottom: rgb(209, 207, 207) 1px solid;
@@ -146,8 +159,8 @@ a {
   padding: 0 20px 0 20px;
   z-index: 20;
 }
-@media screen and (max-width: 750px){
-  .header-content{
+@media screen and (max-width: 750px) {
+  .header-content {
     display: block;
   }
 }
@@ -183,8 +196,14 @@ a {
   padding-left: 0;
   display: inline-block;
 }
-.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
-.modal-enter, .modal-leave-active { opacity: 0; }
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.5s;
+}
+.modal-enter,
+.modal-leave-active {
+  opacity: 0;
+}
 
 .user-icon {
   border-style: none;

@@ -1,20 +1,26 @@
 <template>
-    <div>
-        <header class="header">
-          <div class="header-content">
-            <div class="logo-position-adjustment">
-            <NuxtLink to="/"><img class="logo" src="~/assets/Group 25.jpg" alt="NOSNOL"></NuxtLink>
-            <NuxtLink to="/"><h1 class="logo">NOSNOL</h1></NuxtLink>
-            </div>
-            <nav class="nav">
-            <ul>
-                <NuxtLink tag="li" to="/signin"><a class="login-btn">ログイン</a></NuxtLink>
-                <NuxtLink tag="li" to="/signup"><button class="btn">新規登録</button></NuxtLink>
-            </ul>
-            </nav>
-          </div>
-        </header>
-    </div>
+  <div>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-position-adjustment">
+          <NuxtLink to="/"
+            ><img class="logo" src="~/assets/Group 25.jpg" alt="NOSNOL"
+          /></NuxtLink>
+          <NuxtLink to="/"><h1 class="logo">NOSNOL</h1></NuxtLink>
+        </div>
+        <nav class="nav">
+          <ul>
+            <NuxtLink tag="li" to="/signin"
+              ><a class="login-btn">ログイン</a></NuxtLink
+            >
+            <NuxtLink tag="li" to="/signup"
+              ><button class="btn">新規登録</button></NuxtLink
+            >
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </div>
 </template>
 
 <style scoped>
@@ -27,7 +33,7 @@
 }
 .logo {
   font-size: 30px;
-  color:rgb(84, 71, 255);
+  color: rgb(84, 71, 255);
   height: 40px;
 }
 a {
@@ -35,7 +41,7 @@ a {
   color: #000;
 }
 .header {
-  position:fixed;
+  position: fixed;
   width: 100%;
   top: 0px;
   border-bottom: rgb(209, 207, 207) 1px solid;
@@ -84,8 +90,14 @@ a {
   padding-left: 0;
   display: inline-block;
 }
-.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
-.modal-enter, .modal-leave-active { opacity: 0; }
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.5s;
+}
+.modal-enter,
+.modal-leave-active {
+  opacity: 0;
+}
 
 .user-icon {
   border-style: none;

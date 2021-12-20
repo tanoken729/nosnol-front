@@ -1,31 +1,38 @@
 <template>
-  <div id="overlay" v-show="showContent2" @click.self="closeAfterMusicUploadModal">
+  <div
+    id="overlay"
+    v-show="showContent2"
+    @click.self="closeAfterMusicUploadModal"
+  >
     <div id="main-content">
       <h2 class="title">音声ファイルのアップロード</h2>
       <div class="sections">
         <form method="post" enctype="multipart/form-data">
-        <div>
-          <!-- {{musicFile}} -->
-          <h3>カバー画像</h3>
-          <div class="drop_area"
-            @dragenter="dragEnter"
-            @dragleave="dragLeave"
-            @dragover.prevent
-            @drop.prevent="dropFile"
-            :class="{enter: isEnter}"
-          >
-            <p>クリックして画像を追加</p>
-            <p>10MB以内 .jpg .png .heic に対応しています。</p>
+          <div>
+            <!-- {{musicFile}} -->
+            <h3>カバー画像</h3>
+            <div
+              class="drop_area"
+              @dragenter="dragEnter"
+              @dragleave="dragLeave"
+              @dragover.prevent
+              @drop.prevent="dropFile"
+              :class="{ enter: isEnter }"
+            >
+              <p>ドラッグ&ドロップして画像を追加</p>
+              <p>10MB以内 .jpg .png .heic に対応しています。</p>
+            </div>
+            <!-- {{coverImages[0]}} -->
           </div>
-          <!-- {{coverImages[0]}} -->
-        </div>
         </form>
         <h3>タイトル</h3>
-          <input type="text" class="text-box" v-model="musicFileName">
+        <input type="text" class="text-box" v-model="musicFileName" />
         <h3>ジャンル選択</h3>
-          <div class="cp_ipselect cp_sl01">
+        <div class="cp_ipselect cp_sl01">
           <select required @change="selectedGenre">
-            <option value="" hidden class="aa">ジャンルを選択してください</option>
+            <option value="" hidden class="aa"
+              >ジャンルを選択してください</option
+            >
             <option></option>
             <option value="j-pop">J-POP</option>
             <option value="anime">アニメ</option>
@@ -40,18 +47,52 @@
             <option value="classic">クラシック</option>
           </select>
           <!-- {{genre}} -->
-          </div>
+        </div>
         <h3>感情</h3>
         <div class="emotion">
-          <input type="radio" name="emotion-in-modal" value="joy" @change="selectedEmotion" id="joy-in-modal"><label for="joy-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'smile-beam']"/></label>
-          <input type="radio" name="emotion-in-modal" value="angry" @change="selectedEmotion" id="angry-in-modal"><label for="angry-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'sad-tear']"/></label>
-          <input type="radio" name="emotion-in-modal" value="sorrow" @change="selectedEmotion" id="sorrow-in-modal"><label for="sorrow-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'angry']"/></label>
-          <input type="radio" name="emotion-in-modal" value="easy" @change="selectedEmotion" id="easy-in-modal"><label for="easy-in-modal" class="emotion-label"><font-awesome-icon :icon="['fas', 'kiss-beam']"/></label>
+          <input
+            type="radio"
+            name="emotion-in-modal"
+            value="joy"
+            @change="selectedEmotion"
+            id="joy-in-modal"
+          /><label for="joy-in-modal" class="emotion-label"
+            ><font-awesome-icon :icon="['fas', 'smile-beam']"
+          /></label>
+          <input
+            type="radio"
+            name="emotion-in-modal"
+            value="angry"
+            @change="selectedEmotion"
+            id="angry-in-modal"
+          /><label for="angry-in-modal" class="emotion-label"
+            ><font-awesome-icon :icon="['fas', 'sad-tear']"
+          /></label>
+          <input
+            type="radio"
+            name="emotion-in-modal"
+            value="sorrow"
+            @change="selectedEmotion"
+            id="sorrow-in-modal"
+          /><label for="sorrow-in-modal" class="emotion-label"
+            ><font-awesome-icon :icon="['fas', 'angry']"
+          /></label>
+          <input
+            type="radio"
+            name="emotion-in-modal"
+            value="easy"
+            @change="selectedEmotion"
+            id="easy-in-modal"
+          /><label for="easy-in-modal" class="emotion-label"
+            ><font-awesome-icon :icon="['fas', 'kiss-beam']"
+          /></label>
         </div>
         <!-- {{emotion}} -->
       </div>
       <div class="button-content">
-        <button class="cancel-btn" @click="closeAfterMusicUploadModal">キャンセル</button>
+        <button class="cancel-btn" @click="closeAfterMusicUploadModal">
+          キャンセル
+        </button>
         <button class="btn" @click="uploadMusicFile">アップロード</button>
       </div>
     </div>
@@ -60,106 +101,104 @@
 
 <script>
 /* eslint-disable */
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  props: [
-    'musicFile',
-    'musicFileName',
-    ],
-  data () {
+  props: ["musicFile", "musicFileName"],
+  data() {
     return {
       showContent2: false,
       isEnter: false,
       // this.$setでも変更がリアクティブにならないためいったんコメントアウト
       // musicFileData: {
-        // musicFile: [],
-        coverImages: [],
-        // musicFileName: '',
-        genre: '',
-        emotion: '',
+      // musicFile: [],
+      coverImages: [],
+      // musicFileName: '',
+      genre: "",
+      emotion: ""
       // }
-    }
+    };
   },
   methods: {
-    closeAfterMusicUploadModal (){
-      this.$emit('closeAfterMusicUploadModal');
+    closeAfterMusicUploadModal() {
+      this.$emit("closeAfterMusicUploadModal");
     },
-    async uploadMusicFile () {
-      this.$store.commit("loading/setLoading", true)
+    async uploadMusicFile() {
+      this.$store.commit("loading/setLoading", true);
       let formData = new FormData();
 
-      formData.append('music_file', this.musicFile);
-      formData.append('cover_image', this.coverImages[0]);
-      formData.append('title', this.musicFileName);
-      formData.append('genre', this.genre);
-      formData.append('emotions', this.emotion);
-      formData.append('user_id', this.$store.state.auth.user.id);
+      formData.append("music_file", this.musicFile);
+      formData.append("cover_image", this.coverImages[0]);
+      formData.append("title", this.musicFileName);
+      formData.append("genre", this.genre);
+      formData.append("emotions", this.emotion);
+      formData.append("user_id", this.$store.state.auth.user.id);
 
       let config = {
         headers: {
-            'content-type': 'multipart/form-data',
-            // 'Access-Control-Allow-Origin': '*',
-            // 'Access-Control-Allow-Headers': '*',
-            'contentType': false,
-            'processData': false
-        },
+          "content-type": "multipart/form-data",
+          // 'Access-Control-Allow-Origin': '*',
+          // 'Access-Control-Allow-Headers': '*',
+          contentType: false,
+          processData: false
+        }
       };
 
-      await this.$axios.post('api/musicFileUpload', formData, config)
-      .then(res => {
-        console.log(res)
-        this.posts = res.data.posts
-        console.log(this.posts)
-        this.closeAfterMusicUploadModal()
-        this.$store.dispatch('musicFiles/musicFileTopPageData')
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      this.$store.commit("loading/setLoading", false)
+      await this.$axios
+        .post("api/musicFileUpload", formData, config)
+        .then(res => {
+          console.log(res);
+          this.posts = res.data.posts;
+          console.log(this.posts);
+          this.closeAfterMusicUploadModal();
+          this.$store.dispatch("musicFiles/musicFileTopPageData");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.$store.commit("loading/setLoading", false);
     },
     dragEnter() {
-        this.isEnter = true;
+      this.isEnter = true;
     },
     dragLeave() {
-        this.isEnter = false;
+      this.isEnter = false;
     },
     dragOver() {
-        console.log('DragOver')
+      console.log("DragOver");
     },
     dropFile(event) {
-      this.coverImages = [...event.dataTransfer.files]
+      this.coverImages = [...event.dataTransfer.files];
     },
-    selectedGenre (e) {
-      this.genre = e.target.value
+    selectedGenre(e) {
+      this.genre = e.target.value;
     },
-    selectedEmotion (e) {
-      this.emotion = e.target.value
+    selectedEmotion(e) {
+      this.emotion = e.target.value;
     },
     // musicFileNameはこのファイルのpropsから取得
-    setMusicFileFromBeforeMusicUploadModal (musicFileName) {
-      this.musicFileName = musicFileName
-    },
-  },
-}
+    setMusicFileFromBeforeMusicUploadModal(musicFileName) {
+      this.musicFileName = musicFileName;
+    }
+  }
+};
 </script>
 
 <style scoped>
 /* * {
   outline: #000 1px solid;
 } */
-#overlay{
+#overlay {
   /*　要素を重ねた時の順番　*/
-  z-index:30;
+  z-index: 30;
 
   /*　画面全体を覆う設定　*/
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color:rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 
   /*　画面の中央に要素を表示させる設定　*/
   display: flex;
@@ -167,16 +206,16 @@ export default {
   justify-content: center;
 }
 
-#main-content{
-  z-index:2;
+#main-content {
+  z-index: 2;
   width: 500px;
   padding-top: 40px;
-  background:#fff;
+  background: #fff;
   text-align: center;
   border-radius: 0.5rem;
 }
 
-.button-content{
+.button-content {
   margin: 30px;
 }
 
@@ -251,8 +290,8 @@ input.text-box {
   display: flex;
   justify-content: center;
 }
-input[type=radio] {
-display: none;
+input[type="radio"] {
+  display: none;
 }
 input[type="radio"]:checked + .emotion-label {
   border: 1px solid #d4d3d3;
@@ -290,9 +329,9 @@ input[type="radio"]:checked + .emotion-label {
 }
 /* セレクト */
 .cp_ipselect select {
-	width: 400px;
+  width: 400px;
   padding: 8px;
-	color: #666666;
+  color: #666666;
   font-size: 15px;
 }
 h3 {
@@ -316,12 +355,18 @@ h3 {
   pointer-events: none;
 }
 .enter {
-    border: 2px dashed rgb(184, 188, 241);
+  border: 2px dashed rgb(184, 188, 241);
 }
 .title {
   font-size: 20px;
   padding-bottom: 20px;
 }
-.modal-enter-active, .modal-leave-active { transition: opacity .5s; }
-.modal-enter, .modal-leave-active { opacity: 0; }
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.5s;
+}
+.modal-enter,
+.modal-leave-active {
+  opacity: 0;
+}
 </style>

@@ -211,7 +211,7 @@ export default {
         .then(res => {
           this.$axios
             .$get(
-              `api/${this.clickedFileUserId}/${this.clickedLoginUserId}/getFollowInfo`
+              `api/followInfo/${this.clickedFileUserId}/${this.clickedLoginUserId}`
             )
             .then(res => {
               this.followInfo = res;
@@ -231,7 +231,7 @@ export default {
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
         .$get(
-          `api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`
+          `api/unfollow/${this.clickedFileUserId}/${this.clickedLoginUserId}`
         )
         .then(res => {})
         .catch(err => {

@@ -323,7 +323,7 @@ export default {
           // console.log(res)
           this.$axios
             .$get(
-              `api/${this.clickedFileUserId}/${this.clickedLoginUserId}/getFollowInfo`
+              `api/followInfo/${this.clickedFileUserId}/${this.clickedLoginUserId}`
             )
             .then(res => {
               this.followInfo = res;
@@ -343,7 +343,7 @@ export default {
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
         .$get(
-          `api/${this.clickedFileUserId}/${this.clickedLoginUserId}/unfollow`
+          `api/unfollow/${this.clickedFileUserId}/${this.clickedLoginUserId}`
         )
         .then(res => {
           // console.log(res)
@@ -366,7 +366,7 @@ export default {
           // console.log(res)
           this.$axios
             .$get(
-              `api/${this.clickedLoginUserId}/${this.clickedFileId}/getLikeInfo`
+              `api/likeInfo/${this.clickedLoginUserId}/${this.clickedFileId}`
             )
             .then(res => {
               this.likeInfo = res;
@@ -385,7 +385,7 @@ export default {
       this.clickedFileId = clickedFileId;
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
-        .$get(`api/${this.clickedLoginUserId}/${this.clickedFileId}/unlike`)
+        .$get(`api/unlike/${this.clickedLoginUserId}/${this.clickedFileId}`)
         .then(res => {
           console.log(res);
         })
@@ -405,7 +405,7 @@ export default {
         })
         .then(res => {
           this.$axios
-            .$get(`api/${this.clickedFileId}/getCommentInfo`)
+            .$get(`api/commentInfo/${this.clickedFileId}`)
             .then(res => {
               this.commentInfos = res.commentInfo;
             })

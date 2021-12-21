@@ -145,7 +145,7 @@ export default {
       };
 
       await this.$axios
-        .post("api/musicFileUpload", formData, config)
+        .post("api/musicFile", formData, config)
         .then(res => {
           console.log(res);
           this.posts = res.data.posts;

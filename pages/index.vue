@@ -72,11 +72,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
-import store from "../store";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   // middleware: 'user_auth',
   components: {
     headerAfterLogin
@@ -103,55 +103,51 @@ export default {
   },
   methods: {
     setMusicFileData(
-      clickedFileTitle,
-      clickedFileCoverImage,
-      clickedFileMusicfile,
-      clickedFileUserName,
-      clickedFileUserId,
-      clickedFileId,
-      clickedFileUserDescription
+      clickedFileTitle: string,
+      clickedFileCoverImage: any,
+      clickedFileMusicfile: any,
+      clickedFileUserName: string,
+      clickedFileUserId: string,
+      clickedFileId: string,
+      clickedFileUserDescription: string
     ) {
       this.clickedFileTitle = clickedFileTitle;
       this.clickedFileCoverImage = clickedFileCoverImage;
-      this.clickedFileMusicfile = clickedFileMusicfile;
-      this.clickedFileUserName = clickedFileUserName;
-      this.clickedFileUserId = clickedFileUserId;
+      (this as any).clickedFileMusicfile = clickedFileMusicfile;
+      (this as any).clickedFileUserName = clickedFileUserName;
+      (this as any).clickedFileUserId = clickedFileUserId;
       this.clickedFileId = clickedFileId;
-      this.clickedFileUserDescription = clickedFileUserDescription;
+      (this as any).clickedFileUserDescription = clickedFileUserDescription;
       console.log(clickedFileUserDescription);
       this.$store.dispatch("musicFiles/setMusicFileData", {
         clickedFileTitle: this.clickedFileTitle,
         clickedFileCoverImage: this.clickedFileCoverImage,
-        clickedFileMusicfile: this.clickedFileMusicfile,
-        clickedFileUserName: this.clickedFileUserName,
-        clickedFileUserDescription: this.clickedFileUserDescription,
+        clickedFileMusicfile: (this as any).clickedFileMusicfile,
+        clickedFileUserName: (this as any).clickedFileUserName,
+        clickedFileUserDescription: (this as any).clickedFileUserDescription,
         // フォローで渡すためのやつ
-        clickedFileUserId: this.clickedFileUserId,
+        clickedFileUserId: (this as any).clickedFileUserId,
         clickedFileId: this.clickedFileId
       });
     },
-    playAction(index) {
-      this.play = index;
-      this.bgm = index;
+    playAction(index: number) {
+      (this as any).play = index;
+      (this as any).bgm = index;
       if (this.audios) {
-        this.audios.pause();
+        (this as any).audios.pause();
       }
-      console.log(this.bgm);
-      var audios = document.getElementById(`bgm-${index}`);
-      console.log(audios);
-      this.audios = audios;
+      var audios = document.getElementById(`bgm-${index}`) as HTMLAudioElement;
+      (this as any).audios = audios;
       audios.play();
     },
-    pauseAction(index) {
+    pauseAction(index: number) {
       this.play = false;
-      this.bgm = index;
-      console.log(this.bgm);
-      var audios = document.getElementById(`bgm-${index}`);
-      console.log(audios);
+      (this as any).bgm = index;
+      var audios = document.getElementById(`bgm-${index}`) as HTMLAudioElement;
       audios.pause();
     }
   }
-};
+});
 </script>
 
 <style scoped>

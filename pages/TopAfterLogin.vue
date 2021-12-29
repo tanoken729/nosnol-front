@@ -80,9 +80,9 @@
 
 <script>
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
-import store from "../store";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   middleware: "user_auth",
   components: {
     headerAfterLogin
@@ -160,7 +160,7 @@ export default {
       audios.pause();
     }
   }
-};
+});
 </script>
 
 <style scoped>

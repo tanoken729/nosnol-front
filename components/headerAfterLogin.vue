@@ -67,13 +67,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import BeforeMusicUploadModal from "@/components/BeforeMusicUploadModal.vue";
 import AfterMusicUploadModal from "@/components/AfterMusicUploadModal.vue";
 import MenuBar from "@/components/MenuBar.vue";
 import SearchForm from "@/components/SearchForm.vue";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   transition: {
     name: "modal",
     mode: "out-in"
@@ -101,7 +102,7 @@ export default {
     closeBeforeMusicUploadModal() {
       this.showContent = false;
     },
-    openAfterMusicUploadModal(musicFile, musicFileName) {
+    openAfterMusicUploadModal(musicFile: any, musicFileName: string) {
       this.showContent = false;
       this.showContent2 = true;
       //BeforeModelからのmusicFileNameをセット
@@ -121,7 +122,7 @@ export default {
       this.showMenuBar = false;
     }
   }
-};
+});
 </script>
 
 <style scoped>

@@ -263,10 +263,11 @@
   </div>
 </template>
 
-<script>
-import store from "../../store";
+<script lang="ts">
+// import store from "../../store";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   middleware: "user_auth",
   data() {
     return {
@@ -288,13 +289,17 @@ export default {
     this.$store.commit("loading/setLoading", true);
     let clickedFileUserId = "";
     // 配列でclickedFileUserId取得
-    this.$store.getters["musicFiles/musicFileData"].forEach(musicFiledatum => {
-      clickedFileUserId = musicFiledatum.clickedFileUserId;
-    });
+    this.$store.getters["musicFiles/musicFileData"].forEach(
+      (musicFiledatum: any) => {
+        clickedFileUserId = musicFiledatum.clickedFileUserId;
+      }
+    );
     let clickedFileId = "";
-    this.$store.getters["musicFiles/musicFileData"].forEach(musicFiledatum => {
-      clickedFileId = musicFiledatum.clickedFileId;
-    });
+    this.$store.getters["musicFiles/musicFileData"].forEach(
+      (musicFiledatum: any) => {
+        clickedFileId = musicFiledatum.clickedFileId;
+      }
+    );
     await this.$store.dispatch("musicFiles/musicDetailPageData", {
       clickedLoginUserId: this.$store.state.auth.user.id,
       clickedFileId: clickedFileId,
@@ -306,7 +311,7 @@ export default {
     this.commentInfos = this.$store.getters["musicFiles/commentInfos"];
   },
   methods: {
-    async follow(clickedFileUserId, clickedLoginUserId) {
+    async follow(clickedFileUserId: string, clickedLoginUserId: string) {
       this.followedId = clickedFileUserId;
       this.clickedFileUserId = clickedFileUserId;
       this.clickedLoginUserId = clickedLoginUserId;
@@ -327,7 +332,7 @@ export default {
             )
             .then(res => {
               this.followInfo = res;
-              this.followingId = this.followInfo.followInfo[0].following_id;
+              (this as any).followingId = (this as any).followInfo.followInfo[0].following_id;
             })
             .catch(err => {
               console.log(err);
@@ -337,8 +342,8 @@ export default {
           console.log(err);
         });
     },
-    async unfollow(clickedFileUserId, clickedLoginUserId) {
-      this.followedId = false;
+    async unfollow(clickedFileUserId: string, clickedLoginUserId: string) {
+      this.followedId = ""; //falseにしていたのを空文字に修正
       this.clickedFileUserId = clickedFileUserId;
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
@@ -352,7 +357,7 @@ export default {
           console.log(err);
         });
     },
-    async like(clickedFileId, clickedLoginUserId) {
+    async like(clickedFileId: string, clickedLoginUserId: string) {
       this.userId = clickedLoginUserId;
       this.clickedFileId = clickedFileId;
       this.clickedLoginUserId = clickedLoginUserId;
@@ -370,7 +375,7 @@ export default {
             )
             .then(res => {
               this.likeInfo = res;
-              this.userId = this.likeInfo.likeInfo[0].user_id;
+              this.userId = (this as any).likeInfo.likeInfo[0].user_id;
             })
             .catch(err => {
               console.log(err);
@@ -380,8 +385,8 @@ export default {
           console.log(err);
         });
     },
-    async unlike(clickedFileId, clickedLoginUserId) {
-      this.userId = false;
+    async unlike(clickedFileId: string, clickedLoginUserId: string) {
+      this.userId = "";
       this.clickedFileId = clickedFileId;
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
@@ -393,7 +398,7 @@ export default {
           console.log(err);
         });
     },
-    async addComment(clickedFileId, clickedLoginUserId) {
+    async addComment(clickedFileId: string, clickedLoginUserId: string) {
       this.clickedFileId = clickedFileId;
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
@@ -417,18 +422,18 @@ export default {
           console.log(err);
         });
     },
-    playAction(mp3File) {
+    playAction(mp3File: any) {
       this.play = true;
-      const bgm = document.querySelector("#bgm"); // <audio>
+      const bgm = document.querySelector("#bgm") as HTMLAudioElement; // <audio>
       bgm.play();
     },
-    pauseAction(mp3File) {
+    pauseAction(mp3File: any) {
       this.play = false;
-      const bgm = document.querySelector("#bgm"); // <audio>
+      const bgm = document.querySelector("#bgm") as HTMLAudioElement; // <audio>
       bgm.pause();
     }
   }
-};
+});
 </script>
 
 <style scoped>

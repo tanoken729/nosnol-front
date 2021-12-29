@@ -164,10 +164,15 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   middleware: "user_auth",
   data() {
+    // TODO: idはnumberにする
+    // clickedFileUserId: number
+    // }{
     return {
       clickedFileUserId: "",
       clickedLoginUserId: "",
@@ -184,9 +189,11 @@ export default {
     this.$store.commit("loading/setLoading", true);
     let clickedFileUserId = "";
     // 配列でclickedFileUserId取得
-    this.$store.getters["musicFiles/musicFileData"].forEach(musicFiledatum => {
-      clickedFileUserId = musicFiledatum.clickedFileUserId;
-    });
+    this.$store.getters["musicFiles/musicFileData"].forEach(
+      (musicFiledatum: any) => {
+        clickedFileUserId = musicFiledatum.clickedFileUserId;
+      }
+    );
     await this.$store.dispatch("musicFiles/userDetailPageData", {
       clickedFileUserId: clickedFileUserId
     });
@@ -195,7 +202,7 @@ export default {
     this.userDetailItems = this.$store.getters["musicFiles/userDetailItems"];
   },
   methods: {
-    async follow(clickedFileUserId, clickedLoginUserId) {
+    async follow(clickedFileUserId: string, clickedLoginUserId: string) {
       this.followedId = clickedFileUserId;
       this.clickedFileUserId = clickedFileUserId;
       this.clickedLoginUserId = clickedLoginUserId;
@@ -215,7 +222,7 @@ export default {
             )
             .then(res => {
               this.followInfo = res;
-              this.followingId = this.followInfo.followInfo[0].following_id;
+              (this as any).followingId = (this as any).followInfo.followInfo[0].following_id;
             })
             .catch(err => {
               console.log(err);
@@ -225,8 +232,8 @@ export default {
           console.log(err);
         });
     },
-    async unfollow(clickedFileUserId, clickedLoginUserId) {
-      this.followedId = false;
+    async unfollow(clickedFileUserId: string, clickedLoginUserId: string) {
+      this.followedId = "";
       this.clickedFileUserId = clickedFileUserId;
       this.clickedLoginUserId = clickedLoginUserId;
       await this.$axios
@@ -238,53 +245,51 @@ export default {
           console.log(err);
         });
     },
-    playAction(index) {
-      this.play = index;
-      this.bgm = index;
-      console.log(this.bgm);
-      var audios = document.getElementById(`bgm-${index}`);
+    playAction(index: number) {
+      (this as any).play = index;
+      (this as any).bgm = index;
+      var audios = document.getElementById(`bgm-${index}`) as HTMLAudioElement;
       console.log(audios);
       audios.play();
     },
-    pauseAction(index) {
-      this.play = false;
-      this.bgm = index;
-      console.log(this.bgm);
-      var audios = document.getElementById(`bgm-${index}`);
+    pauseAction(index: number) {
+      (this as any).play = false;
+      (this as any).bgm = index;
+      var audios = document.getElementById(`bgm-${index}`) as HTMLAudioElement;
       console.log(audios);
       audios.pause();
     },
     setMusicFileData(
-      clickedFileTitle,
-      clickedFileCoverImage,
-      clickedFileMusicfile,
-      clickedFileUserName,
-      clickedFileUserId,
-      clickedFileId,
-      clickedFileUserDescription,
-      clickedFileUserUserIcon
+      clickedFileTitle: string,
+      clickedFileCoverImage: any,
+      clickedFileMusicfile: any,
+      clickedFileUserName: string,
+      clickedFileUserId: string,
+      clickedFileId: string,
+      clickedFileUserDescription: string,
+      clickedFileUserUserIcon: any
     ) {
-      this.clickedFileTitle = clickedFileTitle;
-      this.clickedFileCoverImage = clickedFileCoverImage;
-      this.clickedFileMusicfile = clickedFileMusicfile;
-      this.clickedFileUserName = clickedFileUserName;
+      (this as any).clickedFileTitle = clickedFileTitle;
+      (this as any).clickedFileCoverImage = clickedFileCoverImage;
+      (this as any).clickedFileMusicfile = clickedFileMusicfile;
+      (this as any).clickedFileUserName = clickedFileUserName;
       this.clickedFileUserId = clickedFileUserId;
       this.clickedFileId = clickedFileId;
-      this.clickedFileUserDescription = clickedFileUserDescription;
-      this.clickedFileUserUserIcon = clickedFileUserUserIcon;
+      (this as any).clickedFileUserDescription = clickedFileUserDescription;
+      (this as any).clickedFileUserUserIcon = clickedFileUserUserIcon;
       this.$store.dispatch("musicFiles/setMusicFileData", {
-        clickedFileTitle: this.clickedFileTitle,
-        clickedFileCoverImage: this.clickedFileCoverImage,
-        clickedFileMusicfile: this.clickedFileMusicfile,
-        clickedFileUserName: this.clickedFileUserName,
-        clickedFileUserDescription: this.clickedFileUserDescription,
-        clickedFileUserUserIcon: this.clickedFileUserUserIcon,
+        clickedFileTitle: (this as any).clickedFileTitle,
+        clickedFileCoverImage: (this as any).clickedFileCoverImage,
+        clickedFileMusicfile: (this as any).clickedFileMusicfile,
+        clickedFileUserName: (this as any).clickedFileUserName,
+        clickedFileUserDescription: (this as any).clickedFileUserDescription,
+        clickedFileUserUserIcon: (this as any).clickedFileUserUserIcon,
         // フォローで渡すためのやつ
         clickedFileUserId: this.clickedFileUserId,
         clickedFileId: this.clickedFileId
       });
     },
-    async deleteMusicFile(clickedFileId) {
+    async deleteMusicFile(clickedFileId: string) {
       this.clickedFileId = clickedFileId;
       var answer = confirm("このファイルを削除しますか？");
       if (answer) {
@@ -297,7 +302,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>

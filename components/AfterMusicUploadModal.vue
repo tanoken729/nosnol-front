@@ -99,11 +99,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 /* eslint-disable */
-import axios from "axios";
+// import axios from "axios";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
+  name: "AfterMusicUploadModal",
   props: ["musicFile", "musicFileName"],
   data() {
     return {
@@ -148,8 +150,8 @@ export default {
         .post("api/musicFile", formData, config)
         .then(res => {
           console.log(res);
-          this.posts = res.data.posts;
-          console.log(this.posts);
+          (this as any).posts = res.data.posts;
+          console.log((this as any).posts);
           this.closeAfterMusicUploadModal();
           this.$store.dispatch("musicFiles/musicFileTopPageData");
         })
@@ -167,21 +169,21 @@ export default {
     dragOver() {
       console.log("DragOver");
     },
-    dropFile(event) {
-      this.coverImages = [...event.dataTransfer.files];
+    dropFile(event: any) {
+      (this as any).coverImages = [...event.dataTransfer.files];
     },
-    selectedGenre(e) {
+    selectedGenre(e: any) {
       this.genre = e.target.value;
     },
-    selectedEmotion(e) {
+    selectedEmotion(e: any) {
       this.emotion = e.target.value;
     },
     // musicFileNameはこのファイルのpropsから取得
-    setMusicFileFromBeforeMusicUploadModal(musicFileName) {
-      this.musicFileName = musicFileName;
+    setMusicFileFromBeforeMusicUploadModal(musicFileName: string) {
+      (this as any).musicFileName = musicFileName;
     }
   }
-};
+});
 </script>
 
 <style scoped>

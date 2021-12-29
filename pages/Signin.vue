@@ -48,9 +48,10 @@
 
 <script>
 /* eslint-disable */
-
 import { required, maxLength, minLength } from "vuelidate/lib/validators";
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   data() {
     return {
       form: {
@@ -95,7 +96,7 @@ export default {
       this.$store.commit("loading/setLoading", false);
     }
   }
-};
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

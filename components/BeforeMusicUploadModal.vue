@@ -30,10 +30,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 /* eslint-disable */
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
+  name: "BeforeMusicUploadModal",
   // ここからheader.vueにクリックイベント（openAfterMusicUploadModal）を渡す
   transition: {
     name: "modal",
@@ -68,17 +70,17 @@ export default {
     dragOver() {
       console.log("DragOver");
     },
-    dropFile(event) {
-      this.files = [...event.dataTransfer.files];
+    dropFile(event: any) {
+      (this as any).files = [...event.dataTransfer.files];
       this.$emit(
         "openAfterMusicUploadModal",
         this.files[0],
-        this.files[0].name
+        (this as any).files[0].name
       );
       this.isEnter = false;
     }
   }
-};
+});
 </script>
 
 <style scoped>

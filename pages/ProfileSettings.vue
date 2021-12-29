@@ -51,8 +51,11 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  name: "ProfileSettings",
   middleware: "user_auth",
   data() {
     return {
@@ -76,7 +79,7 @@ export default {
     context.store.commit("loading/setLoading", false);
   },
   methods: {
-    userIconUpload(e) {
+    userIconUpload(e: any) {
       const file = (e.target.files || e.dataTransfer)[0];
       if (file.type.startsWith("image/")) {
         this.userIconPreviewAfterUploading = window.URL.createObjectURL(file);
@@ -134,7 +137,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>

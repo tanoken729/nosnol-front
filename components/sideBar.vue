@@ -135,8 +135,10 @@
   </nav>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   data() {
     return {
       selectedEmotion: "",
@@ -144,7 +146,7 @@ export default {
     };
   },
   methods: {
-    FilterMusicFile(event) {
+    FilterMusicFile(event: any) {
       if (event.target.name === "emotion") {
         // dataに格納することで次のリクエストでも続けて値を渡せるようにする
         this.selectedEmotion = event.target.value;
@@ -153,7 +155,7 @@ export default {
         this.selectedGenre = event.target.value;
       }
       //「すべて」のチェックを外す
-      const element = document.getElementById("all");
+      const element = document.getElementById("all") as HTMLInputElement;
       element.checked = false;
       // easyでフィルターするapiをstoreで実行する
       this.$store.dispatch("musicFiles/FilterMusicFile", {
@@ -164,19 +166,21 @@ export default {
     musicFileNoFilter() {
       this.selectedEmotion = "";
       this.selectedGenre = "";
-      //「感情」のチェックを外す
-      for (const element of document.getElementsByName("emotion")) {
+      //「感情」のチェックを全て外す
+      // TODO: document配列ではなくオブジェクトであることを明示的に型指定する
+      for (const element of (document as any).getElementsByName("emotion")) {
         element.checked = false;
       }
-      //「ジャンル」のチェックを外す
-      for (const element of document.getElementsByName("genre")) {
+      //「ジャンル」のチェックを全て外す
+      // TODO: document配列ではなくオブジェクトであることを明示的に型指定する
+      for (const element of (document as any).getElementsByName("genre")) {
         element.checked = false;
       }
       // すべての音声ファイルを取得する
       this.$store.dispatch("musicFiles/musicFileTopPageData");
     }
   }
-};
+});
 </script>
 
 <style>

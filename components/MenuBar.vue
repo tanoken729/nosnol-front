@@ -34,8 +34,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   data() {
     return {
       showMenuBar: false,
@@ -51,15 +53,15 @@ export default {
       await this.$auth.logout();
       this.$store.commit("loading/setLoading", false);
     },
-    setMusicFileData(clickedFileUserId) {
-      this.clickedFileUserId = clickedFileUserId;
+    setMusicFileData(clickedFileUserId: number) {
+      (this as any).clickedFileUserId = clickedFileUserId;
       this.$store.dispatch("musicFiles/setMusicFileData", {
         clickedFileUserId: this.clickedFileUserId
       });
       console.log(clickedFileUserId); //4
     }
   }
-};
+});
 </script>
 
 <style scoped>

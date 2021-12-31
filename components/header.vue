@@ -36,6 +36,12 @@
   color: rgb(84, 71, 255);
   height: 40px;
 }
+@media screen and (max-width: 750px) {
+  .logo {
+    font-size: 20px;
+    height: 30px;
+  }
+}
 a {
   text-decoration: none;
   color: #000;
@@ -58,6 +64,11 @@ a {
   padding: 0 20px 0 20px;
   z-index: 20;
 }
+@media screen and (max-width: 750px) {
+  .header-content {
+    padding: 0 0px 0 20px;
+  }
+}
 .btn {
   padding: 12px 20px;
   border-radius: 0.5rem;
@@ -68,6 +79,12 @@ a {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
   font-weight: bold;
 }
+@media screen and (max-width: 750px) {
+  .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
 .btn:hover {
   padding: 12px 20px;
   border-radius: 0.5rem;
@@ -76,12 +93,23 @@ a {
   color: #fff;
   font-size: 15px;
 }
+@media screen and (max-width: 750px) {
+  .btn:hover {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
 .nav ul {
   margin: 0 0 0 0;
   padding: 20px 20px 20px 20px;
   background-image: none;
   background-repeat: repeat-x;
   text-align: right;
+}
+@media screen and (max-width: 750px) {
+  .nav ul {
+    padding: 10px 20px 10px 20px;
+  }
 }
 .nav li {
   display: inline;
@@ -112,5 +140,10 @@ a {
   color: #2c55fe;
   font-weight: bold;
   margin-right: 10px;
+}
+@media screen and (max-width: 750px) {
+  .login-btn {
+    font-size: 12px;
+  }
 }
 </style>

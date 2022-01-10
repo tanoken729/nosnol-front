@@ -87,8 +87,8 @@ type ClickedFileInfo = {
   clickedFileCoverImage: string;
   clickedFileMusicfile: string;
   clickedFileUserName: string;
-  clickedFileUserId: string;
-  clickedFileId: string;
+  clickedFileUserId: number;
+  clickedFileId: number;
   clickedFileUserDescription: string;
   clickedFileUserUserIcon: string;
 };
@@ -118,8 +118,8 @@ export default Vue.extend({
       clickedFileCoverImage: "",
       clickedFileMusicfile: "",
       clickedFileUserName: "",
-      clickedFileUserId: "",
-      clickedFileId: "",
+      clickedFileUserId: 0,
+      clickedFileId: 0,
       clickedFileUserDescription: "",
       clickedFileUserUserIcon: "",
       play: null,
@@ -137,8 +137,8 @@ export default Vue.extend({
       clickedFileCoverImage: string,
       clickedFileMusicfile: string,
       clickedFileUserName: string,
-      clickedFileUserId: string,
-      clickedFileId: string,
+      clickedFileUserId: number,
+      clickedFileId: number,
       clickedFileUserDescription: string,
       clickedFileUserUserIcon: string
     ): Promise<void> {

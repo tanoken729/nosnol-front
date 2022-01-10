@@ -166,6 +166,7 @@ export default Vue.extend({
       this.play = index;
       // this.bgm = index;
       if (this.audios) {
+        // TODO: HTMLAudioElementをdataに指定すればanyにしなくても良くなる？
         (this as any).audios.pause();
       }
       // console.log(this.bgm);

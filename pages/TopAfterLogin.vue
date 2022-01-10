@@ -78,29 +78,52 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import headerAfterLogin from "@/components/headerAfterLogin.vue";
 import Vue from "vue";
+
+type ClickedFileInfo = {
+  clickedFileTitle: string;
+  clickedFileCoverImage: string;
+  clickedFileMusicfile: string;
+  clickedFileUserName: string;
+  clickedFileUserId: string;
+  clickedFileId: string;
+  clickedFileUserDescription: string;
+  clickedFileUserUserIcon: string;
+};
+
+type AudioPlaybackInfo = {
+  play: unknown;
+  audios: unknown;
+};
+
+type TopPageInfo = ClickedFileInfo & AudioPlaybackInfo;
 
 export default Vue.extend({
   middleware: "user_auth",
   components: {
     headerAfterLogin
   },
-  data() {
+  data(): TopPageInfo {
     return {
-      musicFile: "",
-      coverImage: "",
-      title: "",
-      genre: "",
-      emotions: "",
-      userId: "",
-      items: [],
+      // musicFile: "",
+      // coverImage: "",
+      // title: "",
+      // genre: "",
+      // emotions: "",
+      // userId: "",
+      // items: [],
       clickedFileTitle: "",
       clickedFileCoverImage: "",
+      clickedFileMusicfile: "",
+      clickedFileUserName: "",
+      clickedFileUserId: "",
       clickedFileId: "",
-      play: false,
-      audios: ""
+      clickedFileUserDescription: "",
+      clickedFileUserUserIcon: "",
+      play: null,
+      audios: null
     };
   },
   asyncData: async function(context) {
@@ -110,15 +133,15 @@ export default Vue.extend({
   methods: {
     // musicFileTopPageDataで取得したデータを詳細ページにセットする
     async setMusicFileData(
-      clickedFileTitle,
-      clickedFileCoverImage,
-      clickedFileMusicfile,
-      clickedFileUserName,
-      clickedFileUserId,
-      clickedFileId,
-      clickedFileUserDescription,
-      clickedFileUserUserIcon
-    ) {
+      clickedFileTitle: string,
+      clickedFileCoverImage: string,
+      clickedFileMusicfile: string,
+      clickedFileUserName: string,
+      clickedFileUserId: string,
+      clickedFileId: string,
+      clickedFileUserDescription: string,
+      clickedFileUserUserIcon: string
+    ): Promise<void> {
       this.clickedFileTitle = clickedFileTitle;
       this.clickedFileCoverImage = clickedFileCoverImage;
       this.clickedFileMusicfile = clickedFileMusicfile;
@@ -139,24 +162,21 @@ export default Vue.extend({
         clickedFileId: this.clickedFileId
       });
     },
-    playAction(index) {
+    playAction(index: number): void {
       this.play = index;
-      this.bgm = index;
+      // this.bgm = index;
       if (this.audios) {
-        this.audios.pause();
+        (this as any).audios.pause();
       }
-      console.log(this.bgm);
-      var audios = document.getElementById(`bgm-${index}`);
-      console.log(audios);
+      // console.log(this.bgm);
+      var audios = <HTMLAudioElement>document.getElementById(`bgm-${index}`);
       this.audios = audios;
       audios.play();
     },
-    pauseAction(index) {
-      this.play = false;
-      this.bgm = index;
-      console.log(this.bgm);
-      var audios = document.getElementById(`bgm-${index}`);
-      console.log(audios);
+    pauseAction(index: number): void {
+      this.play = null;
+      // this.bgm = index;
+      var audios = <HTMLAudioElement>document.getElementById(`bgm-${index}`);
       audios.pause();
     }
   }

@@ -94,10 +94,8 @@ type ClickedFileInfo = {
 };
 
 type AudioPlaybackInfo = {
-  // TODO: 改善に余地あり？再生する際はnumberであるindexを代入し、再生を停止させる場合nullを代入させるようにしているためunknownを指定（0は指定できないため）
-  play?: number | null;
-  // TODO: 改善に余地あり？再生する際はHTMLAudioElementを代入し、再生を停止させる場合nullを代入させるようにしているためunknownを指定（data()にHTMLAudioElementの型指定をする方法が不明なため）
-  audios?: HTMLAudioElement | null;
+  play: number | null;
+  audios: HTMLAudioElement | null;
 };
 
 type TopPageInfo = ClickedFileInfo & AudioPlaybackInfo;

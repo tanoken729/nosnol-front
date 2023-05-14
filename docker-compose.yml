@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   app:
     build:
@@ -10,4 +10,4 @@ services:
       - 4000:3000
     volumes:
       - .:/app
-      - ./node_modules
+      - /app/node_modules
